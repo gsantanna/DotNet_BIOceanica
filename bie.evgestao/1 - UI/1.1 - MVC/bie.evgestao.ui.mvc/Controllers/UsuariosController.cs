@@ -65,8 +65,6 @@ namespace bie.evgestao.ui.mvc.Controllers
                            select new UsuarioViewmodel
                            {
                                id_usuario = u.id_usuario,
-                               NomeEmpresa = u.NomeEmpresa,
-                               id_empresa = u.id_empresa,
                                Ativo = u.Ativo,
                                Nome = u.Nome,
                                Telefone = u.Telefone,

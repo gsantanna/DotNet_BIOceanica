@@ -32,6 +32,8 @@ namespace bie.evgestao.ui.mvc.Models
 
         public static ApplicationDbContext Create()
         {
+
+
             return new ApplicationDbContext();
         }
     }
