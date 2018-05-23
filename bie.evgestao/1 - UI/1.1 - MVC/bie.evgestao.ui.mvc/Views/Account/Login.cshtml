@@ -1,0 +1,139 @@
+﻿@using bie.evgestao.ui.mvc.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+
+
+<div id="login-validation" class="col-md-5 col-sm-5 col-xs-11 center-margin">
+
+    <h3 class="text-center pad25B font-gray font-size-23">
+        Login no sistema
+    </h3>
+
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div id="login-form" class="content-box">
+            <div class="content-box-wrapper pad20A">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+
+
+                    <label for="exampleInputEmail1">Endereço de e-mail:</label>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon addon-inside bg-white font-primary">
+                            <i class="glyph-icon icon-envelope-o"></i>
+                        </span>
+
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "e-mail" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Senha:</label>
+                    <div class="input-group input-group-lg">
+
+                        <span class="input-group-addon addon-inside bg-white font-primary">
+                            <i class="glyph-icon icon-unlock-alt"></i>
+                        </span>
+
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Senha" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="checkbox-primary col-md-6" style="height: 20px">
+                        <label>
+                            @*<input type="checkbox" id="loginCheckbox1" class="custom-checkbox"> Gravar login*@
+                            @Html.CheckBoxFor(m => m.RememberMe, new { @class = "custom-checkbox", @placeholder = "Senha" }) Gravar login
+                        </label>
+                    </div>
+
+                    <div class="text-right col-md-6">
+                        <a href="#" class="switch-button" switch-target="#login-forgot"
+                           switch-parent="#login-form" title="Recover password">Esqueçeu sua senha?</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="button-pane">
+                <button type="submit" class="btn btn-block btn-blue-alt">
+                    Login
+                </button>
+
+
+
+            </div>
+        </div>
+
+
+    }
+
+
+
+    @using (Html.BeginForm("ForgotPassword", "Account", FormMethod.Post, new { @class = "", role = "form", @id = "frmMain" }))
+    {
+        @Html.AntiForgeryToken()
+
+
+
+        <div id="login-forgot" class="content-box modal-content hide">
+            <div class="content-box-wrapper pad20A">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">E-mail:</label>
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-addon addon-inside bg-white font-primary"><i class="glyph-icon icon-envelope-o"></i></span>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "e-mail" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="button-pane text-center">
+                <button class="g-recaptcha btn btn-md btn-blue-alt"
+                        data-sitekey="6LcGRxQUAAAAACP8x348uFwqXZ5Y92oqlgLM33hM"
+                        data-callback="solicitar">
+                    Solicitar Senha
+                </button>
+                <a href="#" class="btn btn-md btn-link switch-button" switch-target="#login-form" switch-parent="#login-forgot" title="Cancel">
+                    Cancelar
+                </a>
+            </div>
+        </div>
+
+    }
+
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+    <script type="text/javascript">
+        function solicitar() {
+            document.getElementById("frmMain").submit();
+
+        }
+
+
+
+    </script>
+
+}
+
+

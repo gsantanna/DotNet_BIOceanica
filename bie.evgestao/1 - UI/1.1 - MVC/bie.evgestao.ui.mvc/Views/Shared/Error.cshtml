@@ -1,0 +1,45 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+}
+
+
+
+
+
+<div class="col-md-6 wow bounceInDown center-margin animated"
+      style="visibility: visible; animation-name: bounceInDown;">
+    <div class="server-message"><h1>Ops </h1><h2>Algo deu errado</h2><p>A requisição causou um erro de servidor. O problema foi registrado e caso se repita entre em contato com o suporte técnico informando. 
+        
+        </p>
+    
+    
+            
+        
+        
+        
+        <button class="btn btn-lg btn-success">Voltar para a página anterior</button>
+        
+        </div></div>
+
+
+
+
+
+
+
+
+
+<!--
+
+    Action Name:  @Model.ActionName
+    Controller Name: @Model.ControllerName
+    Exception : @Model.Exception.Message
+    Stack: @Model.Exception.StackTrace
+    User: @User.Identity.Name
+
+
+
+-->
+

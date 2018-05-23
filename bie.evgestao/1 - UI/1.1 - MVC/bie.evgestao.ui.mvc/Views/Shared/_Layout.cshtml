@@ -1,0 +1,349 @@
+﻿@using Microsoft.AspNet.Identity
+@using bie.evgestao.ui.mvc.Helpers
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <style>
+        #loading .svg-icon-loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -50px 0 0 -50px;
+        }
+    </style>
+    <meta charset="UTF-8"><!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+
+
+
+
+    <link rel="shortcut icon" href="~/favicon.ico">
+
+
+
+
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/boilerplate.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/border-radius.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/grid.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/page-transitions.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/spacing.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/typography.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/utils.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/colors.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/material/ripple.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/badges.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/buttons.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/content-box.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/dashboard-box.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/forms.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/images.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/info-box.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/invoice.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/loading-indicators.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/menus.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/panel-box.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/response-messages.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/responsive-tables.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/ribbon.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/social-box.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/tables.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/tile-box.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/elements/timeline.css">
+
+
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/icons/fontawesome/fontawesome.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/icons/linecons/linecons.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/icons/spinnericon/spinnericon.css">
+
+
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/icons/typicons/typicons.css">
+
+
+
+
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/accordion-ui/accordion.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/calendar/calendar.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/carousel/carousel.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/charts/justgage/justgage.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/charts/morris/morris.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/charts/piegage/piegage.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/charts/xcharts/xcharts.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/chosen/chosen.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/colorpicker/colorpicker.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/datatable/datatable.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/datepicker/datepicker.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/datepicker-ui/datepicker.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/dialog/dialog.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/dropdown/dropdown.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/dropzone/dropzone.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/file-input/fileinput.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/input-switch/inputswitch.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/input-switch/inputswitch-alt.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/ionrangeslider/ionrangeslider.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/jcrop/jcrop.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/jgrowl-notifications/jgrowl.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/loading-bar/loadingbar.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/maps/vector-maps/vectormaps.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/markdown/markdown.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/modal/modal.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/multi-select/multiselect.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/multi-upload/fileupload.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/nestable/nestable.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/noty-notifications/noty.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/popover/popover.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/pretty-photo/prettyphoto.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/progressbar/progressbar.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/range-slider/rangeslider.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/slidebars/slidebars.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/slider-ui/slider.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/summernote-wysiwyg/summernote-wysiwyg.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/tabs-ui/tabs.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/timepicker/timepicker.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/tocify/tocify.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/tooltip/tooltip.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/touchspin/touchspin.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/uniform/uniform.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/wizard/wizard.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/widgets/xeditable/xeditable.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/snippets/chat.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/snippets/files-box.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/snippets/login-box.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/snippets/notification-box.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/snippets/progress-box.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/snippets/todo.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/snippets/user-profile.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/snippets/mobile-navigation.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/applications/mailbox.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/themes/admin/layout.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/themes/admin/color-schemes/default.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/themes/components/default.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/themes/components/border-radius.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/responsive-elements.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/admin-responsive.css">
+    <script type="text/javascript" src="~/Content/3rdParty/Template/js-core/jquery-core.js"></script>
+    <script type="text/javascript" src="~/Content/3rdParty/Template/js-core/jquery-ui-core.js"></script>
+    <script type="text/javascript" src="~/Content/3rdParty/Template/js-core/jquery-ui-widget.js"></script>
+    <script type="text/javascript" src="~/Content/3rdParty/Template/js-core/jquery-ui-mouse.js"></script>
+    <script type="text/javascript" src="~/Content/3rdParty/Template/js-core/jquery-ui-position.js"></script>
+    <script type="text/javascript" src="~/Content/3rdParty/Template/js-core/transition.js"></script>
+    <script type="text/javascript" src="~/Content/3rdParty/Template/js-core/modernizr.js"></script>
+    <script type="text/javascript" src="~/Content/3rdParty/Template/js-core/jquery-cookie.js"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            setTimeout(function () {
+                $('#loading').fadeOut(400, "linear");
+            }, 300);
+        });</script>
+
+
+
+
+    @RenderSection("header", required: false)
+
+
+
+
+
+</head>
+<body>
+    <div id="sb-site">
+        <div id="loading"><div class="svg-icon-loader"><img src="~/Content/3rdParty/Template/images/Spinner.svg" width="40" alt=""></div></div>
+
+        <div id="page-wrapper">
+            <div id="mobile-navigation">
+                <button id="nav-toggle" class="collapsed" data-toggle="collapse" data-target="#page-sidebar">
+                    <span>
+                    </span>
+                </button>
+            </div>
+
+            <div id="page-sidebar" style="">
+                <div id="header-logo" class="logo-bg">
+
+                    <a href='@Url.Action("Index","Home")' class="logo-content-big" title="Sistema Membros">Igreja Oceânica - Sistema Membros </a>
+                    <a href='@Url.Action("Index","Home")' class="logo-content-small" title="Sistema Membros">
+                        Igreja Oceânica - Sistema Membros
+                    </a> <a id="close-sidebar" href="#" title="Close sidebar"><i class="glyph-icon icon-outdent"></i></a>
+
+
+                </div>
+                <div class="scroll-sidebar">
+                    <ul id="sidebar-menu">
+
+
+                        @*<li class="header">
+                                <span>Secretaria</span>
+                            </li>*@
+                        <li>
+                            <a href="javascript:void(0);" title="Secretaria">
+                                <i class="glyph-icon icon-linecons-diamond"></i>
+                                <span>Secretaria</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href='@Url.Action("Index","Pessoas")' title="Buttons"><span>Pessoas</span></a>
+                                    </li>
+
+
+                                    <li>
+                                        <a href='@Url.Action("Index","Celulas")' title="Buttons"><span>Células</span></a>
+                                    </li>
+
+                                    <li>
+                                        <a href='@Url.Action("Index","Familiares")' title="Buttons"><span>Células</span></a>
+                                    </li>
+
+
+
+
+
+
+                                </ul>
+                            </div>
+                        </li>
+
+
+
+                        <li>
+                            <a href='@Url.Action("Index","Financeiro")' title="Financeiro"><i class="glyph-icon icon-linecons-money"></i> <span>Financeiro</span></a>
+                        </li>
+
+
+
+                        <li>
+                            <a href='@Url.Action("Index","Lideranca")' title="Liderança">
+                                <i class="glyph-icon icon-typicons-users"></i>
+                                <span>Liderança</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href='@Url.Action("Index","Painel")' title="Painel">
+                                <i class="glyph-icon icon-linecons-photo"></i> <span>Liderança</span>
+                            </a>
+                        </li>
+
+
+
+
+
+
+
+
+                    </ul>
+                </div>
+            </div>
+            <div id="page-content-wrapper">
+                <div id="page-content">
+                    <div id="page-header">
+
+
+                        <div id="header-nav-left">
+
+
+
+                            <div class="user-account-btn dropdown" style="padding-right:15px;">
+
+                                <a href="#" title="Gerenciar minha conta" class="user-profile clearfix" data-toggle="dropdown">
+                                    <span>
+                                        @{
+                                            var usuario = IdentityHelper.GetCurrentUser();
+                                        }
+
+                                        @(usuario != null ? usuario.Nome : "" )
+                                    </span>
+                                    <i class="glyph-icon icon-angle-down"></i>
+                                </a>
+
+                                <div class="dropdown-menu float-right">
+                                    <div class="box-sm">
+                                        <div class="login-box clearfix">
+
+                                            <div class="user-info">
+                                                <span>
+
+                                                    @(usuario != null ? usuario.Nome : "" )
+
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                        <div class="divider"></div>
+                                        <ul class="reset-ul mrg5B">
+                                            <li>
+                                                <a href="#">Alterar meus dados <i class="glyph-icon float-right icon-caret-right"></i></a>
+                                            </li>
+
+                                        </ul>
+
+
+                                        <div class="button-pane button-pane-alt pad5L pad5R text-center">
+                                            <a href="#" class="btn btn-flat display-block font-normal btn-danger"><i class="glyph-icon icon-power-off"></i> Logout</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="header-nav-right">
+
+                        </div>
+                    </div>
+                    <div>
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/dropdown/dropdown.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/tooltip/tooltip.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/popover/popover.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/progressbar/progressbar.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/button/button.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/collapse/collapse.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/superclick/superclick.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/input-switch/inputswitch-alt.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/slimscroll/slimscroll.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/slidebars/slidebars.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/slidebars/slidebars-demo.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/charts/piegage/piegage.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/charts/piegage/piegage-demo.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/screenfull/screenfull.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/content-box/contentbox.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/material/material.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/material/ripples.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/widgets/overlay/overlay.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/js-init/widgets-init.js"></script>
+        <script type="text/javascript" src="~/Content/3rdParty/Template/themes/admin/layout.js"></script>
+
+
+
+
+
+        @RenderSection("scripts", required: false)
+
+
+
+
+
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
