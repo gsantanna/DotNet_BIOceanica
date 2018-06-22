@@ -6,7 +6,7 @@ namespace bie.evgestao.ui.mvc.Models
     {
         [Required]
         [Display(Name = "E-mail")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage ="Email inválido")]
         public string Email { get; set; }
 
         [Required]

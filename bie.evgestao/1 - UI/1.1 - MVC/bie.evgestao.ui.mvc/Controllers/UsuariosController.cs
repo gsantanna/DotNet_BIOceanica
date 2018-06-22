@@ -34,7 +34,7 @@ namespace bie.evgestao.ui.mvc.Controllers
         public UsuariosController(IUsuarioAppService svc1)
         {
             _UserAppSvc = svc1;
-          
+
             context = new ApplicationDbContext();
 
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
@@ -61,7 +61,7 @@ namespace bie.evgestao.ui.mvc.Controllers
 
 
             var objSaida = from u in usuarios
-                           join l in UserManager.Users.ToList() on u.id_usuario equals l.Id                          
+                           join l in UserManager.Users.ToList() on u.id_usuario equals l.Id
                            select new UsuarioViewmodel
                            {
                                id_usuario = u.id_usuario,
@@ -80,7 +80,7 @@ namespace bie.evgestao.ui.mvc.Controllers
             // return new JsonResult2 { Data = objSaida, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             if (TipoUsuarioAtual == TipoUsuario.Superadmin)
             {
-                return new JsonResult2 {Data = new {data = objSaida}};
+                return new JsonResult2 { Data = new { data = objSaida } };
             }
             else
             {
@@ -137,7 +137,7 @@ namespace bie.evgestao.ui.mvc.Controllers
 
             UserManager.UpdateSecurityStamp(usuario.Id);
 
-    
+
             //deleta o usuario da aplicação
             _UserAppSvc.Remove(model);
 
@@ -146,7 +146,7 @@ namespace bie.evgestao.ui.mvc.Controllers
 
             return Json("OK");
 
-        }     
+        }
 
 
         #endregion
@@ -166,38 +166,43 @@ namespace bie.evgestao.ui.mvc.Controllers
         #region CRIAR 
 
         [HttpGet]
+        [Authorize(Roles = "Superadmin,Administrador")]
         public ActionResult Criar()
         {
 
 
-            //#region Preparacao 
-            //var Empresas = _EmpresaAppSvc.GetAll();
-            //ViewBag.Empresas = new SelectList(Empresas, "id_empresa", "Nome");
+            #region Preparacao 
 
-            ////Gera as funções de acordo com as roles 
-            //List<string> TiposUsuarios = new List<string>();
-            //if (User.IsInRole("Superadmin"))
-            //{
-            //    TiposUsuarios.Add("Superadmin");
-            //    TiposUsuarios.Add("Administrador");
-            //    TiposUsuarios.Add("Setor");
-            //    TiposUsuarios.Add("Focus");
+            /*
+               context.Roles.AddOrUpdate(r => r.Name,
+                new IdentityRole { Name = "Secretaria" },
+                new IdentityRole { Name = "Financeiro" },
+                new IdentityRole { Name = "Pastor" },
+                new IdentityRole { Name = "Conselho" },
+                new IdentityRole { Name = "Lider" },
+                new IdentityRole { Name = "Supervisor" },
+                new IdentityRole { Name = "Administrador" },
+                new IdentityRole { Name = "Superadmin" }
+                );
+                */
 
-            //}
-            //else if (User.IsInRole("Administrador"))
-            //{
-            //    //só administrador pode cadastrar setor e focus
-            //    TiposUsuarios.Add("Setor");
-            //    TiposUsuarios.Add("Focus");
-            //}
+            //Gera as funções de acordo com as roles 
+            List<string> TiposUsuarios = new List<string>();
+            if (User.IsInRole("Superadmin"))
+            {
+                TiposUsuarios.Add("Superadmin");
+                TiposUsuarios.Add("Administrador");
 
-            ////todos podem adicionar cliente 
-            //TiposUsuarios.Add("Cliente");
+            }
 
-            //ViewBag.TiposUsuarios = new SelectList(TiposUsuarios);
+            TiposUsuarios.Add("Secretaria");
+            TiposUsuarios.Add("Financeiro");
+            TiposUsuarios.Add("Pastor");
+            TiposUsuarios.Add("Conselho");
+            TiposUsuarios.Add("Lider");
+            TiposUsuarios.Add("Supervisor");
 
-
-            //#endregion
+            #endregion
 
             return View();
 
@@ -207,7 +212,7 @@ namespace bie.evgestao.ui.mvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Criar(UsuarioViewmodel model)
         {
-           
+
 
             //#region Preparacao 
             //var Empresas = _EmpresaAppSvc.GetAll();
@@ -297,23 +302,23 @@ namespace bie.evgestao.ui.mvc.Controllers
 
             try //Adiciona o usuário (aplicação) 
             {
-              //  usrEntidade.id_usuario = appUser.Id;
-              //  _UserAppSvc.Add(usrEntidade);
+                //  usrEntidade.id_usuario = appUser.Id;
+                //  _UserAppSvc.Add(usrEntidade);
                 return RedirectToAction("index");
             }
             catch (Exception ex)
             {
                 //deleta o usuário de identity recém criado
-              //  UserManager.Delete(appUser);
-              //  ModelState.AddModelError(string.Empty,
-               //     "Erro ao criar o usuário (aplicação). Favor informar o suporte técnico. O Erro foi: " + ex.Message);
+                //  UserManager.Delete(appUser);
+                //  ModelState.AddModelError(string.Empty,
+                //     "Erro ao criar o usuário (aplicação). Favor informar o suporte técnico. O Erro foi: " + ex.Message);
                 return View(model);
 
             }
 
 
         }
-        
+
 
 
 
@@ -526,7 +531,7 @@ namespace bie.evgestao.ui.mvc.Controllers
             //_UserAppSvc.Update(entidade);
 
             return RedirectToAction("Index");
-            
+
         }
 
 
