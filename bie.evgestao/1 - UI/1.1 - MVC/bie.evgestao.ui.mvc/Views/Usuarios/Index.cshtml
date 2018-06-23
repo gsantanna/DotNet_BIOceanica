@@ -10,23 +10,26 @@
 <div id="page-title"><h2>Gerenciar usuários</h2><p>Esta tela permite gerenciar os usuários que tem acesso ao sistema.</p></div>
 
 
+<a href='@Url.Action("Criar")'
+   class="btn btn-blue-alt pull-right">
+    Adicionar usuário<div class="ripple-wrapper"></div>
+</a>
 
+<table class="table table-hover" id="tblMain">
+    <thead>
+        <tr>
+            <th>Tipo</th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>E-mail</th>
+            <!-- botões -->
+            <th style="width:133px; text-align:center;"></th>
 
-    <table class="table" id="tblMain">
-        <thead>
-            <tr>
-                <th>Tipo</th>              
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>E-mail</th>
-                <!-- botões -->
-                <th style="width:133px; text-align:center;"></th>
+        </tr>
 
-            </tr>
+    </thead>
 
-        </thead>
-
-    </table>
+</table>
 
 
 
@@ -76,10 +79,6 @@
                          data: "TipoDesc",
                          title: "Tipo"
                      },
-                      {
-                          data: "EmpresaDesc",
-                          title: "Empresa"
-                      },
                        {
                            data: "Nome",
                            title: "Nome",

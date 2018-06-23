@@ -34,13 +34,10 @@ namespace bie.evgestao.ui.mvc.Controllers
         public UsuariosController(IUsuarioAppService svc1)
         {
             _UserAppSvc = svc1;
-
             context = new ApplicationDbContext();
-
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             UserStore = new UserStore<ApplicationUser>(context);
-
 
         }
 
@@ -171,20 +168,8 @@ namespace bie.evgestao.ui.mvc.Controllers
         {
 
 
-            #region Preparacao 
+            #region Preparacao        
 
-            /*
-               context.Roles.AddOrUpdate(r => r.Name,
-                new IdentityRole { Name = "Secretaria" },
-                new IdentityRole { Name = "Financeiro" },
-                new IdentityRole { Name = "Pastor" },
-                new IdentityRole { Name = "Conselho" },
-                new IdentityRole { Name = "Lider" },
-                new IdentityRole { Name = "Supervisor" },
-                new IdentityRole { Name = "Administrador" },
-                new IdentityRole { Name = "Superadmin" }
-                );
-                */
 
             //Gera as funções de acordo com as roles 
             List<string> TiposUsuarios = new List<string>();
@@ -202,6 +187,9 @@ namespace bie.evgestao.ui.mvc.Controllers
             TiposUsuarios.Add("Lider");
             TiposUsuarios.Add("Supervisor");
 
+            ViewBag.TiposUsuarios = new SelectList(TiposUsuarios);
+
+
             #endregion
 
             return View();
@@ -212,106 +200,90 @@ namespace bie.evgestao.ui.mvc.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Criar(UsuarioViewmodel model)
         {
+            #region Preparacao        
 
 
-            //#region Preparacao 
-            //var Empresas = _EmpresaAppSvc.GetAll();
-            //ViewBag.Empresas = new SelectList(Empresas, "id_empresa", "Nome");
+            //Gera as funções de acordo com as roles 
+            List<string> TiposUsuarios = new List<string>();
+            if (User.IsInRole("Superadmin"))
+            {
+                TiposUsuarios.Add("Superadmin");
+                TiposUsuarios.Add("Administrador");
 
-            ////Gera as funções de acordo com as roles 
-            //List<string> TiposUsuarios = new List<string>();
-            //if (User.IsInRole("Superadmin"))
-            //{
-            //    TiposUsuarios.Add("Superadmin");
-            //    TiposUsuarios.Add("Administrador");
-            //    TiposUsuarios.Add("Setor");
-            //    TiposUsuarios.Add("Focus");
+            }
 
-            //}
-            //else if (User.IsInRole("Administrador"))
-            //{
-            //    //só administrador pode cadastrar setor e focus
-            //    TiposUsuarios.Add("Setor");
-            //    TiposUsuarios.Add("Focus");
-            //}
+            TiposUsuarios.Add("Secretaria");
+            TiposUsuarios.Add("Financeiro");
+            TiposUsuarios.Add("Pastor");
+            TiposUsuarios.Add("Conselho");
+            TiposUsuarios.Add("Lider");
+            TiposUsuarios.Add("Supervisor");
 
-            ////todos podem adicionar cliente 
-            //TiposUsuarios.Add("Cliente");
-
-            //ViewBag.TiposUsuarios = new SelectList(TiposUsuarios);
-
+            ViewBag.TiposUsuarios = new SelectList(TiposUsuarios);
 
             #endregion
 
 
-            //if (model.Funcao == TipoUsuario.Cliente && !model.id_empresa.HasValue)
-            //{
-            //    ModelState.AddModelError("id_empresa", @"Para usuários do tipo cliente é obrigatório selecionar a empresa");
-            //    return View(model);
-            //}
+
+            if ((model.Tipo == TipoUsuario.Superadmin || model.Tipo == TipoUsuario.Administrador) && !User.IsInRole("Superadmin"))
+            {
+                ModelState.AddModelError(string.Empty,
+                    "Erro de Acesso negado e validação do formulário");
+                return View(model);
+            }
+
+            //verifica se o e-mail já existe.
+            var existente = UserManager.FindByEmail(model.Email);
+            if (existente != null)
+            {
+                ModelState.AddModelError("Email", "E-mail já cadastrado no sistema com outro usuário " + existente.Nome);
+                return View(model);
+            }
 
 
-            //if ((model.Tipo == TipoUsuario.Superadmin || model.Tipo == TipoUsuario.Administrador) && !User.IsInRole("Superadmin"))
-            //{
-            //    ModelState.AddModelError(string.Empty,
-            //        "Erro de Acesso negado e validação do formulário");
-            //    return View(model);
-            //}
+            var appUser = new ApplicationUser
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                PhoneNumber = model.Telefone,
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true
+            };
 
-            ////verifica se o e-mail já existe.
-            //var existente = UserManager.FindByEmail(model.Email);
-            //if (existente != null)
-            //{
-            //    ModelState.AddModelError("Email", @"E-mail já cadastrado no sistema com outro usuário " + existente.Nome);
-            //    return View(model);
-            //}
+            var usrEntidade = new Usuario
+            {
+                Nome = model.Nome,
+                Telefone = model.Telefone,
+                Telefone2 = model.Telefone2,
+                Email = model.Email,
+                Ativo = true
+            };
 
+            try //Adiciona o usuário (Login)
 
-
-            //var appUser = new ApplicationUser
-            //{
-            //    UserName = model.Email,
-            //    Email = model.Email,
-            //    PhoneNumber = model.Telefone,
-            //    EmailConfirmed = true,
-            //    PhoneNumberConfirmed = true
-            //};
-
-            //var usrEntidade = new Usuario
-            //{
-            //    id_empresa = model.id_empresa,
-            //    Nome = model.Nome,
-            //    Telefone = model.Telefone,
-            //    Telefone2 = model.Telefone2,
-            //    Email = model.Email,
-            //    Ativo = true
-            //};
-
-            //try //Adiciona o usuário (Login)
-
-            //{
-            //    UserManager.Create(appUser, model.Senha);
-            //    UserManager.AddToRoles(appUser.Id, model.Funcao.ToString());
-            //}
-            //catch (Exception ex)
-            //{
-            //    ModelState.AddModelError(string.Empty,
-            //        "Erro ao criar o usuário (identity). Favor informar o suporte técnico. O Erro foi: " + ex.Message);
-            //    return View(model);
-            //}
+            {
+                UserManager.Create(appUser, model.Senha);
+                UserManager.AddToRoles(appUser.Id, model.Funcao.ToString());
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty,
+                    "Erro ao criar o usuário (identity). Favor informar o suporte técnico. O Erro foi: " + ex.Message);
+                return View(model);
+            }
 
             try //Adiciona o usuário (aplicação) 
             {
-                //  usrEntidade.id_usuario = appUser.Id;
-                //  _UserAppSvc.Add(usrEntidade);
+                usrEntidade.id_usuario = appUser.Id;
+                _UserAppSvc.Add(usrEntidade);
                 return RedirectToAction("index");
             }
             catch (Exception ex)
             {
                 //deleta o usuário de identity recém criado
-                //  UserManager.Delete(appUser);
-                //  ModelState.AddModelError(string.Empty,
-                //     "Erro ao criar o usuário (aplicação). Favor informar o suporte técnico. O Erro foi: " + ex.Message);
+                UserManager.Delete(appUser);
+                ModelState.AddModelError(string.Empty,
+                   "Erro ao criar o usuário (aplicação). Favor informar o suporte técnico. O Erro foi: " + ex.Message);
                 return View(model);
 
             }
@@ -319,6 +291,7 @@ namespace bie.evgestao.ui.mvc.Controllers
 
         }
 
+        #endregion
 
 
 

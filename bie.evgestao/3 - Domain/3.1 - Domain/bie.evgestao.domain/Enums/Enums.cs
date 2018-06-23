@@ -4,7 +4,7 @@
 
     public enum TipoUsuario
     {
-        Secretaria, Financeiro, Pastor, Conselho, Lider, Supervisor, Administrador, Superadmin
+        Secretaria, Financeiro, Pastor, Conselho, Lider, Supervisor, Administrador, Superadmin, NAO_CONFIGURADO
     }
 
     public enum ClassificacaoAlerta

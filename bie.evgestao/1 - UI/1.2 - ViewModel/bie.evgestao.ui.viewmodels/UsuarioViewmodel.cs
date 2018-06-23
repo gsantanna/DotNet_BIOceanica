@@ -21,8 +21,6 @@ namespace bie.evgestao.ui.viewmodels
 
         public bool Ativo { get; set; }
 
-
-
         [Phone(ErrorMessage = "Favor preencher um telefone válido")]
         public string Telefone { get; set; }
 
@@ -37,15 +35,12 @@ namespace bie.evgestao.ui.viewmodels
 
 
 
-     
-
-
         public List<string> Roles { get; set; }
 
         public TipoUsuario Tipo
         {
             get
-            {               
+            {
                 //Secretaria, Financeiro, Pastor, Conselho, Lider, Supervisor, Administrador, Superadmin
                 if (Roles.Contains("Superadmin")) return TipoUsuario.Superadmin;
                 else if (Roles.Contains("Administrador")) return TipoUsuario.Administrador;
@@ -55,7 +50,8 @@ namespace bie.evgestao.ui.viewmodels
                 else if (Roles.Contains("Pastor")) return TipoUsuario.Pastor;
                 else if (Roles.Contains("Financeiro")) return TipoUsuario.Financeiro;
                 else if (Roles.Contains("Secretaria")) return TipoUsuario.Secretaria;
-                else throw new Exception("Permissões não configuradas");
+                else return TipoUsuario.NAO_CONFIGURADO;
+                //else throw new Exception("Permissões não configuradas");
             }
         }
 
