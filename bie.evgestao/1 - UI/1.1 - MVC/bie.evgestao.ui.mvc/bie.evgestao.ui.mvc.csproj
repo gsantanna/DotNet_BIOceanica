@@ -234,12 +234,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Data\App_Start\BundleConfig.cs" />
-    <Compile Include="App_Data\App_Start\FilterConfig.cs" />
-    <Compile Include="App_Data\App_Start\IdentityConfig.cs" />
-    <Compile Include="App_Data\App_Start\NinjectWebCommon.cs" />
-    <Compile Include="App_Data\App_Start\RouteConfig.cs" />
-    <Compile Include="App_Data\App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Automapper\AutomapConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -706,6 +706,7 @@
     <None Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Content\3rdParty\Template\image-resources\people\" />
   </ItemGroup>
   <ItemGroup>
