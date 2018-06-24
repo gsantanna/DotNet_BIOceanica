@@ -20,10 +20,8 @@ namespace bie.evgestao.ui.mvc.AutoMapper
 
                 #region USUARIO
 
-                // cfg.CreateMap<Usuario, UsuarioViewmodel>()
-                //  .ForMember(dest => dest.NomeEmpresa, map => map.MapFrom(orig => orig.Empresa.Nome));
-
-                // cfg.CreateMap<UsuarioViewmodel, Usuario>();
+                cfg.CreateMap<Usuario, UsuarioViewmodel>();
+                 cfg.CreateMap<UsuarioViewmodel, Usuario>();
 
                 #endregion
 

@@ -179,7 +179,6 @@ namespace bie.evgestao.ui.mvc.Controllers
                 TiposUsuarios.Add("Administrador");
 
             }
-
             TiposUsuarios.Add("Secretaria");
             TiposUsuarios.Add("Financeiro");
             TiposUsuarios.Add("Pastor");
@@ -300,209 +299,159 @@ namespace bie.evgestao.ui.mvc.Controllers
         [HttpGet]
         public async Task<ActionResult> Editar(string id)
         {
-            var model = "";
 
-            ////Carrega o usuário 
-            //var entidade = _UserAppSvc.GetById(id);
-            //if (entidade == null) throw new HttpException(404, "Usuário não encontrado");
+            //Carrega o usuário 
+            var entidade = _UserAppSvc.GetById(id);
+            if (entidade == null) throw new HttpException(404, "Usuário não encontrado");
 
-            ////carrega o viewmodel 
-            //var model = Mapper.Map<Usuario, UsuarioViewmodel>(entidade);
+            //carrega o viewmodel 
+            var model = Mapper.Map<Usuario, UsuarioViewmodel>(entidade);
 
-            ////preenche as informações referentes ao login 
-            //var usuarioIdentity = await UserManager.FindByIdAsync(model.id_usuario);
-            //var roles = RoleManager.Roles.ToList();
-
-
-            //model.Email = usuarioIdentity.Email;
-            //model.Roles = (from r in usuarioIdentity.Roles
-            //               join r2 in roles on r.RoleId equals r2.Id
-            //               select r2.Name).ToList();
+            //preenche as informações referentes ao login 
+            var usuarioIdentity = await UserManager.FindByIdAsync(model.id_usuario);
+            var roles = RoleManager.Roles.ToList();
 
 
-
-            ////define o papel com maior permissão 
-            //if (model.Roles.Contains("Superadmin"))
-            //{
-            //    model.Funcao = TipoUsuario.Superadmin;
-
-            //}
-            //else if (model.Roles.Contains("Administrador"))
-            //{
-            //    model.Funcao = TipoUsuario.Administrador;
-            //}
-            //else if (model.Roles.Contains("Focus"))
-            //{
-            //    model.Funcao = TipoUsuario.Focus;
-
-            //}
-            //else if (model.Roles.Contains("Setor"))
-            //{
-            //    model.Funcao = TipoUsuario.Setor;
-
-            //}
-            //else
-            //{
-            //    model.Funcao = TipoUsuario.Cliente;
-            //}
+            model.Email = usuarioIdentity.Email;
+            model.Roles = (from r in usuarioIdentity.Roles
+                           join r2 in roles on r.RoleId equals r2.Id
+                           select r2.Name).ToList();
 
 
-
-            //#region Preparacao 
-            //var Empresas = _EmpresaAppSvc.GetAll();
-            //ViewBag.Empresas = new SelectList(Empresas, "id_empresa", "Nome", model.id_empresa);
-
-            ////Gera as funções de acordo com as roles 
-            //List<string> TiposUsuarios = new List<string>();
-            //if (User.IsInRole("Superadmin"))
-            //{
-            //    TiposUsuarios.Add("Superadmin");
-            //    TiposUsuarios.Add("Administrador");
-            //    TiposUsuarios.Add("Setor");
-            //    TiposUsuarios.Add("Focus");
-
-            //}
-            //else if (User.IsInRole("Administrador"))
-            //{
-            //    //só administrador pode cadastrar setor e focus
-            //    TiposUsuarios.Add("Setor");
-            //    TiposUsuarios.Add("Focus");
-            //}
-
-            ////todos podem adicionar cliente 
-            //TiposUsuarios.Add("Cliente");
-
-            //ViewBag.TiposUsuarios = new SelectList(TiposUsuarios, model.Tipo);
+            //seta o tipo de acordo com a role
+            model.Funcao = model.GetTipoFromRoles(model.Roles);
 
 
-            //#endregion
+            #region Preparacao 
+
+            //Gera as funções de acordo com as roles 
+
+
+            //Gera as funções de acordo com as roles 
+            List<string> TiposUsuarios = new List<string>();
+            if (User.IsInRole("Superadmin"))
+            {
+                TiposUsuarios.Add("Superadmin");
+                TiposUsuarios.Add("Administrador");
+
+            }
+            TiposUsuarios.Add("Secretaria");
+            TiposUsuarios.Add("Financeiro");
+            TiposUsuarios.Add("Pastor");
+            TiposUsuarios.Add("Conselho");
+            TiposUsuarios.Add("Lider");
+            TiposUsuarios.Add("Supervisor");
+
+
+            ViewBag.TiposUsuarios = new SelectList(TiposUsuarios, model.Tipo);
+
+
+            #endregion
 
             return View(model);
+
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Editar(UsuarioViewmodel model)
         {
-            ////Carrega o usuário 
-            //var entidade = _UserAppSvc.GetById(model.id_usuario);
-            //if (entidade == null) throw new HttpException(404, "Usuário não encontrado");
+            //Carrega o usuário 
+            var entidade = _UserAppSvc.GetById(model.id_usuario);
+            if (entidade == null) throw new HttpException(404, "Usuário não encontrado");
 
-            //var usuarioIdentity = await UserManager.FindByIdAsync(model.id_usuario);
-            //if (usuarioIdentity == null) throw new HttpException(404, "Usuário não encontrado");
-
-
-
-            //#region Preparacao 
-
-            //var Empresas = _EmpresaAppSvc.GetAll();
-            //ViewBag.Empresas = new SelectList(Empresas, "id_empresa", "Nome", model.id_empresa);
-
-            ////Gera as funções de acordo com as roles 
-            //List<string> TiposUsuarios = new List<string>();
-            //if (User.IsInRole("Superadmin"))
-            //{
-            //    TiposUsuarios.Add("Superadmin");
-            //    TiposUsuarios.Add("Administrador");
-            //    TiposUsuarios.Add("Setor");
-            //    TiposUsuarios.Add("Focus");
-
-            //}
-            //else if (User.IsInRole("Administrador"))
-            //{
-            //    //só administrador pode cadastrar setor e focus
-            //    TiposUsuarios.Add("Setor");
-            //    TiposUsuarios.Add("Focus");
-            //}
-
-            ////todos podem adicionar cliente 
-            //TiposUsuarios.Add("Cliente");
-
-            //ViewBag.TiposUsuarios = new SelectList(TiposUsuarios, model.Tipo);
-
-
-            //#endregion
-
-            ////verifica se o e-mail mudou.
-            //if (usuarioIdentity.Email.Trim() != model.Email.Trim()) //e-mail mudou! verificar no banco de usuários se há algum usuário já com esse e-mail
-            //{
-            //    var existente = await UserManager.FindByEmailAsync(model.Email);
-            //    if (existente != null)
-            //    {
-            //        ModelState.AddModelError("Email", @"E-mail já cadastrado no sistema com outro usuário " + existente.Nome);
-            //        return View(model);
-            //    }
-
-            //    usuarioIdentity.Email = model.Email;
-            //    usuarioIdentity.UserName = model.Email;
-
-
-            //}
-
-
-            ////verifica se a senha mudou 
-            //if (!string.IsNullOrEmpty(model.Senha))
-            //{
-            //    String hashedNewPassword = UserManager.PasswordHasher.HashPassword(model.Senha);
-            //    await UserStore.SetPasswordHashAsync(usuarioIdentity, hashedNewPassword);
-            //}
-            ////Atualiza o identity 
-            //await UserStore.UpdateAsync(usuarioIdentity);
+            var usuarioIdentity = await UserManager.FindByIdAsync(model.id_usuario);
+            if (usuarioIdentity == null) throw new HttpException(404, "Usuário não encontrado");
 
 
 
-            ////carrega as roles do usuário 
-            //var roles = (from r in RoleManager.Roles.ToList()
-            //             join ur in usuarioIdentity.Roles on r.Id equals ur.RoleId
-            //             select r.Name).ToList();
-
-            //TipoUsuario tipoAtual = TipoUsuario.Cliente;
-            //if (roles.Contains("Superadmin"))
-            //{
-            //    tipoAtual = TipoUsuario.Superadmin;
-
-            //}
-            //else if (roles.Contains("Administrador"))
-            //{
-            //    tipoAtual = TipoUsuario.Administrador;
-            //}
-            //else if (roles.Contains("Focus"))
-            //{
-            //    tipoAtual = TipoUsuario.Focus;
-            //}
-            //else if (roles.Contains("Setor"))
-            //{
-            //    tipoAtual = TipoUsuario.Setor;
-            //}
-
-            ////mudou o tipo de usuário 
-            //if (tipoAtual != model.Funcao)
-            //{
-            //    //TODO: Jogar uma validação de permissoes serverside aqui 
+            #region Preparacao 
 
 
-            //    if ((model.Funcao == TipoUsuario.Superadmin || model.Funcao == TipoUsuario.Administrador) && !User.IsInRole("Superadmin"))
-            //    {
-            //        ModelState.AddModelError(string.Empty,
-            //            "Erro de Acesso negado e validação do formulário");
-            //        return View(model);
-            //    }
 
-            //    //remover a role anterior 
-            //    await UserManager.RemoveFromRoleAsync(usuarioIdentity.Id, tipoAtual.ToString());
+            //Gera as funções de acordo com as roles 
+            List<string> TiposUsuarios = new List<string>();
+            if (User.IsInRole("Superadmin"))
+            {
+                TiposUsuarios.Add("Superadmin");
+                TiposUsuarios.Add("Administrador");
 
-            //    //Adiciona a role nova 
-            //    await UserManager.AddToRoleAsync(usuarioIdentity.Id, model.Funcao.ToString());
-            //}
+            }
+            TiposUsuarios.Add("Secretaria");
+            TiposUsuarios.Add("Financeiro");
+            TiposUsuarios.Add("Pastor");
+            TiposUsuarios.Add("Conselho");
+            TiposUsuarios.Add("Lider");
+            TiposUsuarios.Add("Supervisor");
 
-            ////atualiza a entidade 
-            //entidade.Nome = model.Nome;
-            //entidade.id_empresa = model.id_empresa;
-            //entidade.Telefone = model.Telefone;
-            //entidade.Telefone2 = model.Telefone2;
-            //entidade.Email = model.Email;
-            //_UserAppSvc.Update(entidade);
+            ViewBag.TiposUsuarios = new SelectList(TiposUsuarios, model.Tipo);
 
+
+            #endregion
+
+            //verifica se o e-mail mudou.
+            if (usuarioIdentity.Email.Trim() != model.Email.Trim()) //e-mail mudou! verificar no banco de usuários se há algum usuário já com esse e-mail
+            {
+                var existente = await UserManager.FindByEmailAsync(model.Email);
+                if (existente != null)
+                {
+                    ModelState.AddModelError("Email", @"E-mail já cadastrado no sistema com outro usuário " + existente.Nome);
+                    return View(model);
+                }
+
+                usuarioIdentity.Email = model.Email;
+                usuarioIdentity.UserName = model.Email;
+
+
+            }
+
+
+            //verifica se a senha mudou 
+            if (!string.IsNullOrEmpty(model.Senha))
+            {
+                String hashedNewPassword = UserManager.PasswordHasher.HashPassword(model.Senha);
+                await UserStore.SetPasswordHashAsync(usuarioIdentity, hashedNewPassword);
+            }
+            //Atualiza o identity 
+            await UserStore.UpdateAsync(usuarioIdentity);
+
+
+
+            //carrega as roles do usuário 
+            var roles = (from r in RoleManager.Roles.ToList()
+                         join ur in usuarioIdentity.Roles on r.Id equals ur.RoleId
+                         select r.Name).ToList();
+
+
+            TipoUsuario tipoAtual = model.GetTipoFromRoles(roles);
+
+
+            //mudou o tipo de usuário 
+            if (tipoAtual != model.Funcao)
+            {
+                //TODO: Jogar uma validação de permissoes serverside aqui 
+
+
+                if ((model.Funcao == TipoUsuario.Superadmin || model.Funcao == TipoUsuario.Administrador) && !User.IsInRole("Superadmin"))
+                {
+                    ModelState.AddModelError(string.Empty,
+                        "Erro de Acesso negado e validação do formulário");
+                    return View(model);
+                }
+
+                //remover a role anterior 
+                await UserManager.RemoveFromRoleAsync(usuarioIdentity.Id, tipoAtual.ToString());
+
+                //Adiciona a role nova 
+                await UserManager.AddToRoleAsync(usuarioIdentity.Id, model.Funcao.ToString());
+            }
+
+            //atualiza a entidade 
+            entidade.Nome = model.Nome;
+            entidade.Telefone = model.Telefone;
+            entidade.Telefone2 = model.Telefone2;
+            entidade.Email = model.Email;
+            _UserAppSvc.Update(entidade);
             return RedirectToAction("Index");
 
         }

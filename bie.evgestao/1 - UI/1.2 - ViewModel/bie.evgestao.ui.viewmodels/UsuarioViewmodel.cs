@@ -19,6 +19,9 @@ namespace bie.evgestao.ui.viewmodels
         [MinLength(5, ErrorMessage = "Favor preencher no mínimo {1} caracteres")]
         public string Nome { get; set; }
 
+        public string NomeExib => !this.Ativo ? $"{this.Nome} (desativado)" : this.Nome;
+
+
         public bool Ativo { get; set; }
 
         [Phone(ErrorMessage = "Favor preencher um telefone válido")]
@@ -72,8 +75,33 @@ namespace bie.evgestao.ui.viewmodels
         [Compare("Senha", ErrorMessage = "As senhas não são iguais")]
         public string ConfirmarSenha { get; set; }
 
+        public TipoUsuario GetTipoFromRoles(List<string> roles)
+        {
+            //define o papel com maior permissão 
+            if (roles.Contains("Superadmin"))
+                return TipoUsuario.Superadmin;
+            else if (roles.Contains("Administrador"))
+                return TipoUsuario.Administrador;
+            else if (roles.Contains("Secretaria"))
+                return TipoUsuario.Secretaria;
+            else if (roles.Contains("Financeiro"))
+                return TipoUsuario.Financeiro;
+            else if (roles.Contains("Pastor"))
+                return TipoUsuario.Pastor;
+            else if (roles.Contains("Conselho"))
+                return TipoUsuario.Conselho;
+            else if (roles.Contains("Lider"))
+                return TipoUsuario.Supervisor;
+            else return TipoUsuario.NAO_CONFIGURADO;//tem que dar erro aqui
+        }
+
+
+
 
         #endregion
+
+
+
 
 
 

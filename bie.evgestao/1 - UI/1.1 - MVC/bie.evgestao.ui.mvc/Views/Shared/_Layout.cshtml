@@ -26,6 +26,8 @@
     <link rel="shortcut icon" href="~/favicon.ico">
 
 
+    @RenderSection("precss", required: false)
+
 
 
     <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/animate.css">
@@ -128,6 +130,10 @@
     <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/themes/components/border-radius.css">
     <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/responsive-elements.css">
     <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/admin-responsive.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
+
+
+
     <script type="text/javascript" src="~/Content/3rdParty/Template/js-core/jquery-core.js"></script>
     <script type="text/javascript" src="~/Content/3rdParty/Template/js-core/jquery-ui-core.js"></script>
     <script type="text/javascript" src="~/Content/3rdParty/Template/js-core/jquery-ui-widget.js"></script>
@@ -145,7 +151,7 @@
 
 
 
-    <link href="~/Content/lib/jquery.datatables/datatables.min.css" rel="stylesheet" />
+
 
 
 
@@ -184,8 +190,8 @@
 
 
                         @*<li class="header">
-                            <span>Secretaria</span>
-                        </li>*@
+                                <span>Secretaria</span>
+                            </li>*@
                         <li>
                             <a href="javascript:void(0);" title="Secretaria">
                                 <i class="glyph-icon icon-linecons-diamond"></i>
@@ -333,8 +339,6 @@
 
 
 
-        <script src="~/Content/lib/jquery.datatables/jquery.dataTables.min.js"></script>
-        <script src="~/Content/lib/jquery.datatables/dataTables.bootstrap.min.js"></script>
 
 
 
