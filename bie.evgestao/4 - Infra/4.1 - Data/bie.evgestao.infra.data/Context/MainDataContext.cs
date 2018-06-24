@@ -36,17 +36,17 @@ namespace bie.evgestao.infra.data.Context
 
             modelBuilder.Properties<string>().Configure(p => p.IsUnicode(false));
 
-            modelBuilder.Configurations.Add(new CargoConfiguration());
+
             modelBuilder.Configurations.Add(new CelulaConfiguration());
             modelBuilder.Configurations.Add(new FamiliarConfiguration());
             modelBuilder.Configurations.Add(new FotoConfiguration());
-            modelBuilder.Configurations.Add(new GrauParentescoConfiguration());
             modelBuilder.Configurations.Add(new PessoaConfiguration());
-            modelBuilder.Configurations.Add(new SituacaoPessoaConfiguration());
             modelBuilder.Configurations.Add(new TipoCelulaConfiguration());
-            modelBuilder.Configurations.Add(new TipoPessoaConfiguration());
-
+            //Transformado num enum
+            //modelBuilder.Configurations.Add(new TipoPessoaConfiguration());
             modelBuilder.Configurations.Add(new UsuarioConfiguration());
+
+
 
 
         }

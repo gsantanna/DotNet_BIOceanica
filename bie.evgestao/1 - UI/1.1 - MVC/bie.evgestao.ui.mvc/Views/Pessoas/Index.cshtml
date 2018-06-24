@@ -1,0 +1,195 @@
+﻿
+@{
+    ViewBag.Title = "Gerenciar Pessoas";
+    ViewBag.HeaderText = ViewBag.Title;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="page-title"><h2>Gerenciar usuários</h2><p>Esta tela permite gerenciar os usuários que tem acesso ao sistema.</p></div>
+
+<div class="row">
+
+
+
+    <div class="col-md-12" style="padding-bottom:20px;">
+
+        @Html.ActionLink("Adicionar", "Criar", null, new { @Class = "btn btn-primary" })
+
+
+    </div>
+
+
+
+
+
+    <div class="col-md-12">
+
+        <table class="table " id="tblMain">
+            <thead>
+                <tr>
+
+                    <th>Nome</th>
+                    <th>Tipo de Pessoa</th>
+                    <th>Discipulado Por</th>
+                    <th>Tels</th>
+                    <th>Status</th>
+                    <!-- botões -->
+                    <th style="width:180px; text-align:center;" class="text-center"></th>
+
+                </tr>
+
+            </thead>
+
+        </table>
+
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="mdConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="mdConfirmDeleteLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mdConfirmDeleteLabel">Confirma exclusão</h4>
+            </div>
+            <div class="modal-body">
+                Deseja mesmo excluir este item? Todos os dados serão excluídos inclusive as informações de acesso.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="btnExcluir">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section precss {
+
+
+
+}
+
+@section header {
+
+}
+
+@section scripts {
+
+
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable.js"></script>
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable-bootstrap.js"></script>
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable-tabletools.js"></script>
+
+
+    <script src="~/Content/3rdParty/Template/widgets/modal/modal.js"></script>
+
+    <script type="text/javascript">
+
+
+        var tabela;
+
+        $(document).ready(function () {
+
+            tabela = $('#tblMain').DataTable({
+                responsive: true,
+                language: { url: '@Url.Content("~/content/ptbr.json")' },
+                ajax: '@Url.Content("~/usuarios/getjson")',
+                columns: [
+                     {
+                         data: "TipoDesc",
+                         title: "Tipo"
+                     },
+                       {
+                           data: "NomeExib",
+                           title: "Nome",
+                           render: function(o, tipo, linha) {
+                               return '<a href=mailto:' + linha.Email + '>' + linha.NomeExib + '</a>';
+                           }
+                       },
+                        {
+                            data: "Telefone",
+                            title: "Telefone"
+                        },
+                         {
+                             data: "Telefone2",
+                             title: "Celular"
+                         },
+
+
+                     {
+                         data: "id_usuario",
+                         title: "Ações",
+                         bSortable: false,
+                         render: function (o, tipo, linha) {
+                             var urlBase = '@Url.Content("~/usuarios/editar/")';
+
+
+                             //botao editar
+                             var ret = '<a class="btn btn-default glyph-icon icon-edit" title="Editar item" href="' + urlBase + o + '" role="button"><div class="ripple-wrapper"></div></a>';
+                             //botao ativar / desativar
+                             ret += '<button class="btn btn-default" title="' + (linha.Ativo ? 'Desativar' : 'Ativar') + '"   onclick="ativacao(\'' + o + '\')"    ><i class="glyph-icon icon-' + (linha.Ativo ? 'pause' : 'play')  +   '"></i><div class="ripple-wrapper"></div></button>'
+                             //botao excluir
+                             ret += '<button type="button" title="Remover item" class="btn btn-default btn-excluir" onclick="excluir(\'' + o + '\')" ><i class="glyph-icon icon-trash"></i><div class="ripple-wrapper"></div></button>&nbsp;';
+
+                             return ret;
+                         }
+
+                     }
+                ],//fim columns
+                order: [[1, "asc"]]
+
+
+            });//fim datatables
+
+        }); //ready
+
+
+
+
+        var excluir = function (id) {
+            var ml = $('#mdConfirmDelete').modal({ backdrop: 'static', keyboard: false })
+                .one('click', '#btnExcluir', function (e) {
+
+                    $.ajax({
+                        url: '@Url.Content("~/pessoas/deletar")',
+                        dataType: "json",
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({ id: id }),
+                        async: true,
+                        processData: false,
+                        cache: false,
+                        success: function (data) {
+                            $(ml).modal("hide");
+                            tabela.ajax.reload();
+                        },
+                        error: function (xhr) {
+                            alert('Erro ao efetuar o comando no servidor. Verifique se o usuário possui as permissões adequadas e tente novamente');
+                        }
+                    });
+
+                });
+        }//excluir
+
+
+
+
+
+
+
+    </script>
+
+}
+

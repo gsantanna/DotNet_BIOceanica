@@ -21,7 +21,6 @@ namespace bie.evgestao.ui.mvc.Controllers
     {
         private readonly IUsuarioAppService _UserAppSvc;
 
-
         private readonly UserManager<ApplicationUser> UserManager;
         private readonly RoleManager<IdentityRole> RoleManager;
         private readonly UserStore<ApplicationUser> UserStore;

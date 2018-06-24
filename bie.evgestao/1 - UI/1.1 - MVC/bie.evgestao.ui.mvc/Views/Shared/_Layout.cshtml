@@ -247,6 +247,51 @@
 
 
 
+                        <li>
+                            <a href="javascript:void(0);" title="Relatórios">
+                                <i class="glyph-icon icon-linecons-doc"></i>
+                                <span>Relatórios</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href='@Url.Action("relatorios","movimento")' title="Buttons"><span>Movimento de membros</span></a>
+                                    </li>
+                                    <li>
+                                        <a href='@Url.Action("relatorios","aniversariantes")' title="Buttons"><span>Aniversariantes</span></a>
+                                    </li>
+                                    <li>
+                                        <a href='@Url.Action("relatorios","ficha")' title="Buttons"><span>Ficha de célula</span></a>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </li>
+
+
+                        @if (User.IsInRole("Administrador") || User.IsInRole("Superadmin"))
+                        {
+
+                            <li>
+                                <a href="javascript:void(0);" title="Administração">
+                                    <i class="glyph-icon icon-linecons-params"></i>
+                                    <span>Administração</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href='@Url.Action("Usuarios", "Index")' title="Buttons"><span>Usuários</span></a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </li>
+
+                        }
+
+
+
 
 
                     </ul>

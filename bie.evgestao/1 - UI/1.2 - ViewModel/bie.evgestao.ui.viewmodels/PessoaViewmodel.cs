@@ -1,82 +1,86 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using bie.evgestao.domain.Enums;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using static bie.evgestao.domain.Entities.Pessoa;
+
 
 namespace bie.evgestao.ui.viewmodels
 {
     public class PessoaViewmodel
     {
-        [Key]
+
         public int id_pessoa { get; set; }
 
         [Required(ErrorMessage = "Informe o Nome Completo")]
         [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
         public string Nome { get; set; }
 
-        //Tipo de pessoa
-        [Required(ErrorMessage = "Informe Tipo de Pessoa")]
-        [Display(Name = "Tipo de Pessoa")]
-        public TipoPessoa Tipo { get; set; }
-
-        //Status de Ativo ou Não Ativo
-        public bool Status { get; set; }
-
-        [Display(Name = "Tipo Sanguíneo")]
-        public string TipoSanguineo { get; set; }
-
-        [Required(ErrorMessage = "Informe Estado Civil")]
-        [Display(Name = "Estado Civil")]
-        public string EstadoCivil { get; set; }
-
-        [Required(ErrorMessage = "Informe o Cargo da Pessoa")]
-        [Display(Name = "Cargo")]
-        public string CargoPessoa { get; set; }
-
-        [Required(ErrorMessage = "Informe o Sexo")]
-        public string Sexo { get; set; }
-
-        [Required(ErrorMessage = "Informe a Idade")]
-        public int Idade { get; set; }
-
         [Display(Name = "Conhecido Como")]
         [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
         public string ConhecidoComo { get; set; }
 
-        [Required(ErrorMessage = "Informe o Endereço")]
-        [MaxLength(250, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
-        public string endereco { get; set; }
 
-        [Required(ErrorMessage = "Informe o Bairro")]
+
+
+        [Required(ErrorMessage = "Informe o Sexo")]
+        public SexoPessoa? Sexo { get; set; }
+
+        [Display(Name = "Data de nascimento")]
+        public DateTime? DataNascimento { get; set; }
+
+
+
+        [MaxLength(250, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
+        public string Endereco { get; set; }
+
+
+        [MaxLength(10, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
+        public string Numero { get; set; }
+
+        [MaxLength(50, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
+        public string Complemento { get; set; }
+
         [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
         public string Bairro { get; set; }
 
-        [Required(ErrorMessage = "Informe o Número da Casa ou Apartamento")]
-        public int Numero { get; set; }
-
-        [Required(ErrorMessage = "Informe o Telefone de Contato")]
-        public string Telefone { get; set; }
-
-        [Required(ErrorMessage = "Informe a Cidade")]
         [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
         public string Cidade { get; set; }
 
-        [Required(ErrorMessage = "Informe o Estado")]
+        [MaxLength(2, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
         public string UF { get; set; }
 
-        public string Cep { get; set; }
-
+        [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
         public string Pais { get; set; }
 
-        [Required(ErrorMessage = "Informe Endereço de E-Mail")]
+        [MaxLength(10, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
+        public string Cep { get; set; }
+
+
+        [MaxLength(15, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
+        public string Telefone { get; set; }
+
+        [MaxLength(15, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
+        [Display(Name = "Telefone Trabalho")]
+        public string TelefoneTrabalho { get; set; }
+
+        [MaxLength(15, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
+        [Display(Name = "Celular")]
+        public string TelefoneCelular { get; set; }
+
+
+        //        [Required(ErrorMessage = "Informe Endereço de E-Mail")]
         [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
-        [EmailAddress(ErrorMessage ="Preencha Email Válido")]
+        [EmailAddress(ErrorMessage = "Preencha Email Válido")]
         [DisplayName("E-Mail")]
         public string Email { get; set; }
 
-        [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
-        public string Profissao { get; set; }
+
+
+        [Display(Name = "Estado Civil")]
+        public EstadoCivilPessoa? EstadoCivil { get; set; }
+
+        [Display(Name = "Tipo Sanguíneo")]
+        public TipoSanguineoPessoa TipoSanguineo { get; set; }
 
         [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
         public string Naturalidade { get; set; }
@@ -84,12 +88,13 @@ namespace bie.evgestao.ui.viewmodels
         [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
         public string Nacionalidade { get; set; }
 
-        [Required(ErrorMessage = "Informe o Tipo de Pessoa")]
-        public String TipoPessoa { get; set; }
+        public SituacaoPessoa? Situacao { get; set; }
 
-        public int QtdFamiliares { get; set; }
+        public TipoEntradaPessoa? Entrada { get; set; }
 
+        public TipoSaidaPessoa? Saida { get; set; }
 
+        public FuncaoPessoa? Funcao { get; set; }
 
 
 

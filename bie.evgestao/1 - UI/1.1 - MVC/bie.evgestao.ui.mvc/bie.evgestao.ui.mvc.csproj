@@ -234,17 +234,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
-    <Compile Include="App_Start\NinjectWebCommon.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Data\App_Start\BundleConfig.cs" />
+    <Compile Include="App_Data\App_Start\FilterConfig.cs" />
+    <Compile Include="App_Data\App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Data\App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Data\App_Start\RouteConfig.cs" />
+    <Compile Include="App_Data\App_Start\Startup.Auth.cs" />
     <Compile Include="Automapper\AutomapConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Identity\AccountController.cs" />
     <Compile Include="Controllers\Identity\ManageController.cs" />
+    <Compile Include="Controllers\PessoasController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -320,16 +321,7 @@
     <Content Include="Content\3rdParty\Template\image-resources\blurred-bg\blurred-bg-6.jpg" />
     <Content Include="Content\3rdParty\Template\image-resources\blurred-bg\blurred-bg-7.jpg" />
     <Content Include="Content\3rdParty\Template\image-resources\blurred-bg\blurred-bg-9.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\gravatar.jpg" />
     <Content Include="Content\3rdParty\Template\image-resources\logo-admin.png" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial1.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial2.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial3.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial4.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial5.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial6.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial7.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial8.jpg" />
     <Content Include="Content\3rdParty\Template\image-resources\slides-bg\slide-1.jpg" />
     <Content Include="Content\3rdParty\Template\image-resources\slides-bg\slide-2.jpg" />
     <Content Include="Content\3rdParty\Template\image-resources\slides-bg\slide-3.jpg" />
@@ -708,10 +700,13 @@
     <Content Include="Views\Usuarios\Criar.cshtml" />
     <Content Include="Views\Usuarios\Editar.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Pessoas\Criar.cshtml" />
+    <Content Include="Views\Pessoas\Editar.cshtml" />
+    <Content Include="Views\Pessoas\Index.cshtml" />
     <None Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="Content\3rdParty\Template\image-resources\people\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
