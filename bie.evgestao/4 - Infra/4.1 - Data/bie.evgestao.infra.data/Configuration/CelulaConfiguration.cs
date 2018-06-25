@@ -31,14 +31,13 @@ namespace bie.evgestao.infra.data.Configuration
 
             Property(c => c.HoraReuniao).IsRequired().HasMaxLength(10);
 
-            Property(c => c.DataCriacao).IsRequired();
+            Property(c => c.DataCriacao).IsOptional();
 
-            Property(c => c.Telefone1).IsRequired().HasMaxLength(10);
+            Property(c => c.Telefone1).IsOptional().HasMaxLength(15);
 
-            Property(c => c.Telefine2).IsRequired().HasMaxLength(10);
+            Property(c => c.Telefone2).IsOptional().HasMaxLength(15);
 
-            HasRequired(a => a.TipoCelula).WithMany(b => b.Celulas).HasForeignKey(c => c.id_tipocelula);
-           
+
 
 
 

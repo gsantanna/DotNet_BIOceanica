@@ -132,7 +132,46 @@ namespace bie.evgestao.domain.Enums
         FALECIMENTO = 6
 
     }
+
+    /*Não Consta, Cônjuge, Filho, Filha, Pai, Mãe, Avô, Avó, Irmão, Irmã, Neto, Neta, Tio, Tia, Sobrinho, Sobrinha, Primo, Prima*/
+    public enum GrauParentesco
+    {
+        [Description("Não consta")]
+        NAO_CONSTA = -1,
+        [Description("Cônjuge")]
+        CONJUGE = 1,
+        [Description("Filho(a)")]
+        FILHO = 2,
+        [Description("Pai")]
+        PAI = 3,
+        [Description("Mãe")]
+        MAE = 4,
+        [Description("Avô/Avó")]
+        AVO = 5,
+        [Description("Irmão(a)")]
+        IRMAO = 6,
+        [Description("Neto(a)")]
+        NETO = 7,
+        [Description("Tio(a)")]
+        TIO = 8,
+        [Description("Sobrinho(a)")]
+        SOBRINHO = 9,
+        [Description("Primo(a)")]
+        PRIMO = 10
+    }
+
     #endregion
+
+
+    #region Celula
+    public enum TipoCelula
+    {
+
+    }
+    #endregion
+
+
+
 
     #region Extensões
     public static class Extensions

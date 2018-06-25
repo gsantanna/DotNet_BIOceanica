@@ -53,6 +53,7 @@ namespace bie.evgestao.ui.viewmodels
         public string Pais { get; set; }
 
         [MaxLength(10, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
+
         public string Cep { get; set; }
 
 
@@ -90,11 +91,44 @@ namespace bie.evgestao.ui.viewmodels
 
         public SituacaoPessoa? Situacao { get; set; }
 
+        public string SituacaoDesc => Situacao.HasValue ? Situacao.ToDescriptionString() : "";
+
+
         public TipoEntradaPessoa? Entrada { get; set; }
 
         public TipoSaidaPessoa? Saida { get; set; }
 
         public FuncaoPessoa? Funcao { get; set; }
+
+
+        public string Tels => $"{Telefone}<br/>{TelefoneCelular}<br/>{TelefoneTrabalho}";
+
+
+        public string StatusIcon
+        {
+            get
+            {
+                if (!Saida.HasValue) return "success";
+                else if (this.Saida == TipoSaidaPessoa.CARTA_TRANSFERENCIA || this.Saida == TipoSaidaPessoa.JURISTICAO_PEDIDO) return "yellow";
+                else return "danger";
+
+            }
+        }
+
+        public string StatusDesc
+        {
+            get
+            {
+                if (!Saida.HasValue) return "Ativo (" + Entrada.ToDescriptionString() + ")";
+                else if (this.Saida == TipoSaidaPessoa.CARTA_TRANSFERENCIA || this.Saida == TipoSaidaPessoa.JURISTICAO_PEDIDO) return "Membro fora da sede";
+                else return "Membro excluído";
+
+            }
+        }
+
+
+
+
 
 
 

@@ -7,7 +7,8 @@
 }
 
 
-<div id="page-title"><h2>Gerenciar usuários</h2><p>Esta tela permite gerenciar os usuários que tem acesso ao sistema.</p></div>
+<div id="page-title"><h2>Gerenciar pessoas</h2><p>Gestão de membros 
+    </p></div>
 
 <div class="row">
 
@@ -32,12 +33,10 @@
 
                     <th>Nome</th>
                     <th>Tipo de Pessoa</th>
-                    <th>Discipulado Por</th>
                     <th>Tels</th>
-                    <th>Status</th>
+                    <th style="text-align:center" class="text-center">Status</th>
                     <!-- botões -->
                     <th style="width:180px; text-align:center;" class="text-center"></th>
-
                 </tr>
 
             </thead>
@@ -105,35 +104,35 @@
             tabela = $('#tblMain').DataTable({
                 responsive: true,
                 language: { url: '@Url.Content("~/content/ptbr.json")' },
-                ajax: '@Url.Content("~/usuarios/getjson")',
+                ajax: '@Url.Content("~/pessoas/getjson")',
                 columns: [
-                     {
-                         data: "TipoDesc",
-                         title: "Tipo"
+                    {
+                        data: "Nome",
+                        title: "Nome"
+                    },
+                    {
+                        data: "SituacaoDesc",
+                        title: "Tipo"
+                    },
+                    {
+                        data: "Tels",
+                            title: "Telefones"
+                    },
+                    {
+                        data: "StatusIcon",
+                        title: "Status", 
+                        render: function (o, tipo,linha ) {                            
+                            return '<div class="text-center" title="' + linha.StatusDesc + '" style="width:100%;"><span style="cursor:default" class="btn btn-xs btn-round btn-' + o  + '"><i class="glyph-icon"></i><div class="ripple-wrapper"></div></span></div>';
+                        }
                      },
-                       {
-                           data: "NomeExib",
-                           title: "Nome",
-                           render: function(o, tipo, linha) {
-                               return '<a href=mailto:' + linha.Email + '>' + linha.NomeExib + '</a>';
-                           }
-                       },
-                        {
-                            data: "Telefone",
-                            title: "Telefone"
-                        },
-                         {
-                             data: "Telefone2",
-                             title: "Celular"
-                         },
 
 
                      {
-                         data: "id_usuario",
+                         data: "id_pessoa",
                          title: "Ações",
                          bSortable: false,
                          render: function (o, tipo, linha) {
-                             var urlBase = '@Url.Content("~/usuarios/editar/")';
+                             var urlBase = '@Url.Content("~/pessoas/editar/")';
 
 
                              //botao editar

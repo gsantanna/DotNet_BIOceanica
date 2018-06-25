@@ -1,4 +1,5 @@
-﻿using System;
+﻿using bie.evgestao.domain.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace bie.evgestao.domain.Entities
@@ -33,13 +34,13 @@ namespace bie.evgestao.domain.Entities
         public DateTime DataCriacao { get; set; }
 
         public string Telefone1 { get; set; }
-        public string Telefine2 { get; set; }
+        public string Telefone2 { get; set; }
 
         //Celula possui várias pessoas. logo...
         public virtual ICollection<Pessoa> Pessoas { get; set; }
 
-        public int id_tipocelula { get; set; }
-        public virtual TipoCelula TipoCelula { get; set; }
+        
+        public  TipoCelula TipoCelula { get; set; }
 
         
 

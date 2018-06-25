@@ -61,7 +61,6 @@
     <Compile Include="Configuration\FamiliarConfiguration.cs" />
     <Compile Include="Configuration\FotoConfiguration.cs" />
     <Compile Include="Configuration\PessoaConfiguration.cs" />
-    <Compile Include="Configuration\TipoCelulaConfiguration.cs" />
     <Compile Include="Configuration\UsuarioConfiguration.cs" />
     <Compile Include="Context\MainDataContext.cs" />
     <Compile Include="Migrations\201709090227434_Inicial.cs" />
@@ -71,6 +70,14 @@
     <Compile Include="Migrations\201709091915003_Mgr_Adicionartbusuario.cs" />
     <Compile Include="Migrations\201709091915003_Mgr_Adicionartbusuario.Designer.cs">
       <DependentUpon>201709091915003_Mgr_Adicionartbusuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806242010152_Ajustes_pos_configPessoa.cs" />
+    <Compile Include="Migrations\201806242010152_Ajustes_pos_configPessoa.Designer.cs">
+      <DependentUpon>201806242010152_Ajustes_pos_configPessoa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806242019079_pessoa_celula_001.cs" />
+    <Compile Include="Migrations\201806242019079_pessoa_celula_001.Designer.cs">
+      <DependentUpon>201806242019079_pessoa_celula_001.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,6 +103,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709091915003_Mgr_Adicionartbusuario.resx">
       <DependentUpon>201709091915003_Mgr_Adicionartbusuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806242010152_Ajustes_pos_configPessoa.resx">
+      <DependentUpon>201806242010152_Ajustes_pos_configPessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806242019079_pessoa_celula_001.resx">
+      <DependentUpon>201806242019079_pessoa_celula_001.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

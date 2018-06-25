@@ -28,6 +28,28 @@ namespace bie.evgestao.ui.mvc.Controllers
         }
 
 
+        #region Criar 
+        [HttpGet]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        public ActionResult Criar()
+        {
+            return View();
+
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        public ActionResult Criar(PessoaViewmodel model)
+        {
+
+            return View(model);
+        }
+
+        #endregion
+
+
+
+
 
 
 

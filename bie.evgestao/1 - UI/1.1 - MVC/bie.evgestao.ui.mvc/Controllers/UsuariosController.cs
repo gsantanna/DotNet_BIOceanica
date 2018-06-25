@@ -16,7 +16,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace bie.evgestao.ui.mvc.Controllers
 {
-    [Authorize(Roles = "Superadmin,Administrador,Focus")]
+    [Authorize(Roles = "Superadmin,Administrador")]
     public class UsuariosController : BaseController
     {
         private readonly IUsuarioAppService _UserAppSvc;

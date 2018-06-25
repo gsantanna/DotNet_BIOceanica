@@ -15,15 +15,19 @@ namespace bie.evgestao.ui.mvc.AutoMapper
             Mapper.Initialize(cfg =>
             {
 
-
-
-
                 #region USUARIO
 
                 cfg.CreateMap<Usuario, UsuarioViewmodel>();
-                 cfg.CreateMap<UsuarioViewmodel, Usuario>();
+                cfg.CreateMap<UsuarioViewmodel, Usuario>();
 
                 #endregion
+
+
+                #region PESSOA 
+                cfg.CreateMap<Pessoa, PessoaViewmodel>();
+                cfg.CreateMap<PessoaViewmodel, Pessoa>();
+                #endregion
+
 
 
 

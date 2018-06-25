@@ -130,6 +130,7 @@
   <ItemGroup>
     <Compile Include="CargoViewmodel.cs" />
     <Compile Include="CelulaViewmodel.cs" />
+    <Compile Include="CepViewmodel.cs" />
     <Compile Include="FamiliarViewmodel.cs" />
     <Compile Include="GrauParentescoViewmodel.cs" />
     <Compile Include="Identity\ItemMenuViewmodel.cs" />

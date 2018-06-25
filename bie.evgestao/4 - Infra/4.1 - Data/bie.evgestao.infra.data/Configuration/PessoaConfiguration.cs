@@ -43,7 +43,7 @@ namespace bie.evgestao.infra.data.Configuration
 
             //Ligação CELULA COM PESSOA
             //Padrão --> Filho para o Pai           
-            HasRequired(filho => filho.Celula).WithMany(pai => pai.Pessoas).HasForeignKey(c => c.id_celula);
+            HasOptional(filho => filho.Celula).WithMany(pai => pai.Pessoas).HasForeignKey(c => c.id_celula);
 
 
 
