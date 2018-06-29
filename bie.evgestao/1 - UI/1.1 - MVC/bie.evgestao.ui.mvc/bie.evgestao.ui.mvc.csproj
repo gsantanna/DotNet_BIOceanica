@@ -254,6 +254,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EnumToDropDownListExtensions.cs" />
     <Compile Include="Helpers\IdentityHelper.cs" />
     <Compile Include="Migrations\201709091721058_InicialIdentity.cs" />
     <Compile Include="Migrations\201709091721058_InicialIdentity.Designer.cs">

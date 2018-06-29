@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace bie.evgestao.domain.Enums
@@ -172,6 +173,55 @@ namespace bie.evgestao.domain.Enums
 
 
 
+    #region Geografia 
+
+
+
+    public enum EstadosBrasil
+    {
+        AC, // Acre
+        AL, // Alagoas
+        AP, // Amapá
+        AM, // Amazonas
+        BA, // Bahia
+        CE, // Ceará
+        DF, // Distrito Federal
+        ES, // Espírito Santo
+        GO, // Goiás
+        MA, // Maranhão
+        MT, // Mato Grosso
+        MS, // Mato Grosso do Sul
+        MG, // Minas Gerais
+        PA, // Pará
+        PB, // Paraíba
+        PR, // Paraná
+        PE, // Pernambuco
+        PI, // Piauí
+        RR, // Roraima
+        RO, // Rondônia
+        RJ, // Rio de Janeiro
+        RN, // Rio Grande do Norte
+        RS, // Rio Grande do Sul
+        SC, // Santa Catarina
+        SP, // São Paulo
+        SE, // Sergipe
+        TO // Tocantins        
+    }
+
+
+
+
+
+
+    #endregion
+
+
+
+
+
+
+
+
 
     #region Extensões
     public static class Extensions
@@ -180,9 +230,16 @@ namespace bie.evgestao.domain.Enums
         {
             DescriptionAttribute[] attributes = (DescriptionAttribute[])val.GetType().GetField(val.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), false);
             return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        }
+        }        
+
     }
+
+
+
+
     #endregion
 
 
+
 }
+
