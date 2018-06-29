@@ -85,7 +85,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Estados.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="JsonResult2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
