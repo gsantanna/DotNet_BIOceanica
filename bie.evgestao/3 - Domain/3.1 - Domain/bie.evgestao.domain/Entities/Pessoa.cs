@@ -38,7 +38,7 @@ namespace bie.evgestao.domain.Entities
 
         public string Cidade { get; set; }
 
-        public string UF { get; set; }
+        public EstadosBrasil UF { get; set; }
 
         public string Pais { get; set; }
 

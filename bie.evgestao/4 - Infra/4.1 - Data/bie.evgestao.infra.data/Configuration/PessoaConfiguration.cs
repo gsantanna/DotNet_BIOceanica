@@ -24,7 +24,7 @@ namespace bie.evgestao.infra.data.Configuration
 
             Property(x => x.Bairro).IsOptional().HasMaxLength(100);
             Property(x => x.Cidade).IsOptional().HasMaxLength(100);
-            Property(x => x.UF).IsOptional().HasMaxLength(2);
+            Property(x => x.UF).IsOptional();
             Property(x => x.Pais).IsOptional().HasMaxLength(100);
             Property(x => x.Cep).IsOptional().HasMaxLength(15);
 

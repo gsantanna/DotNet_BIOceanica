@@ -4,7 +4,8 @@ using AutoMapper;
 using bie.evgestao.domain.Entities;
 using bie.evgestao.ui.viewmodels;
 using System.Linq;
-using bie.mvc.utilities;
+
+
 
 namespace bie.evgestao.ui.mvc.AutoMapper
 {

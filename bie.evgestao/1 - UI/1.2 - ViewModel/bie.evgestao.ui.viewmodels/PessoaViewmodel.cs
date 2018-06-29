@@ -47,7 +47,7 @@ namespace bie.evgestao.ui.viewmodels
         public string Cidade { get; set; }
 
         [MaxLength(2, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
-        public string UF { get; set; }
+        public EstadosBrasil UF { get; set; }
 
         [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
         public string Pais { get; set; }
