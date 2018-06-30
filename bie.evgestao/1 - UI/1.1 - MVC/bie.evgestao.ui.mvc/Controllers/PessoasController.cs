@@ -42,7 +42,19 @@ namespace bie.evgestao.ui.mvc.Controllers
         public ActionResult Criar(PessoaViewmodel model)
         {
 
-            return View(model);
+            if (ModelState.IsValid)
+            {
+
+                Pessoa objEntidade = Mapper.Map<PessoaViewmodel, Pessoa>(model);
+                _svcPessoa.Add(objEntidade);
+                ViewBag.Mensagem = "Item criado com sucesso";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Mensagem = "Erro ao gravar registro operação falhou";
+                return View(model);
+            }
         }
 
         #endregion

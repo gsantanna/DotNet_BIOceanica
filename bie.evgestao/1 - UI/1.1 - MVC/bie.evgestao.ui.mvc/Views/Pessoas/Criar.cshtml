@@ -12,7 +12,7 @@
 
 
 
-@using (Html.BeginForm("criar", "membros", FormMethod.Post, new { @id = "frmMain", @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("criar", "pessoas", FormMethod.Post, new { @id = "frmMain", @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -68,7 +68,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.DataNascimento, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.DataNascimento, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.DataNascimento, new { htmlAttributes = new { @class = "form-control dtp" } })
                             @Html.ValidationMessageFor(model => model.DataNascimento, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -227,15 +227,28 @@
 
 
 
+                </div>
 
 
+                <div class="panel-body">
 
+                    <div style="overflow:auto">
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Create" class="btn btn-default" />
+                        <div class="col-md-10 col-md-offset-2  btn-container" style="">
+                            <button type="submit" class="btn btn-space btn-primary">Salvar</button>
+                            <a href="@Url.Action("Index")" class="btn btn-space btn-default">Cancelar</a>
                         </div>
+
+
                     </div>
+
+
+
+
+
+
+
+
                 </div>
 
             </div>
@@ -246,12 +259,16 @@
 
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+
+
+    <script src="~/Scripts/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+    <link href="~/Scripts/datetimepicker/jquery.datetimepicker.min.css" rel="stylesheet" />
+
 
 
 
@@ -267,28 +284,51 @@
                 if (strCep == "") return;
 
 
-                alert(strCep);
-
                 $.getJSON("/home/cep/" + strCep, function (data) {
 
 
                     $("#Endereco").val(data.logradouro);
                     $("#Bairro").val(data.bairro);
                     $("#Cidade").val(data.localidade);
-                    $("#UF").val(data.uf);
+
+
+                    $("#UF option:contains('" + data.uf + "')").attr("selected", "selected")
+
+
+
+                    //$("#UF").val(data.uf);
+
+
                     $("#Pais").val("Brasil");
                     if (data.logradouro != "") {
                         $("#Numero").focus();
                     }
 
                 }).fail(function () {
-                    
+
 
                 });
 
 
 
             });
+
+
+
+
+            $(".dtp").datetimepicker({
+                format: 'd/m/Y',
+                //format: 'd/m/Y',
+                lang: 'pt-BR',
+                closeOnDateSelect: true
+
+            });
+
+            $.datetimepicker.setLocale('pt-BR');
+
+
+
+
 
         })
 
