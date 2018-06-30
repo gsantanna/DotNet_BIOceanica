@@ -6,5 +6,15 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 500px;
+}
+
+
+.pequeno {
+    max-width:80px;
+}
+
+
+.medio {
+    max-width: 200px;
 }

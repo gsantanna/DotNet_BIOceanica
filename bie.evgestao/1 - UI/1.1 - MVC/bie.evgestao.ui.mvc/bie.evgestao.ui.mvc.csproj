@@ -675,11 +675,14 @@
     <Content Include="Scripts\jquery.validate.pt-br.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Util.js" />
+    <Content Include="Scripts\validacao-data.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -721,6 +724,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\3rdParty\Template\image-resources\people\" />
+    <Folder Include="Scripts\cldr\" />
+    <Folder Include="Scripts\globalize\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

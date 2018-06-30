@@ -228,9 +228,18 @@ namespace bie.evgestao.domain.Enums
     {
         public static string ToDescriptionString(this Enum val)
         {
-            DescriptionAttribute[] attributes = (DescriptionAttribute[])val.GetType().GetField(val.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), false);
-            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        }        
+            if (val == null) return string.Empty;
+            try
+            {
+                DescriptionAttribute[] attributes = (DescriptionAttribute[])val.GetType().GetField(val.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), false);
+                return attributes.Length > 0 ? attributes[0].Description : val.ToString();
+            }
+            catch
+            {
+                return val.ToString();
+            }
+
+        }
 
     }
 
