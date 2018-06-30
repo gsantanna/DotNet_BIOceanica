@@ -16,7 +16,7 @@ namespace bie.evgestao.ui.mvc.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-        
+
 
         //Identity
         protected readonly UserManager<ApplicationUser> _userManager;
@@ -29,7 +29,7 @@ namespace bie.evgestao.ui.mvc.Controllers
             DbContext context = new ApplicationDbContext();
             _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-                     
+
 
 
 
@@ -50,7 +50,7 @@ namespace bie.evgestao.ui.mvc.Controllers
         }
 
         public int IndicePermissao { get; set; }
-        
+
         private const string ENDERECO_BASECEP = "https://viacep.com.br/ws/";
         public JsonResult cep(string id)
         {
@@ -65,6 +65,10 @@ namespace bie.evgestao.ui.mvc.Controllers
 
             return Json(queryResult, JsonRequestBehavior.AllowGet);
         }
+
+
+
+
 
     }
 }

@@ -11,7 +11,7 @@ namespace bie.evgestao.infra.data.Repository
 
     public class FamiliarRepository : RepositoryBase<Familiar>, IFamiliarRepository { }
 
-    public class FotoRepository : RepositoryBase<Foto>, IFotoRepository { }
+    
 
 
 }

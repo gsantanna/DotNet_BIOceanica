@@ -7,8 +7,11 @@
 }
 
 
-<div id="page-title"><h2>Gerenciar pessoas</h2><p>Gestão de membros 
-    </p></div>
+<div id="page-title">
+    <h2>Gerenciar pessoas</h2><p>
+        Gestão de membros
+    </p>
+</div>
 
 <div class="row">
 
@@ -120,8 +123,8 @@
                     },
                     {
                         data: "StatusIcon",
-                        title: "Status", 
-                        render: function (o, tipo,linha ) {                            
+                        title: "Status",
+                        render: function (o, tipo,linha ) {
                             return '<div class="text-center" title="' + linha.StatusDesc + '" style="width:100%;"><span style="cursor:default" class="btn btn-xs btn-round btn-' + o  + '"><i class="glyph-icon"></i><div class="ripple-wrapper"></div></span></div>';
                         }
                      },
@@ -133,10 +136,14 @@
                          bSortable: false,
                          render: function (o, tipo, linha) {
                              var urlBase = '@Url.Content("~/pessoas/editar/")';
+                             var urlFamiliares = '@Url.Content("~/pessoas/familiares/")';
 
+                             var ret = "";
 
+                             //botão familiares
+                             ret += '<a class="btn btn-default glyph-icon icon-child" title="Editar familiares" href="' + urlFamiliares + o + '" role="button"><div class="ripple-wrapper"></div></a>';
                              //botao editar
-                             var ret = '<a class="btn btn-default glyph-icon icon-edit" title="Editar item" href="' + urlBase + o + '" role="button"><div class="ripple-wrapper"></div></a>';
+                             ret += '<a class="btn btn-default glyph-icon icon-edit" title="Editar item" href="' + urlBase + o + '" role="button"><div class="ripple-wrapper"></div></a>';
                              //botao ativar / desativar
                              ret += '<button class="btn btn-default" title="' + (linha.Ativo ? 'Desativar' : 'Ativar') + '"   onclick="ativacao(\'' + o + '\')"    ><i class="glyph-icon icon-' + (linha.Ativo ? 'pause' : 'play')  +   '"></i><div class="ripple-wrapper"></div></button>'
                              //botao excluir
@@ -175,7 +182,20 @@
                             tabela.ajax.reload();
                         },
                         error: function (xhr) {
-                            alert('Erro ao efetuar o comando no servidor. Verifique se o usuário possui as permissões adequadas e tente novamente');
+
+                            var arrResp = $(xhr.responseText);
+
+                            if (arrResp.length > 0) //A api retornou o erro, exibir o que está vindo da API
+                            {
+                                alert($(arrResp[1]).text());
+
+                            } else //A api não retornou erro corretamente. Exibe mensagem genérica de erro
+                            {
+                                alert('Erro ao efetuar o comando no servidor');
+                            }
+
+                            $(ml).modal("hide");
+                           // alert($($(xhr.responseText)[1]).text());
                         }
                     });
 

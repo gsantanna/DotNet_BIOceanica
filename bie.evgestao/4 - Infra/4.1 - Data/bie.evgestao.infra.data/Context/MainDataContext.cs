@@ -39,8 +39,7 @@ namespace bie.evgestao.infra.data.Context
 
             modelBuilder.Configurations.Add(new CelulaConfiguration());
             modelBuilder.Configurations.Add(new FamiliarConfiguration());
-            modelBuilder.Configurations.Add(new FotoConfiguration());
-            modelBuilder.Configurations.Add(new PessoaConfiguration());                        
+            modelBuilder.Configurations.Add(new PessoaConfiguration());
             modelBuilder.Configurations.Add(new UsuarioConfiguration());
 
 

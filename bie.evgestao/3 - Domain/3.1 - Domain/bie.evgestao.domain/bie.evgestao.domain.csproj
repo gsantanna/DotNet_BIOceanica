@@ -47,7 +47,6 @@
     <Compile Include="Entities\Arquivo.cs" />
     <Compile Include="Entities\Celula.cs" />
     <Compile Include="Entities\Familiar.cs" />
-    <Compile Include="Entities\Foto.cs" />
     <Compile Include="Entities\Notification.cs" />
     <Compile Include="Entities\Pessoa.cs" />
     <Compile Include="Entities\Usuario.cs" />

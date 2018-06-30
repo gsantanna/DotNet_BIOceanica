@@ -99,6 +99,7 @@ namespace bie.evgestao.ui.viewmodels
         public TipoSaidaPessoa? Saida { get; set; }
 
         public FuncaoPessoa? Funcao { get; set; }
+        public string FuncaoDesc => Funcao.ToDescriptionString();
 
 
         public string Tels => $"{Telefone}<br/>{TelefoneCelular}<br/>{TelefoneTrabalho}";

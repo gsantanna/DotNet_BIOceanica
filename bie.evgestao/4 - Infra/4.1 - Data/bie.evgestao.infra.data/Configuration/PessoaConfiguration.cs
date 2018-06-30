@@ -12,9 +12,10 @@ namespace bie.evgestao.infra.data.Configuration
             HasKey(p => p.id_pessoa);
 
             Property(p => p.Nome).IsRequired().HasMaxLength(100);
-            Property(x => x.ConhecidoComo).IsOptional().HasMaxLength(100);
-            Property(x => x.DataNascimento).IsOptional();
 
+            Property(x => x.ConhecidoComo).IsOptional().HasMaxLength(100);
+
+            Property(x => x.DataNascimento).IsOptional();
 
             Property(x => x.Endereco).IsOptional().HasMaxLength(250);
 
@@ -38,7 +39,8 @@ namespace bie.evgestao.infra.data.Configuration
             Property(x => x.Nacionalidade).IsOptional().HasMaxLength(100);
 
 
-
+            Property(x => x.Foto).IsOptional();
+            Property(x => x.FotoExt).IsOptional().HasMaxLength(30);
 
 
             //Ligação CELULA COM PESSOA

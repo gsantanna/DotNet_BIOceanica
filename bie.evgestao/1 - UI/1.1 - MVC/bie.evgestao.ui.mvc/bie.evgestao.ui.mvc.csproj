@@ -245,7 +245,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Automapper\AutomapConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CepViewmodel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Identity\AccountController.cs" />
     <Compile Include="Controllers\Identity\ManageController.cs" />
@@ -259,6 +258,10 @@
     <Compile Include="Migrations\201709091721058_InicialIdentity.cs" />
     <Compile Include="Migrations\201709091721058_InicialIdentity.Designer.cs">
       <DependentUpon>201709091721058_InicialIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806301520466_FotoParapessoa.cs" />
+    <Compile Include="Migrations\201806301520466_FotoParapessoa.Designer.cs">
+      <DependentUpon>201806301520466_FotoParapessoa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Identity\ForgotPasswordViewModel.cs" />
@@ -717,8 +720,8 @@
     <Content Include="Views\Usuarios\Editar.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\Pessoas\Criar.cshtml" />
-    <Content Include="Views\Pessoas\Editar.cshtml" />
     <Content Include="Views\Pessoas\Index.cshtml" />
+    <Content Include="Views\Pessoas\Editar.cshtml" />
     <None Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -759,6 +762,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201709091721058_InicialIdentity.resx">
       <DependentUpon>201709091721058_InicialIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806301520466_FotoParapessoa.resx">
+      <DependentUpon>201806301520466_FotoParapessoa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

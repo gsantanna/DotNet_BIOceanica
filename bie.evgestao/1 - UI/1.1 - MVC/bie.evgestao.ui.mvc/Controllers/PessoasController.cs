@@ -4,6 +4,8 @@ using bie.evgestao.domain.Entities;
 using bie.evgestao.ui.viewmodels;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System;
+using System.Web;
 
 namespace bie.evgestao.ui.mvc.Controllers
 {
@@ -14,7 +16,7 @@ namespace bie.evgestao.ui.mvc.Controllers
         private readonly IPessoaAppService _svcPessoa;
 
 
-
+        //Constructor que atravé da injeção de dependencias já vai receber uma instancia da classe de serviço apropriada
         public PessoasController(IPessoaAppService Svc1)
         {
             _svcPessoa = Svc1;
@@ -22,6 +24,7 @@ namespace bie.evgestao.ui.mvc.Controllers
         }
 
         // GET: Pessoas
+        //Retorna somente a view pois a mesma usa uma chamada ajax pra popular o grid
         public ActionResult Index()
         {
             return View();
@@ -39,43 +42,161 @@ namespace bie.evgestao.ui.mvc.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        [ValidateAntiForgeryToken]
         public ActionResult Criar(PessoaViewmodel model)
         {
-
-            if (ModelState.IsValid)
+            try
             {
 
+                //valida se não há erros no modelstate (caso o jquery validation falhe)
+                if (!ModelState.IsValid) return View(model);
+
+                //Cria a entidade de banco de dados através do viewmodel usando o AutoMapper
                 Pessoa objEntidade = Mapper.Map<PessoaViewmodel, Pessoa>(model);
+
+                //Chama o serviço para adicionar a entidade Pessoa recém declarada 
                 _svcPessoa.Add(objEntidade);
+
+                //Seta a mensagem de retorno (javascript na página de layout)
                 ViewBag.Mensagem = "Item criado com sucesso";
+
+                //redireciona para o index
                 return RedirectToAction("Index");
             }
-            else
+            catch (Exception ex) //tratado aqui caso de erro o usuário não perde o preenchimento pois ele tem o return view(model)
             {
-                ViewBag.Mensagem = "Erro ao gravar registro operação falhou";
+                ViewBag.Mensagem = $"Erro ao executar o comando. O erro foi: {ex.Message}";
+                //TODO: Logar o erro no log4net
                 return View(model);
+
+            }
+
+
+
+
+        }
+
+        #endregion
+
+        #region Editar 
+
+        [HttpGet]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        public ActionResult Editar(int id)
+        {
+            #region preparação 
+
+            //Carrega a entidade do banco de dados 
+            var objEntidade = _svcPessoa.GetById(id);
+            if (objEntidade == null) return new HttpNotFoundResult("Pessoa não encontrada");
+            PessoaViewmodel model = Mapper.Map<Pessoa, PessoaViewmodel>(objEntidade);
+            #endregion
+
+            return View(model);
+
+
+
+        }
+
+
+        [HttpPost]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(PessoaViewmodel model)
+        {
+            try
+            {
+                //valida se não há erros no modelstate (caso o jquery validation falhe)
+                if (!ModelState.IsValid) return View(model);
+
+
+                //Carrega a entidade do banco de dados 
+                var objEntidade = _svcPessoa.GetById(model.id_pessoa);
+                if (objEntidade == null) return new HttpNotFoundResult("Pessoa não encontrada");
+
+                //remapeia as propriedades para atualizar o banco (atualiza as propriedades da entidade do banco de dados com os dados da viewmodel)
+                Mapper.Map<PessoaViewmodel, Pessoa>(model, objEntidade);
+
+                //Atualiza os dados no banco (executa a chamada do application pra atualizar a pessoa 
+                _svcPessoa.Update(objEntidade);
+
+                //TODO:Logar no audit trail a alteração
+
+                //cria a mensagem de retorno 
+                ViewBag.Mensagem = $"Membro {objEntidade.Nome} atualizado com sucesso!";
+
+
+                //retorna para a view (index) 
+                return RedirectToAction("Index");
+
+
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Mensagem = $"Erro ao executar o comando. O erro foi: {ex.Message}";
+                //TODO: Logar o erro no log4net
+                return View(model);
+
+
+            }
+
+
+        }
+
+
+
+
+        #endregion
+
+
+        #region Deletar 
+
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        public JsonResult Deletar(int id)
+        {
+            try
+            {
+                //Carrega o modelo do banco de dados com o ID referente ao que está sendo solicitado para deleção 
+                var model = _svcPessoa.GetById(id);
+
+                //Caso não encontre retorna uma exception 
+                if (model == null) throw new HttpException(404, "Item não encontrado");
+
+                //Passa o comando para a camada de aplicação remover a pessoa do sistema
+                _svcPessoa.Remove(model);
+
+                //retorna um status OK 
+                return Json("OK");
+            }
+            catch (Exception ex)
+            {
+                //caso dê algum erro ele retorna um erro HTTP para o ajax falhar e o javascript poder tratar a mensagem pro usuário
+                throw new HttpException(500, $"Erro ao excluir a pessoa. O erro foi: {ex.Message}");
             }
         }
+
 
         #endregion
 
 
 
 
-
-
-
-
-
-
-
-
-
         #region API
+        /// <summary>
+        /// Método genérico para retornar a lista de itens da entidade para carregar a página inicial
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetJson()
         {
+            //instancia as entidades já carregando do serviço 
             var entidade = _svcPessoa.GetAll();
+            //Mapeia para a viewmodel --> não se deve retornar o modelo direto sem uma viewmodel pois como ele tem muitos relacionamentos, pode arriscar
+            //carregar todos os dados do sistema no mesmo ajax, o que travaria o navegador e o servidor 
             var model = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(entidade);
+
+            //Retorna o tipo especial (JsonResult2) que é uma derivação do jsonresult tradicional, só que com um leve tratamento nas datas
+            //para facilitar o uso no jquery datatables grid
             return new JsonResult2 { Data = new { data = model } };
         }
 

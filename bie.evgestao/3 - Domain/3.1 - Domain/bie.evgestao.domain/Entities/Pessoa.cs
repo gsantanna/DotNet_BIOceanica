@@ -69,10 +69,11 @@ namespace bie.evgestao.domain.Entities
         public FuncaoPessoa Funcao { get; set; }
 
 
-
-
-
-
+        //trazido para pessoa para simplificar. 
+        //TODO: pode ser movido pra uma classe separada depois.
+        public Byte[] Foto { get; set; }
+        public string FotoExt { get; set; }
+        public string FotoMime { get; set; }
 
     }
 

@@ -15,7 +15,7 @@ namespace bie.evgestao.ui.mvc.Helpers
 
         //@Html.EnumDropDownListFor(model => model.MyEnumProperty)
 
-        private static Type GetNonNullableModelType(ModelMetadata modelMetadata)
+        public static Type GetNonNullableModelType(ModelMetadata modelMetadata)
         {
             Type realModelType = modelMetadata.ModelType;
 
@@ -41,12 +41,20 @@ namespace bie.evgestao.ui.mvc.Helpers
                 return value.ToString();
         }
 
-        public static MvcHtmlString EnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression)
+        public static MvcHtmlString EnumDropDownListWDescriptionFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression)
         {
-            return EnumDropDownListFor(htmlHelper, expression, null);
+            return EnumDropDownListWDescriptionFor(htmlHelper, expression, null);
         }
-
-        public static MvcHtmlString EnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression, object htmlAttributes)
+        /// <summary>
+        /// Extensão 001 -> Cria usando o desciptioncomo Atributo
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <param name="htmlHelper"></param>
+        /// <param name="expression"></param>
+        /// <param name="htmlAttributes"></param>
+        /// <returns></returns>
+        public static MvcHtmlString EnumDropDownListWDescriptionFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression, object htmlAttributes)
         {
             ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             Type enumType = GetNonNullableModelType(metadata);
