@@ -90,6 +90,10 @@
     <Compile Include="Migrations\201806301524593_FotoParapessoa2.Designer.cs">
       <DependentUpon>201806301524593_FotoParapessoa2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806301843440_remover_lixo_foto_pessoa.cs" />
+    <Compile Include="Migrations\201806301843440_remover_lixo_foto_pessoa.Designer.cs">
+      <DependentUpon>201806301843440_remover_lixo_foto_pessoa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ImplementacaoPadrao.cs" />
@@ -129,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806301524593_FotoParapessoa2.resx">
       <DependentUpon>201806301524593_FotoParapessoa2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806301843440_remover_lixo_foto_pessoa.resx">
+      <DependentUpon>201806301843440_remover_lixo_foto_pessoa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

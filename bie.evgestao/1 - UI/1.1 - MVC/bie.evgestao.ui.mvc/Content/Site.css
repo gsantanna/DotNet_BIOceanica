@@ -18,3 +18,12 @@ textarea {
 .medio {
     max-width: 200px;
 }
+
+
+
+img {
+    image-orientation: from-image;
+}
+
+
+

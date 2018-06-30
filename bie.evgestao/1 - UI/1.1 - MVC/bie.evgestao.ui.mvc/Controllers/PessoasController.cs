@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using System;
 using System.Web;
+using System.Linq;
 
 namespace bie.evgestao.ui.mvc.Controllers
 {
@@ -117,6 +118,23 @@ namespace bie.evgestao.ui.mvc.Controllers
                 //remapeia as propriedades para atualizar o banco (atualiza as propriedades da entidade do banco de dados com os dados da viewmodel)
                 Mapper.Map<PessoaViewmodel, Pessoa>(model, objEntidade);
 
+                //carrega os dados da foto
+                //somente se o usuário fez upload da foto, pois caso não tenha feito, não modificará a imagem 
+                //atualmente gravada no banco de dados
+                if (model.ArqImagem != null && model.ArqImagem.ContentLength > 0)
+                {
+                    //carrega o mime type do arquivo. Será necessário para entregar o arquivo via FileResult
+                    objEntidade.FotoMime = model.ArqImagem.ContentType;
+
+                    //cria o array vazio com o tamanho exato da imagem que foi feito upload 
+                    objEntidade.Foto = new byte[model.ArqImagem.ContentLength];
+
+                    //lê os bytes do arquivo que foi feito upload e grava na entidade do banco de dados 
+                    model.ArqImagem.InputStream.Read(objEntidade.Foto, 0, objEntidade.Foto.Length);
+                }
+
+
+
                 //Atualiza os dados no banco (executa a chamada do application pra atualizar a pessoa 
                 _svcPessoa.Update(objEntidade);
 
@@ -148,7 +166,6 @@ namespace bie.evgestao.ui.mvc.Controllers
 
 
         #endregion
-
 
         #region Deletar 
 
@@ -200,6 +217,35 @@ namespace bie.evgestao.ui.mvc.Controllers
             return new JsonResult2 { Data = new { data = model } };
         }
 
+
+        [AllowAnonymous]
+        public FileResult Foto(int id)
+        {
+            //carrega a entidade 
+            var entidade = _svcPessoa.GetById(id);
+
+            //caso não encontre a entidade ele retorna um erro 404 
+            if (entidade == null) throw new HttpException(404, "Imagem não localizada");
+
+
+            //caso não tenha foto retorna o placeholder
+            if (entidade.Foto == null || entidade.Foto.Length == 0)
+            {
+                return File(
+                    System.IO.File.ReadAllBytes(Server.MapPath("~/Content/pessoa.png"))
+                    , System.Net.Mime.MediaTypeNames.Application.Octet, "pessoa.png");
+            }
+
+            //carrega a extensão do arquivo pelo mime type
+            var ext = "bmp";
+            if (entidade.FotoMime.Contains("jpg") || entidade.FotoMime.Contains("jpeg")) ext = "jpg";
+            if (entidade.FotoMime.Contains("png") || entidade.FotoMime.Contains("portable")) ext = "png";
+            if (entidade.FotoMime.Contains("gif")) ext = "gif";
+
+            //retorna o arquivo do banco de dados
+            return File(entidade.Foto, entidade.FotoMime, $"{entidade.Nome}.{ext}");
+
+        }
 
         #endregion
 

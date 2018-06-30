@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-
+using System.Web;
 
 namespace bie.evgestao.ui.viewmodels
 {
@@ -46,7 +46,7 @@ namespace bie.evgestao.ui.viewmodels
         [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
         public string Cidade { get; set; }
 
-        
+
         public EstadosBrasil UF { get; set; }
 
         [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
@@ -103,6 +103,14 @@ namespace bie.evgestao.ui.viewmodels
 
 
         public string Tels => $"{Telefone}<br/>{TelefoneCelular}<br/>{TelefoneTrabalho}";
+
+
+
+
+
+        //Arquivo 
+        public HttpPostedFileBase ArqImagem { get; set; }
+
 
 
         public string StatusIcon

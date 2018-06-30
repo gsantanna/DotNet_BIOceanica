@@ -40,7 +40,7 @@ namespace bie.evgestao.infra.data.Configuration
 
 
             Property(x => x.Foto).IsOptional();
-            Property(x => x.FotoExt).IsOptional().HasMaxLength(30);
+            Property(x => x.FotoMime).IsOptional().HasMaxLength(60);
 
 
             //Ligação CELULA COM PESSOA

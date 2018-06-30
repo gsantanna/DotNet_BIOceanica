@@ -620,6 +620,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\pessoa.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -667,6 +668,7 @@
     <Content Include="Scripts\datetimepicker\jquery.datetimepicker.full.min.js" />
     <Content Include="Scripts\datetimepicker\jquery.datetimepicker.min.css" />
     <Content Include="Scripts\datetimepicker\jquery.datetimepicker.min.js" />
+    <Content Include="Scripts\exif.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -719,9 +721,9 @@
     <Content Include="Views\Usuarios\Criar.cshtml" />
     <Content Include="Views\Usuarios\Editar.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
-    <Content Include="Views\Pessoas\Criar.cshtml" />
     <Content Include="Views\Pessoas\Index.cshtml" />
     <Content Include="Views\Pessoas\Editar.cshtml" />
+    <Content Include="Views\Pessoas\Criar.cshtml" />
     <None Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>

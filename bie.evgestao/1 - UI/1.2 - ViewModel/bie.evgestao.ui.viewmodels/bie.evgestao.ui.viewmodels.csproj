@@ -100,6 +100,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Routing">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Web.Routing.dll</HintPath>
     </Reference>
@@ -128,7 +129,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CargoViewmodel.cs" />
     <Compile Include="CelulaViewmodel.cs" />
     <Compile Include="CepViewmodel.cs" />
     <Compile Include="FamiliarViewmodel.cs" />

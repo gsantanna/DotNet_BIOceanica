@@ -2,7 +2,7 @@
 @using bie.evgestao.ui.mvc.Helpers
 
 @{
-    ViewBag.Title = "Adicionar Membro";
+    ViewBag.Title = "Modificar Membro " + Model.Nome;
     ViewBag.HeaderText = ViewBag.Title;
 
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,7 +12,7 @@
 
 
 
-@using (Html.BeginForm("criar", "pessoas", FormMethod.Post, new { @id = "frmMain", @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("editar", "pessoas", FormMethod.Post, new { @id = "frmMain", @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -161,10 +161,6 @@
 
 
 
-
-
-
-
                 <div class="panel-heading">
                     <h3>Informações de contato</h3>
                 </div>
@@ -289,31 +285,34 @@
 
 
 
-            </div>
-            <div class="panel-heading">
-                <h3>Foto</h3>
-            </div>
 
-            <div class="panel-body">
+                <div class="panel-heading">
+                    <h3>Foto</h3>
+                </div>
 
-                
-
-            </div>
+                <div class="panel-body">
 
 
+                    <div class="row box-upload" style="padding-bottom:20px; ">
+                        <div class="col-md-6" style="vertical-align:middle;padding-left:10px;padding-top:10px">
+                            <div class="form-group" style="margin-left:0px;margin-top:0px;">
+
+                                <input type="file" id="ArqImagem" name="ArqImagem" value="Procurar foto" style="max-width:100%;" class="fl_imagens">
+                                <p class="help-block">Selecione um arquivo JPG, PNG ou GIF válido com proporção 3x4</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 text-right ">
 
 
+                            <img id="img_thumbnail" src='@Url.Action("Foto", new { id = Model.id_pessoa } )' style="width:270px;height:360px;" />
+                            <canvas id="ArqImagem_thumb" style="width:270px;height:360px;image-orientation:from-image !important;display:none"></canvas>
+                        </div>
 
 
-
-            <div class="panel-body">
-
-                <div style="overflow:auto">
-
-                    <div class="col-md-10 col-md-offset-2  btn-container" style="">
-                        <button type="submit" class="btn btn-space btn-primary">Salvar</button>
-                        <a href="@Url.Action("Index")" class="btn btn-space btn-default">Cancelar</a>
                     </div>
+
+
 
 
                 </div>
@@ -322,13 +321,34 @@
 
 
 
+                <div class="panel-heading">
+
+                </div>
 
 
+                <div class="panel-body">
+
+                    <div style="overflow:auto">
+
+                        <div class="col-md-10 col-md-offset-2  btn-container" style="">
+                            <button type="submit" class="btn btn-space btn-primary">Salvar</button>
+                            <a href="@Url.Action("Index")" class="btn btn-space btn-default">Cancelar</a>
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
 
             </div>
-
         </div>
-    </div>
 
     </div>
 
@@ -344,11 +364,14 @@
 
     <script src="~/Scripts/datetimepicker/jquery.datetimepicker.full.min.js"></script>
     <link href="~/Scripts/datetimepicker/jquery.datetimepicker.min.css" rel="stylesheet" />
-
+    <script src="~/Scripts/exif.js"></script>
 
 
 
     <script>
+
+        var urlBase = '@Url.Content("~/Pessoas/")';
+
 
         $(document).ready(function () {
 
@@ -366,14 +389,7 @@
                     $("#Endereco").val(data.logradouro);
                     $("#Bairro").val(data.bairro);
                     $("#Cidade").val(data.localidade);
-
-
                     $("#UF option:contains('" + data.uf + "')").attr("selected", "selected")
-
-
-
-                    //$("#UF").val(data.uf);
-
 
                     $("#Pais").val("Brasil");
                     if (data.logradouro != "") {
@@ -390,7 +406,9 @@
             });
 
 
-
+            $(".dtp").each(function (idx, obj) {
+                $(obj).val($(obj).val().substring(0,10));
+            });
 
             $(".dtp").datetimepicker({
                 format: 'd/m/Y',
@@ -400,13 +418,19 @@
 
             });
 
+
             $.datetimepicker.setLocale('pt-BR');
 
 
-
-
+            //Associa o change do input da foto para atualizar o thumbnail lateral
+            $(".fl_imagens").change(gerathumb);
 
         })
+
+
+
+
+
 
 
     </script>
