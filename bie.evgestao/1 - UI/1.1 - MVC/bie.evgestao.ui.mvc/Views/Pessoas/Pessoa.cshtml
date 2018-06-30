@@ -1,0 +1,379 @@
+﻿@model bie.evgestao.ui.viewmodels.PessoaViewmodel
+@using bie.evgestao.ui.mvc.Helpers
+
+@{
+    ViewBag.Title = "Membro: " + Model.Nome;
+    ViewBag.HeaderText = ViewBag.Title;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="col-md-12">
+
+    <div class="panel panel-default">
+
+
+        <div class="form-horizontal frmlimitado" style="max-width:800px">
+
+            <div class="panel-heading">
+                <h3>Dados Pessoais</h3>
+            </div>
+
+            <div class="panel-body">
+
+
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="Nome">Matrícula</label>
+                    <div class="col-md-10">
+                        <p class="form-control"> @Model.id_pessoa.ToString().PadLeft(6, '0')</p>
+
+
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ConhecidoComo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ConhecidoComo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConhecidoComo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Sexo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EnumDropDownListWDescriptionFor(model => model.Sexo, new { @class = "form-control pequeno" })
+                        @Html.ValidationMessageFor(model => model.ConhecidoComo, "", new { @class = "text-danger" })
+                    </div>
+
+
+
+                    @Html.LabelFor(model => model.EstadoCivil, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+
+
+                        @Html.EnumDropDownListWDescriptionFor(model => model.EstadoCivil, new { @class = "form-control " })
+
+
+                        @Html.ValidationMessageFor(model => model.EstadoCivil, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DataNascimento, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.DataNascimento, new { htmlAttributes = new { @class = "form-control dtp " } })
+                        @Html.ValidationMessageFor(model => model.DataNascimento, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    @Html.LabelFor(model => model.TipoSanguineo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EnumDropDownListWDescriptionFor(model => model.TipoSanguineo, new { @class = "form-control pequeno" })
+                        @Html.ValidationMessageFor(model => model.TipoSanguineo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <!-- excelencia em tudo que fizer! -->
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Naturalidade, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Naturalidade, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Naturalidade, "", new { @class = "text-danger" })
+                    </div>
+
+                    @Html.LabelFor(model => model.Nacionalidade, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Nacionalidade, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nacionalidade, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <div class="panel-heading">
+                <h3>Participação</h3>
+            </div>
+
+            <div class="panel-body">
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Funcao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EnumDropDownListWDescriptionFor(model => model.Funcao, new { @class = "form-control " })
+                        @Html.ValidationMessageFor(model => model.Funcao, "", new { @class = "text-danger" })
+                    </div>
+
+                    @Html.LabelFor(model => model.Situacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EnumDropDownListWDescriptionFor(model => model.Situacao, new { @class = "form-control " })
+                        @Html.ValidationMessageFor(model => model.Situacao, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Entrada, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EnumDropDownListWDescriptionFor(model => model.Entrada, new { @class = "form-control " })
+                        @Html.ValidationMessageFor(model => model.Entrada, "", new { @class = "text-danger" })
+                    </div>
+
+                    @Html.LabelFor(model => model.Saida, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EnumDropDownListWDescriptionFor(model => model.Saida, new { @class = "form-control " })
+                        @Html.ValidationMessageFor(model => model.Saida, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="panel-heading">
+                <h3>Informações de contato</h3>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    @Html.LabelFor(model => model.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Telefone, new { htmlAttributes = new { @class = "form-control " } })
+                        @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TelefoneTrabalho, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.TelefoneTrabalho, new { htmlAttributes = new { @class = "form-control  " } })
+                        @Html.ValidationMessageFor(model => model.TelefoneTrabalho, "", new { @class = "text-danger" })
+                    </div>
+
+                    @Html.LabelFor(model => model.TelefoneCelular, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.TelefoneCelular, new { htmlAttributes = new { @class = "form-control " } })
+                        @Html.ValidationMessageFor(model => model.TelefoneCelular, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+            <div class="panel-heading">
+                <h3>Endereço</h3>
+            </div>
+
+            <div class="panel-body">
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Cep, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Cep, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Cep, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Endereco, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Endereco, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Endereco, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+                    </div>
+
+                    @Html.LabelFor(model => model.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Complemento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
+                    </div>
+
+                    @Html.LabelFor(model => model.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Cidade, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UF, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EnumDropDownListWDescriptionFor(model => model.UF, new { @class = "form-control pequeno" })
+                        @Html.ValidationMessageFor(model => model.UF, "", new { @class = "text-danger" })
+                    </div>
+
+                    @Html.LabelFor(model => model.Pais, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Pais, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Pais, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+            <div class="panel-heading">
+                <h3>Foto</h3>
+            </div>
+
+            <div class="panel-body">
+
+
+                <div class="row box-upload" style="padding-bottom:20px; ">
+
+                    <img id="img_thumbnail" src='@Url.Action("Foto", new { id = Model.id_pessoa } )' style="width:270px;height:360px;" />
+
+                </div>
+
+
+
+
+            </div>
+
+
+
+
+            <div class="panel-heading">
+
+            </div>
+
+
+            <div class="panel-body">
+
+                <div style="overflow:auto">
+
+                    <div class="col-md-10   btn-container" style="">
+
+                        <a href="@Url.Action("Index")" class="btn btn-space btn-default">Voltar</a>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<style type="text/css">
+
+    .form-control {
+        border: none !important;
+        background-color: transparent !important;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+        cursor: default !important;
+        -webkit-box-shadow: none !important;
+        -moz-box-shadow: none !important;
+        box-shadow: none !important;
+    }
+
+        .form-control select::-ms-expand {
+            display: none;
+        }
+</style>
+
+
+@section scripts {
+
+    <script>
+
+        $(document).ready(function () {
+            $(".form-control").attr("readonly", "readonly");
+            $("option:not(:selected)").remove();
+
+
+
+        });
+
+    </script>
+}

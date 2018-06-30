@@ -10,6 +10,7 @@ using System.Linq;
 
 namespace bie.evgestao.ui.mvc.Controllers
 {
+    [Authorize]
     public class PessoasController : BaseController
     {
 
@@ -30,7 +31,6 @@ namespace bie.evgestao.ui.mvc.Controllers
         {
             return View();
         }
-
 
         #region Criar 
         [HttpGet]
@@ -55,6 +55,24 @@ namespace bie.evgestao.ui.mvc.Controllers
                 //Cria a entidade de banco de dados através do viewmodel usando o AutoMapper
                 Pessoa objEntidade = Mapper.Map<PessoaViewmodel, Pessoa>(model);
 
+
+
+                //carrega os dados da foto
+                //somente se o usuário fez upload da foto, pois caso não tenha feito, não modificará a imagem 
+                //atualmente gravada no banco de dados
+                if (model.ArqImagem != null && model.ArqImagem.ContentLength > 0)
+                {
+                    //carrega o mime type do arquivo. Será necessário para entregar o arquivo via FileResult
+                    objEntidade.FotoMime = model.ArqImagem.ContentType;
+
+                    //cria o array vazio com o tamanho exato da imagem que foi feito upload 
+                    objEntidade.Foto = new byte[model.ArqImagem.ContentLength];
+
+                    //lê os bytes do arquivo que foi feito upload e grava na entidade do banco de dados 
+                    model.ArqImagem.InputStream.Read(objEntidade.Foto, 0, objEntidade.Foto.Length);
+                }
+
+
                 //Chama o serviço para adicionar a entidade Pessoa recém declarada 
                 _svcPessoa.Add(objEntidade);
 
@@ -78,6 +96,26 @@ namespace bie.evgestao.ui.mvc.Controllers
         }
 
         #endregion
+
+
+        #region Visualizar  
+        [Authorize]
+        public ActionResult pessoa(int id)
+        {
+            #region preparação 
+
+            //Carrega a entidade do banco de dados 
+            var objEntidade = _svcPessoa.GetById(id);
+            if (objEntidade == null) return new HttpNotFoundResult("Pessoa não encontrada");
+            PessoaViewmodel model = Mapper.Map<Pessoa, PessoaViewmodel>(objEntidade);
+            #endregion
+
+            return View(model);
+
+        }
+
+        #endregion
+
 
         #region Editar 
 

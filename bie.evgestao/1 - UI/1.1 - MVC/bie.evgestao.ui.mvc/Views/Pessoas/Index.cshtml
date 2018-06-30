@@ -111,7 +111,11 @@
                 columns: [
                     {
                         data: "Nome",
-                        title: "Nome"
+                        title: "Nome",
+                        render: function (o, tipo, linha) {
+                            var urlBase = '@Url.Content("~/Pessoas/Pessoa/")';
+                            return '<a href="' + urlBase + linha.id_pessoa  + '">' +  o + '</a>';
+                        }
                     },
                     {
                         data: "SituacaoDesc",
@@ -137,15 +141,20 @@
                          render: function (o, tipo, linha) {
                              var urlBase = '@Url.Content("~/pessoas/editar/")';
                              var urlFamiliares = '@Url.Content("~/pessoas/familiares/")';
+                             var urlVisualizar = '@Url.Content("~/pessoas/pessoa/")';
 
                              var ret = "";
 
+                             //botão visualizar
+                             ret += '<a class="btn btn-default glyph-icon icon-eye" title="Visualizar pessoa" href="' + urlVisualizar + o + '" role="button"><div class="ripple-wrapper"></div></a>';
+
+
                              //botão familiares
                              ret += '<a class="btn btn-default glyph-icon icon-child" title="Editar familiares" href="' + urlFamiliares + o + '" role="button"><div class="ripple-wrapper"></div></a>';
+
                              //botao editar
                              ret += '<a class="btn btn-default glyph-icon icon-edit" title="Editar item" href="' + urlBase + o + '" role="button"><div class="ripple-wrapper"></div></a>';
-                             //botao ativar / desativar
-                             ret += '<button class="btn btn-default" title="' + (linha.Ativo ? 'Desativar' : 'Ativar') + '"   onclick="ativacao(\'' + o + '\')"    ><i class="glyph-icon icon-' + (linha.Ativo ? 'pause' : 'play')  +   '"></i><div class="ripple-wrapper"></div></button>'
+
                              //botao excluir
                              ret += '<button type="button" title="Remover item" class="btn btn-default btn-excluir" onclick="excluir(\'' + o + '\')" ><i class="glyph-icon icon-trash"></i><div class="ripple-wrapper"></div></button>&nbsp;';
 
