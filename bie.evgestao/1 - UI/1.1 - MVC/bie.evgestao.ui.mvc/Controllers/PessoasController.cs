@@ -17,12 +17,15 @@ namespace bie.evgestao.ui.mvc.Controllers
 
 
         private readonly IPessoaAppService _svcPessoa;
+        private readonly IFamiliarAppService _svcFamiliar;
+
 
 
         //Constructor que atravé da injeção de dependencias já vai receber uma instancia da classe de serviço apropriada
-        public PessoasController(IPessoaAppService Svc1)
+        public PessoasController(IPessoaAppService Svc1, IFamiliarAppService Svc2)
         {
             _svcPessoa = Svc1;
+            _svcFamiliar = Svc2;
 
         }
 
@@ -266,14 +269,35 @@ namespace bie.evgestao.ui.mvc.Controllers
             entidadePessoa.Familiares.Add(objEntidade);
             _svcPessoa.Update(entidadePessoa);
 
-
-
-
-
-
             return new JsonResult2 { Data = new { data = model } };
         }
 
+
+
+
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        public JsonResult DeletarFamiliar(int id)
+        {
+            try
+            {
+                //Carrega o modelo do banco de dados com o ID referente ao que está sendo solicitado para deleção 
+                var model = _svcFamiliar.GetById(id);
+
+                //Caso não encontre retorna uma exception 
+                if (model == null) throw new HttpException(404, "Item não encontrado");
+
+                //Passa o comando para a camada de aplicação remover a pessoa do sistema
+                _svcFamiliar.Remove(model);
+
+                //retorna um status OK 
+                return Json("OK");
+            }
+            catch (Exception ex)
+            {
+                //caso dê algum erro ele retorna um erro HTTP para o ajax falhar e o javascript poder tratar a mensagem pro usuário
+                throw new HttpException(500, $"Erro ao excluir o familiar. O erro foi: {ex.Message}");
+            }
+        }
 
 
 

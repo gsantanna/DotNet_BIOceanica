@@ -39,7 +39,7 @@
                     <th>Tels</th>
                     <th style="text-align:center" class="text-center">Status</th>
                     <!-- botões -->
-                    <th style="width:180px; text-align:center;" class="text-center"></th>
+                    <th style="width:230px; text-align:center;" class="text-center"></th>
                 </tr>
 
             </thead>
@@ -143,20 +143,22 @@
                              var urlFamiliares = '@Url.Content("~/pessoas/familiares/")';
                              var urlVisualizar = '@Url.Content("~/pessoas/pessoa/")';
 
-                             var ret = "";
+                             var ret = "<div style='width:100%;' class='text-center' id='dv-botoes'>";
 
                              //botão visualizar
-                             ret += '<a class="btn btn-default glyph-icon icon-eye" title="Visualizar pessoa" href="' + urlVisualizar + o + '" role="button"><div class="ripple-wrapper"></div></a>';
+                             ret += '<a class="btn btn-default glyph-icon icon-eye" title="Visualizar pessoa" href="' + urlVisualizar + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
 
 
                              //botão familiares
-                             ret += '<a class="btn btn-default glyph-icon icon-child" title="Editar familiares" href="' + urlFamiliares + o + '" role="button"><div class="ripple-wrapper"></div></a>';
+                             ret += '<a class="btn btn-default glyph-icon icon-child" title="Editar familiares" href="' + urlFamiliares + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
 
                              //botao editar
-                             ret += '<a class="btn btn-default glyph-icon icon-edit" title="Editar item" href="' + urlBase + o + '" role="button"><div class="ripple-wrapper"></div></a>';
+                             ret += '<a class="btn btn-default glyph-icon icon-edit" title="Editar item" href="' + urlBase + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
 
                              //botao excluir
-                             ret += '<button type="button" title="Remover item" class="btn btn-default btn-excluir" onclick="excluir(\'' + o + '\')" ><i class="glyph-icon icon-trash"></i><div class="ripple-wrapper"></div></button>&nbsp;';
+                             ret += '<button type="button" title="Remover item" class="btn btn-default btn-excluir" onclick="excluir(\'' + o + '\')" ><i class="glyph-icon icon-trash"></i><div class="ripple-wrapper"></div></button>';
+
+                             ret += "</div>";
 
                              return ret;
                          }

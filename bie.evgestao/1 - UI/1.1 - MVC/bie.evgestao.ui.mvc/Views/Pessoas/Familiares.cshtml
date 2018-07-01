@@ -158,7 +158,7 @@
                         title: "GrauParentesco"
                     },
                     {
-                         data: "id_pessoa",
+                         data: "id_familiar",
                          title: "Ações",
                          bSortable: false,
                         render: function (o, tipo, linha) {
@@ -187,7 +187,7 @@
                 .one('click', '#btnExcluir', function (e) {
 
                     $.ajax({
-                        url: '@Url.Content("~/pessoas/remover/")',
+                        url: '@Url.Content("~/pessoas/DeletarFamiliar/")',
                         dataType: "json",
                         type: "POST",
                         contentType: 'application/json; charset=utf-8',

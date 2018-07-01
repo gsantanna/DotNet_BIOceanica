@@ -138,14 +138,16 @@
                          render: function (o, tipo, linha) {
                              var urlBase = '@Url.Content("~/usuarios/editar/")';
 
+                             var ret = "<div style='width:100%;' class='text-center'>";
 
                              //botao editar
-                             var ret = '<a class="btn btn-default glyph-icon icon-edit" title="Editar item" href="' + urlBase + o + '" role="button"><div class="ripple-wrapper"></div></a>';
+                             ret += '<a class="btn btn-default glyph-icon icon-edit" title="Editar item" href="' + urlBase + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
                              //botao ativar / desativar
-                             ret += '<button class="btn btn-default" title="' + (linha.Ativo ? 'Desativar' : 'Ativar') + '"   onclick="ativacao(\'' + o + '\')"    ><i class="glyph-icon icon-' + (linha.Ativo ? 'pause' : 'play')  +   '"></i><div class="ripple-wrapper"></div></button>'
+                             ret += '<button class="btn btn-default" title="' + (linha.Ativo ? 'Desativar' : 'Ativar') + '"   onclick="ativacao(\'' + o + '\')"    ><i class="glyph-icon icon-' + (linha.Ativo ? 'pause' : 'play') +   '"></i><div class="ripple-wrapper"></div></button>&nbsp;'
                              //botao excluir
-                             ret += '<button type="button" title="Remover item" class="btn btn-default btn-excluir" onclick="excluir(\'' + o + '\')" ><i class="glyph-icon icon-trash"></i><div class="ripple-wrapper"></div></button>&nbsp;';
+                             ret += '<button type="button" title="Remover item" class="btn btn-default btn-excluir" onclick="excluir(\'' + o + '\')" ><i class="glyph-icon icon-trash"></i><div class="ripple-wrapper"></div></button>';
 
+                             ret += "</div>";
                              return ret;
                          }
 
