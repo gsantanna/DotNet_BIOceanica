@@ -28,10 +28,11 @@
     @Html.HiddenFor(x => x.id_pessoa)
 
 
+
     <div class="panel panel-default">
 
 
-        <div class="form-horizontal frmlimitado" style="max-width:800px">
+        <div class="form-horizontal frmlimitado" style="">
 
             <div class="panel-heading">
                 <h3>Adicionar Familiar</h3>
@@ -40,27 +41,22 @@
             <div class="panel-body">
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    <label class="control-label col-md-1" for="Nome">Nome</label>
                     <div class="col-md-4">
-                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                        <input type="text" id="Nome" class="form-control" name="txtAddNome" />
+                    </div>
+
+                    <label class="control-label col-md-1" for="Parentesco">Parentesco</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("Parentesco", (IEnumerable<SelectListItem>)ViewBag.Parentescos, new { @class = "form-control" })
                     </div>
 
 
-                    @Html.LabelFor(model => model.Sexo, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-
-
-                        @Html.ValidationMessageFor(model => model.ConhecidoComo, "", new { @class = "text-danger" })
+                    <div class="col-md-2">
+                        <button id="btnAdicionar" type="submit" class="btn btn-space btn-primary">Adicionar</button>
                     </div>
                 </div>
-
-
-
-
-
-
-
             </div>
         </div>
     </div>
@@ -83,10 +79,9 @@
                 </tr>
             </thead>
 
-
-
         </table>
 
+        <a href='@Url.Action("Index")' class="btn btn-space btn-default">voltar para lista<div class="ripple-wrapper"></div></a>
 
     </div>
 
@@ -220,6 +215,33 @@
 
                 });
         }//excluir
+
+
+
+
+
+
+        $("#frmMain").submit(function (e) {
+
+            e.preventDefault();
+
+            var url = '@Url.Action("AdicionarFamiliar")';
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#frmMain").serialize(),
+                success: function (data) {
+                    alert(data);
+                },
+                error: function (xhr) {
+                    alert("Errroouu");
+                }
+            });
+
+            //e.preventDefault();
+        });
+
 
 
 

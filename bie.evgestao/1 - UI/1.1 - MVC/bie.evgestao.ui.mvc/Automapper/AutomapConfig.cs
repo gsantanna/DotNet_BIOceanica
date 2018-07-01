@@ -30,6 +30,12 @@ namespace bie.evgestao.ui.mvc.AutoMapper
                 #endregion
 
 
+                #region FAMILIAR
+                cfg.CreateMap<Familiar, FamiliarViewmodel>();
+                cfg.CreateMap<FamiliarViewmodel, Familiar>();
+                #endregion
+
+
 
 
 

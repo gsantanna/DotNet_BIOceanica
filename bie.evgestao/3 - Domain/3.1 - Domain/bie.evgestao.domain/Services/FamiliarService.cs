@@ -6,15 +6,18 @@ using bie.evgestao.domain.Interfaces.Service;
 
 namespace bie.evgestao.domain.Services
 {
-    public class PessoaService : ServiceBase<Pessoa>, IPessoaService
+    public class FamiliarService : ServiceBase<Familiar>, IFamiliarService
     {
-        private readonly IPessoaRepository _Repo;
-        public PessoaService(IPessoaRepository Repo)
+        private readonly IFamiliarRepository _Repo;
+        public FamiliarService(IFamiliarRepository Repo)
             : base(Repo)
         {
             _Repo = Repo;
         }
 
     }
+
+
+
 
 }

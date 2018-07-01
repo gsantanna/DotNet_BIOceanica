@@ -82,10 +82,17 @@ namespace bie.evgestao.ui.mvc.App_Start
             kernel.Bind<IUsuarioRepository>().To<UsuarioRepository>();
 
 
-
+            //Pessoa
             kernel.Bind<IPessoaService>().To<PessoaService>();
             kernel.Bind<IPessoaAppService>().To<PessoaAppService>();
             kernel.Bind<IPessoaRepository>().To<PessoaRepository>();
+
+            //Familiar
+            kernel.Bind<IFamiliarService>().To<FamiliarService>();
+            kernel.Bind<IFamiliarAppService>().To<FamiliarAppService>();
+            kernel.Bind<IFamiliarRepository>().To<FamiliarRepository>();
+
+
 
 
 

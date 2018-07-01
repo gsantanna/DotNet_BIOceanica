@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System;
 using System.Web;
 using System.Linq;
+using bie.evgestao.domain.Enums;
 
 namespace bie.evgestao.ui.mvc.Controllers
 {
@@ -16,7 +17,7 @@ namespace bie.evgestao.ui.mvc.Controllers
 
 
         private readonly IPessoaAppService _svcPessoa;
-
+        
 
         //Constructor que atravé da injeção de dependencias já vai receber uma instancia da classe de serviço apropriada
         public PessoasController(IPessoaAppService Svc1)
@@ -235,7 +236,7 @@ namespace bie.evgestao.ui.mvc.Controllers
         #endregion
 
         #region Familiares
-
+        [Authorize]
         public ActionResult Familiares(int id)
         {
 
@@ -244,13 +245,36 @@ namespace bie.evgestao.ui.mvc.Controllers
             var objEntidade = _svcPessoa.GetById(id);
             if (objEntidade == null) return new HttpNotFoundResult("Pessoa não encontrada");
             PessoaViewmodel model = Mapper.Map<Pessoa, PessoaViewmodel>(objEntidade);
+
+            var Parentescos = Helpers.EnumToDropDownListExtensions.GetSelectListFromEnum((new FamiliarViewmodel()).Parentesco);
+            Parentescos.Last().Selected = true;
+            ViewBag.Parentescos = Parentescos;
+
             #endregion
-
-
-
 
             return View(model);
         }
+
+
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        public JsonResult AdicionarFamiliar(FamiliarViewmodel model)
+        {
+            //Encontra a pessoa.
+            
+            var entidadePessoa = _svcPessoa.GetById(model.id_pessoa)
+
+
+
+
+            return new JsonResult2 { Data = new { data = model } };
+        }
+
+
+
+
+
+
         #endregion
 
 
@@ -280,9 +304,7 @@ namespace bie.evgestao.ui.mvc.Controllers
         {
             //carrega a pessoa no banco de dados
             var entidade = _svcPessoa.GetById(id);
-
             var model = Mapper.Map<IEnumerable<Familiar>, IEnumerable<FamiliarViewmodel>>(entidade.Familiares);
-
             return new JsonResult2 { Data = new { data = model } };
         }
 

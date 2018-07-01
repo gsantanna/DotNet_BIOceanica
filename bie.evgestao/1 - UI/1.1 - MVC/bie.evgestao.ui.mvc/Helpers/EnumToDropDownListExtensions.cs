@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
@@ -79,21 +78,31 @@ namespace bie.evgestao.ui.mvc.Helpers
 
 
 
-        public static IEnumerable<SelectListItem> ToSelectList(this Enum val)
+        public static class EnumUtil
         {
-            //DescriptionAttribute[] attributes = (DescriptionAttribute[])val.GetType().GetField(val.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), false);
-            
-            var values = Enum.GetValues(val.GetType());
-            
+            public static IEnumerable<T> GetValues<T>()
+            {
+                return Enum.GetValues(typeof(T)).Cast<T>();
+            }
+        }
 
 
-            IEnumerable<SelectListItem> items = from value in values
-                                                select new SelectListItem
-                                                {
-                                                    Text = GetEnumDescription(value),
-                                                    Value = value.ToString(),
-                                                    Selected = value.Equals(metadata.Model)
-                                                };
+
+        public static IEnumerable<SelectListItem> GetSelectListFromEnum(Enum val)
+        {
+
+            List<SelectListItem> objRet = new List<SelectListItem>();
+
+            foreach (var item in Enum.GetValues(val.GetType()))
+            {
+                objRet.Add(new SelectListItem
+                {
+                    Text = GetEnumDescription(item),
+                    Value = item.ToString()
+                });
+            }
+
+            return objRet;
 
         }
 
