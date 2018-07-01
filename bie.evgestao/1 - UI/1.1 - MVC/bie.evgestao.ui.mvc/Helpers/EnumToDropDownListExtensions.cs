@@ -45,6 +45,8 @@ namespace bie.evgestao.ui.mvc.Helpers
         {
             return EnumDropDownListWDescriptionFor(htmlHelper, expression, null);
         }
+
+
         /// <summary>
         /// Extensão 001 -> Cria usando o desciptioncomo Atributo
         /// </summary>
@@ -73,6 +75,26 @@ namespace bie.evgestao.ui.mvc.Helpers
                 items = SingleEmptyItem.Concat(items);
 
             return htmlHelper.DropDownListFor(expression, items, htmlAttributes);
+        }
+
+
+
+        public static IEnumerable<SelectListItem> ToSelectList(this Enum val)
+        {
+            //DescriptionAttribute[] attributes = (DescriptionAttribute[])val.GetType().GetField(val.ToString()).GetCustomAttributes(typeof(DescriptionAttribute), false);
+            
+            var values = Enum.GetValues(val.GetType());
+            
+
+
+            IEnumerable<SelectListItem> items = from value in values
+                                                select new SelectListItem
+                                                {
+                                                    Text = GetEnumDescription(value),
+                                                    Value = value.ToString(),
+                                                    Selected = value.Equals(metadata.Model)
+                                                };
+
         }
 
 

@@ -9,6 +9,10 @@ namespace bie.evgestao.domain.Entities
 {
     public partial class Pessoa
     {
+        public Pessoa()
+        {
+            Familiares = new List<Familiar>();
+        }
 
         public int id_pessoa { get; set; }
 

@@ -132,13 +132,9 @@
     <Compile Include="CelulaViewmodel.cs" />
     <Compile Include="CepViewmodel.cs" />
     <Compile Include="FamiliarViewmodel.cs" />
-    <Compile Include="GrauParentescoViewmodel.cs" />
     <Compile Include="Identity\ItemMenuViewmodel.cs" />
     <Compile Include="PessoaViewmodel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SituacaoPessoaViewmodel.cs" />
-    <Compile Include="TipoCelulaViewmodel.cs" />
-    <Compile Include="TipoPessoaViewmodel.cs" />
     <Compile Include="UsuarioViewmodel.cs" />
   </ItemGroup>
   <ItemGroup>

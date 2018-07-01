@@ -1,5 +1,6 @@
 ﻿using bie.evgestao.domain.Enums;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
@@ -8,6 +9,10 @@ namespace bie.evgestao.ui.viewmodels
 {
     public class PessoaViewmodel
     {
+        public PessoaViewmodel()
+        {
+            Familiares = new List<FamiliarViewmodel>();
+        }
 
         public int id_pessoa { get; set; }
 
@@ -105,6 +110,7 @@ namespace bie.evgestao.ui.viewmodels
         public string Tels => $"{Telefone}<br/>{TelefoneCelular}<br/>{TelefoneTrabalho}";
 
 
+        public List<FamiliarViewmodel> Familiares { get; set; }
 
 
 

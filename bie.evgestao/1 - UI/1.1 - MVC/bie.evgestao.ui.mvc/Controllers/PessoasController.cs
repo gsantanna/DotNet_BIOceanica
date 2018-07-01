@@ -234,6 +234,25 @@ namespace bie.evgestao.ui.mvc.Controllers
 
         #endregion
 
+        #region Familiares
+
+        public ActionResult Familiares(int id)
+        {
+
+            #region preparação 
+            //Carrega a entidade do banco de dados 
+            var objEntidade = _svcPessoa.GetById(id);
+            if (objEntidade == null) return new HttpNotFoundResult("Pessoa não encontrada");
+            PessoaViewmodel model = Mapper.Map<Pessoa, PessoaViewmodel>(objEntidade);
+            #endregion
+
+
+
+
+            return View(model);
+        }
+        #endregion
+
 
 
 
@@ -255,8 +274,20 @@ namespace bie.evgestao.ui.mvc.Controllers
             return new JsonResult2 { Data = new { data = model } };
         }
 
+        //getJsonFamiliares
 
-        [AllowAnonymous]
+        public JsonResult GetJsonFamiliares(int id)
+        {
+            //carrega a pessoa no banco de dados
+            var entidade = _svcPessoa.GetById(id);
+
+            var model = Mapper.Map<IEnumerable<Familiar>, IEnumerable<FamiliarViewmodel>>(entidade.Familiares);
+
+            return new JsonResult2 { Data = new { data = model } };
+        }
+
+
+
         public FileResult Foto(int id)
         {
             //carrega a entidade 

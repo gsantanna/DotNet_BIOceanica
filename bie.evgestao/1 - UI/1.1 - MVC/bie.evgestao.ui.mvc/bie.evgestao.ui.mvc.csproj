@@ -725,6 +725,7 @@
     <Content Include="Views\Pessoas\Editar.cshtml" />
     <Content Include="Views\Pessoas\Criar.cshtml" />
     <Content Include="Views\Pessoas\Pessoa.cshtml" />
+    <Content Include="Views\Pessoas\Familiares.cshtml" />
     <None Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
