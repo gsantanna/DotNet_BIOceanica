@@ -44,7 +44,11 @@
 
                     <label class="control-label col-md-1" for="Nome">Nome</label>
                     <div class="col-md-4">
-                        <input type="text" id="Nome" class="form-control" name="txtAddNome" />
+                        <input type="text" id="Nome" class="form-control" name="Nome" />
+
+                        <span style="display:none;" id="txtErroNome" class="text-danger field-validation-error" data-valmsg-for="Nome" data-valmsg-replace="true"><span id="Nome-error" class="">Informe o Nome Completo</span></span>
+
+
                     </div>
 
                     <label class="control-label col-md-1" for="Parentesco">Parentesco</label>
@@ -161,7 +165,7 @@
 
                              var ret = "";
                              //botao excluir
-                             ret += '<button type="button" title="Remover item" class="btn btn-default btn-excluir" onclick="excluir(\'' + o + '\')" ><i class="glyph-icon icon-trash"></i><div class="ripple-wrapper"></div></button>&nbsp;';
+                             ret += '<div style="text-align:center;overflow:auto;width:100%;" class="text-center"><button type="button" title="Remover item" class="btn btn-default btn-excluir " onclick="excluir(\'' + o + '\')" ><i class="glyph-icon icon-trash"></i><div class="ripple-wrapper"></div></button></div>';
 
                              return ret;
                          }
@@ -209,7 +213,6 @@
                             }
 
                             $(ml).modal("hide");
-                           // alert($($(xhr.responseText)[1]).text());
                         }
                     });
 
@@ -217,13 +220,15 @@
         }//excluir
 
 
-
-
-
-
         $("#frmMain").submit(function (e) {
 
             e.preventDefault();
+            $("#txtErroNome").hide();
+
+            if ($("#Nome").val() == "") {
+                $("#txtErroNome").show(100);
+                return;
+            }
 
             var url = '@Url.Action("AdicionarFamiliar")';
 
@@ -232,21 +237,24 @@
                 url: url,
                 data: $("#frmMain").serialize(),
                 success: function (data) {
-                    alert(data);
+
+                    tabela.ajax.reload();
+                    $('#frmMain')[0].reset();
                 },
                 error: function (xhr) {
-                    alert("Errroouu");
+
+                    var arrResp = $(xhr.responseText);
+                    if (arrResp.length > 0) //A api retornou o erro, exibir o que está vindo da API
+                    {
+                        alert($(arrResp[1]).text());
+                    } else //A api não retornou erro corretamente. Exibe mensagem genérica de erro
+                    {
+                        alert('Erro ao efetuar o comando no servidor');
+                    }
                 }
             });
 
-            //e.preventDefault();
         });
-
-
-
-
-
-
 
 
     </script>

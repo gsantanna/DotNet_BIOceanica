@@ -20,6 +20,7 @@ namespace bie.evgestao.ui.viewmodels
         [Required(ErrorMessage = "Informe o grau de parentesco")]
         public GrauParentesco Parentesco { get; set; }
 
+        public string ParentescoDesc => Parentesco.ToDescriptionString();
 
 
 

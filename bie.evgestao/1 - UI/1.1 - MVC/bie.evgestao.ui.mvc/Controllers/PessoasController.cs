@@ -17,7 +17,7 @@ namespace bie.evgestao.ui.mvc.Controllers
 
 
         private readonly IPessoaAppService _svcPessoa;
-        
+
 
         //Constructor que atravé da injeção de dependencias já vai receber uma instancia da classe de serviço apropriada
         public PessoasController(IPessoaAppService Svc1)
@@ -261,8 +261,12 @@ namespace bie.evgestao.ui.mvc.Controllers
         public JsonResult AdicionarFamiliar(FamiliarViewmodel model)
         {
             //Encontra a pessoa.
-            
-            var entidadePessoa = _svcPessoa.GetById(model.id_pessoa)
+            var entidadePessoa = _svcPessoa.GetById(model.id_pessoa);
+            var objEntidade = Mapper.Map<FamiliarViewmodel, Familiar>(model);
+            entidadePessoa.Familiares.Add(objEntidade);
+            _svcPessoa.Update(entidadePessoa);
+
+
 
 
 
