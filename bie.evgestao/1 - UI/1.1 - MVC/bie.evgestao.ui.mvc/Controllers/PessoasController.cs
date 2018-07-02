@@ -157,8 +157,19 @@ namespace bie.evgestao.ui.mvc.Controllers
                 var objEntidade = _svcPessoa.GetById(model.id_pessoa);
                 if (objEntidade == null) return new HttpNotFoundResult("Pessoa não encontrada");
 
+                //faz backup dos familiares
+                var FamiliaresBak = objEntidade.Familiares.ToList();
+
+
                 //remapeia as propriedades para atualizar o banco (atualiza as propriedades da entidade do banco de dados com os dados da viewmodel)
                 Mapper.Map<PessoaViewmodel, Pessoa>(model, objEntidade);
+
+                objEntidade.Familiares = FamiliaresBak;
+
+
+
+
+
 
                 //carrega os dados da foto
                 //somente se o usuário fez upload da foto, pois caso não tenha feito, não modificará a imagem 

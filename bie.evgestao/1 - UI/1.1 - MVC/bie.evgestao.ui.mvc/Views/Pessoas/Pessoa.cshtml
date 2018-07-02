@@ -312,6 +312,33 @@
 
 
             <div class="panel-heading">
+                <h3>Familiares</h3>
+            </div>
+            <div class="panel-body">
+
+                @if (Model.Familiares.Count > 0)
+                {
+
+                    <table class="table table-hover remove-background borderless table-borderless">
+                        <tbody>
+                            @foreach (var familiar in Model.Familiares)
+                            {
+                                <tr>
+                                    <td class="text-left size-sm">@familiar.Nome</td>
+                                    <td class="text-left size-sm">@familiar.ParentescoDesc</td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                } else
+                {
+                    <p>Não há familiares cadastrados</p>
+                }
+
+            </div>
+
+            <div class="panel-heading">
 
             </div>
 

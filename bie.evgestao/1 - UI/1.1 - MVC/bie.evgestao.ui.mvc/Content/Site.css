@@ -11,7 +11,7 @@ textarea {
 
 
 .pequeno {
-    max-width:80px;
+    max-width: 80px;
 }
 
 
@@ -28,5 +28,17 @@ img {
 
 
 #dv-botoes a, #dv-botoes button {
-    
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th {
+    border: none;
 }
