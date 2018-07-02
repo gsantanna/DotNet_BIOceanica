@@ -94,6 +94,10 @@
     <Compile Include="Migrations\201806301843440_remover_lixo_foto_pessoa.Designer.cs">
       <DependentUpon>201806301843440_remover_lixo_foto_pessoa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807022322352_AjustesModeloDadosCelula.cs" />
+    <Compile Include="Migrations\201807022322352_AjustesModeloDadosCelula.Designer.cs">
+      <DependentUpon>201807022322352_AjustesModeloDadosCelula.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CelulaRepository.cs" />
@@ -139,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806301843440_remover_lixo_foto_pessoa.resx">
       <DependentUpon>201806301843440_remover_lixo_foto_pessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807022322352_AjustesModeloDadosCelula.resx">
+      <DependentUpon>201807022322352_AjustesModeloDadosCelula.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

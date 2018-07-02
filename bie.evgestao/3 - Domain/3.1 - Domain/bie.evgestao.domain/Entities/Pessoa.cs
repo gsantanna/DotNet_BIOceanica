@@ -21,6 +21,11 @@ namespace bie.evgestao.domain.Entities
         public virtual Celula Celula { get; set; }
 
 
+        public virtual ICollection<Celula> CelulasSupervisionadas { get; set; }
+
+        public virtual ICollection<Celula> CelulasCoordenadas { get; set; }
+
+
         //Familiares
         public virtual ICollection<Familiar> Familiares { get; set; }
 
@@ -71,6 +76,8 @@ namespace bie.evgestao.domain.Entities
         public TipoSaidaPessoa? Saida { get; set; }
 
         public FuncaoPessoa Funcao { get; set; }
+
+
 
 
         //trazido para pessoa para simplificar. 
