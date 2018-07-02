@@ -727,6 +727,7 @@
     <Content Include="Views\Pessoas\Criar.cshtml" />
     <Content Include="Views\Pessoas\Pessoa.cshtml" />
     <Content Include="Views\Pessoas\Familiares.cshtml" />
+    <Content Include="Views\Celulas\Index.cshtml" />
     <None Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -734,7 +735,6 @@
     <Folder Include="Content\3rdParty\Template\image-resources\people\" />
     <Folder Include="Scripts\cldr\" />
     <Folder Include="Scripts\globalize\" />
-    <Folder Include="Views\Celulas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
