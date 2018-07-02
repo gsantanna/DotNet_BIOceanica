@@ -245,6 +245,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Automapper\AutomapConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CelulasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Identity\AccountController.cs" />
     <Compile Include="Controllers\Identity\ManageController.cs" />
@@ -733,6 +734,7 @@
     <Folder Include="Content\3rdParty\Template\image-resources\people\" />
     <Folder Include="Scripts\cldr\" />
     <Folder Include="Scripts\globalize\" />
+    <Folder Include="Views\Celulas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

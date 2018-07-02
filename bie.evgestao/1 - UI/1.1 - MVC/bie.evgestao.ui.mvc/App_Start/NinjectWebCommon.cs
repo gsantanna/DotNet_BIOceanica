@@ -94,6 +94,12 @@ namespace bie.evgestao.ui.mvc.App_Start
 
 
 
+            //Celula
+            kernel.Bind<ICelulaService>().To<CelulaService>();
+            kernel.Bind<ICelulaAppService>().To<CelulaAppService>();
+            kernel.Bind<ICelulaRepository>().To<CelulaRepository>();
+
+
 
 
 

@@ -5,10 +5,10 @@ using bie.evgestao.domain.Interfaces.Service;
 
 namespace bie.evgestao.application
 {
-    public class CelulaaAppService : AppServiceBase<Celula>, ICelulaAppService
+    public class CelulaAppService : AppServiceBase<Celula>, ICelulaAppService
     {
         private readonly ICelulaService _svc;
-        public CelulaaAppService(ICelulaService Svc)
+        public CelulaAppService(ICelulaService Svc)
             : base(Svc)
         {
             _svc = Svc;
