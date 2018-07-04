@@ -82,7 +82,14 @@ namespace bie.evgestao.ui.viewmodels
 
         #region colunas_formula
         public string TipoDesc => this.TipoCelula.ToDescriptionString();
-        public string NomeCoordenador => this.Coordenador.Nome ?? this.Coordenador.Nome;
+        public string NomeCoordenador => this.Coordenador != null ? Coordenador.Nome : string.Empty;
+        public string NomeSupervisor => this.Supervisor != null ? Supervisor.Nome : string.Empty;
+
+        public string SituacaoDesc => "Not Implemented Exception";
+
+        public string Tels => $"{Telefone1}<br/>{Telefone2}";
+
+
 
         #endregion
 

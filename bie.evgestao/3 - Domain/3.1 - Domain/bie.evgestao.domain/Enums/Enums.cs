@@ -168,6 +168,7 @@ namespace bie.evgestao.domain.Enums
     public enum TipoCelula
     {
 
+
     }
     #endregion
 

@@ -6,57 +6,36 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <div id="page-title">
     <h2>Gerenciar Células</h2><p>
         Gestão de células e participantes
     </p>
 </div>
-
 <div class="row">
 
-
-
     <div class="col-md-12" style="padding-bottom:20px;">
-
         @Html.ActionLink("Adicionar Célula", "Criar", null, new { @Class = "btn btn-primary" }) &nbsp;
         @Html.ActionLink("Multiplicação", "Multiplicacao", null, new { @Class = "btn btn-primary" })
-
-
 
     </div>
 
 
-
-
-
     <div class="col-md-12">
-
         <table class="table " id="tblMain">
             <thead>
                 <tr>
-
                     <th>Tipo</th>
                     <th>Coordenador</th>
                     <th style="text-align:center" class="text-center">Situação</th>
-
                     <th style="text-align:center" class="text-center">Tels</th>
                     <!-- botões de ações-->
                     <th style="width:230px; text-align:center;" class="text-center"></th>
                 </tr>
-
             </thead>
-
         </table>
 
-
     </div>
-
 </div>
-
-
-
-
 
 
 
@@ -79,27 +58,18 @@
     </div>
 </div>
 
-
 @section precss {
 
-
-
 }
-
 @section header {
-
 }
-
 @section scripts {
-
 
     <script src="~/Content/3rdParty/Template/widgets/datatable/datatable.js"></script>
     <script src="~/Content/3rdParty/Template/widgets/datatable/datatable-bootstrap.js"></script>
     <script src="~/Content/3rdParty/Template/widgets/datatable/datatable-tabletools.js"></script>
 
-
     <script src="~/Content/3rdParty/Template/widgets/modal/modal.js"></script>
-
     <script type="text/javascript">
 
 
@@ -133,18 +103,18 @@
                          title: "Ações",
                          bSortable: false,
                          render: function (o, tipo, linha) {
-                             var urlBase = '@Url.Content("~/celulas/editar/")';                           
-                             var urlParticipantes = '@Url.Content("~/celulas/participantes/")';                           
+                             var urlBase = '@Url.Content("~/celulas/editar/")';
+                             var urlParticipantes = '@Url.Content("~/celulas/participantes/")';
 
-                            
+
 
                              var ret = "<div style='width:100%;' class='text-center' id='dv-botoes'>";
 
                              //botão participantes
-                             ret += '<a class="btn btn-default glyph-icon icon-child" title="Editar Participantes" href="' + urlFamiliares + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
+                             ret += '<a class="btn btn-default glyph-icon icon-child" title="Editar Participantes" href="' + urlParticipantes + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
 
                              //botao editar
-                             ret += '<a class="btn btn-default glyph-icon icon-edit" title="Editar item" href="' + urlParticipantes + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
+                             ret += '<a class="btn btn-default glyph-icon icon-edit" title="Editar item" href="' + urlBase + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
 
                              //botao excluir
                              ret += '<button type="button" title="Remover item" class="btn btn-default btn-excluir" onclick="excluir(\'' + o + '\')" ><i class="glyph-icon icon-trash"></i><div class="ripple-wrapper"></div></button>';
@@ -197,7 +167,7 @@
                             }
 
                             $(ml).modal("hide");
-                           // alert($($(xhr.responseText)[1]).text());
+                            // alert($($(xhr.responseText)[1]).text());
                         }
                     });
 
@@ -211,6 +181,4 @@
 
 
     </script>
-
 }
-
