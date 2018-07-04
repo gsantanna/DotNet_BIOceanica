@@ -17,10 +17,6 @@ namespace bie.evgestao.domain.Entities
         public int? id_coordenador { get; set; }
         public int? id_supervisor { get; set; }
 
-
-
-
-
         public string Cep { get; set; }
         public string Endereco { get; set; }
         public string Numero { get; set; }

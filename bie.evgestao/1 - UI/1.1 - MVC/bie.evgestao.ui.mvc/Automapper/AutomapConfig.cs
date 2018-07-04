@@ -28,7 +28,7 @@ namespace bie.evgestao.ui.mvc.AutoMapper
                 cfg.CreateMap<Pessoa, PessoaViewmodel>();
                 cfg.CreateMap<PessoaViewmodel, Pessoa>();
                 #endregion
-                
+
 
                 #region FAMILIAR
                 cfg.CreateMap<Familiar, FamiliarViewmodel>();
@@ -37,6 +37,9 @@ namespace bie.evgestao.ui.mvc.AutoMapper
 
 
                 #region CELULA
+                cfg.CreateMap<Celula, CelulaViewmodel>();
+                cfg.CreateMap<CelulaViewmodel, Celula>();
+
                 #endregion
 
 

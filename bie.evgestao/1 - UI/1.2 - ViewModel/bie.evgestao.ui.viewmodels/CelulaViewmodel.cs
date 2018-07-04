@@ -8,9 +8,9 @@ using bie.evgestao.domain.Enums;
 
 namespace bie.evgestao.ui.viewmodels
 {
-    class CelulaViewmodel
+    public class CelulaViewmodel
     {
-        [Key]
+
         public string id_celula { get; set; }
 
 
@@ -18,22 +18,7 @@ namespace bie.evgestao.ui.viewmodels
         public PessoaViewmodel Coordenador { get; set; }
 
 
-        public CelulaViewmodel Supervisor { get; set; }
-
-
-
-
-
-
-        //public string Cep { get; set; }
-        //public string Endereco { get; set; }
-        //public string Numero { get; set; }
-        //public string Complemento { get; set; }
-        //public string Bairro { get; set; }
-        //public string Cidade { get; set; }
-        //public string UF { get; set; }
-        //public string Pais { get; set; }
-
+        public PessoaViewmodel Supervisor { get; set; }
 
 
         [Required(ErrorMessage = "Informe o cep da Célula (somente números)")]
@@ -88,6 +73,19 @@ namespace bie.evgestao.ui.viewmodels
         public string Telefone1 { get; set; }
 
         [Display(Name = "Telefone Outro")]
-        public string Telefine2 { get; set; }
+        public string Telefone2 { get; set; }
+
+
+        [Display(Name = "Tipo de célula")]
+        [Required(ErrorMessage = "Informe o tipo de célula")]
+        TipoCelula TipoCelula { get; set; }
+
+        #region colunas_formula
+        public string TipoDesc => this.TipoCelula.ToDescriptionString();
+        public string NomeCoordenador => this.Coordenador.Nome ?? this.Coordenador.Nome;
+
+        #endregion
+
+
     }
 }

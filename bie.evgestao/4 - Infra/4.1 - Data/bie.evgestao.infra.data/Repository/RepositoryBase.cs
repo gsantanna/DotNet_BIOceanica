@@ -45,8 +45,10 @@ namespace bie.evgestao.infra.data.Repository
         }
 
         //TODO Use a String linq Query to get item by this name if property called name exists
-        public IEnumerable<TEntity> DoSearch(string strSearch) =>
+        public IEnumerable<TEntity> DoSearch(string strSearch)
+        {
             throw new NotImplementedException();
+        }
 
         public int Count()
         {
