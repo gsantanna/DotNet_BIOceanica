@@ -167,9 +167,18 @@ namespace bie.evgestao.domain.Enums
     #region Celula
     public enum TipoCelula
     {
-
-
+        [Description("Adulto")]
+        ADULTO = 1,
+        [Description("GO")]
+        GO = 2,
+        [Description("UP")]
+        UP = 3,
+        [Description("Teen")]
+        TEEN = 4
     }
+
+
+
     #endregion
 
 
@@ -218,6 +227,30 @@ namespace bie.evgestao.domain.Enums
 
 
 
+    #region geral
+
+    public enum DiasSemana
+    {
+        [Description("Segunda")]
+        SEG = 1,
+        [Description("Terça")]
+        TER = 2,
+        [Description("Quarta")]
+        QUA = 3,
+        [Description("Quinta")]
+        QUI = 4,
+        [Description("Sexta")]
+        SEX = 5,
+        [Description("Sábado")]
+        SAB = 6,
+        [Description("Domingo")]
+        DOM = 0
+    }
+
+    #endregion
+
+
+
 
 
 
@@ -243,14 +276,14 @@ namespace bie.evgestao.domain.Enums
         }
 
 
-        
+
 
 
 
     }
 
 
-    
+
 
 
 

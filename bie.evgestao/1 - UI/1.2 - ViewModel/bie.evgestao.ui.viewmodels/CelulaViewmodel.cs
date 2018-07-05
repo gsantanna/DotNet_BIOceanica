@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using bie.evgestao.domain.Enums;
+using System.ComponentModel;
 
 namespace bie.evgestao.ui.viewmodels
 {
@@ -14,11 +15,26 @@ namespace bie.evgestao.ui.viewmodels
         public string id_celula { get; set; }
 
 
-        [Required(ErrorMessage = "Selecione o coordenador da célula")]
+        [Required(ErrorMessage = "Informe um nome para a célula")]
+        [MaxLength(100, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
+        public string Nome { get; set; }
+
+
+
         public PessoaViewmodel Coordenador { get; set; }
 
-
         public PessoaViewmodel Supervisor { get; set; }
+
+
+        [Required(ErrorMessage = "Selecione o coordenador da célula")]
+        [Display(Name = "Coordenador")]
+        public int id_coordenador { get; set; }
+
+
+        [Display(Name = "Supervisor")]
+        public int? id_supervisor { get; set; }
+
+
 
 
         [Required(ErrorMessage = "Informe o cep da Célula (somente números)")]
@@ -58,7 +74,9 @@ namespace bie.evgestao.ui.viewmodels
 
         [Required(ErrorMessage = "Informe o dia da reunião")]
         [Display(Name = "Dia da Reunião")]
-        public string DiaReuniao { get; set; }
+        public DiasSemana DiaReuniao { get; set; }
+
+        public string DiaReuniaoDesc => DiaReuniao.ToDescriptionString();
 
         [Required(ErrorMessage = "Informe horário da reunião")]
         [Display(Name = "Horário da Reunião")]
@@ -78,14 +96,18 @@ namespace bie.evgestao.ui.viewmodels
 
         [Display(Name = "Tipo de célula")]
         [Required(ErrorMessage = "Informe o tipo de célula")]
-        TipoCelula TipoCelula { get; set; }
+        public TipoCelula TipoCelula { get; set; }
 
         #region colunas_formula
         public string TipoDesc => this.TipoCelula.ToDescriptionString();
+
         public string NomeCoordenador => this.Coordenador != null ? Coordenador.Nome : string.Empty;
         public string NomeSupervisor => this.Supervisor != null ? Supervisor.Nome : string.Empty;
 
-        public string SituacaoDesc => "Not Implemented Exception";
+
+        public bool Situacao { get; set; }
+
+        public string SituacaoDesc => Situacao ? "Ativa" : "Inativa";
 
         public string Tels => $"{Telefone1}<br/>{Telefone2}";
 

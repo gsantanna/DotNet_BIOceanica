@@ -736,6 +736,7 @@
     <Folder Include="Content\3rdParty\Template\image-resources\people\" />
     <Folder Include="Scripts\cldr\" />
     <Folder Include="Scripts\globalize\" />
+    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

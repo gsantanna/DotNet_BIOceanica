@@ -98,6 +98,14 @@
     <Compile Include="Migrations\201807022322352_AjustesModeloDadosCelula.Designer.cs">
       <DependentUpon>201807022322352_AjustesModeloDadosCelula.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807051542307_ajustes_celula.cs" />
+    <Compile Include="Migrations\201807051542307_ajustes_celula.Designer.cs">
+      <DependentUpon>201807051542307_ajustes_celula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807052159377_ajustes_celula_diasemana.cs" />
+    <Compile Include="Migrations\201807052159377_ajustes_celula_diasemana.Designer.cs">
+      <DependentUpon>201807052159377_ajustes_celula_diasemana.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CelulaRepository.cs" />
@@ -146,6 +154,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807022322352_AjustesModeloDadosCelula.resx">
       <DependentUpon>201807022322352_AjustesModeloDadosCelula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807051542307_ajustes_celula.resx">
+      <DependentUpon>201807051542307_ajustes_celula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807052159377_ajustes_celula_diasemana.resx">
+      <DependentUpon>201807052159377_ajustes_celula_diasemana.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

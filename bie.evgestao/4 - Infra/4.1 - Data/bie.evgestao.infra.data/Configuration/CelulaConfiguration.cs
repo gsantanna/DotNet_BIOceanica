@@ -11,6 +11,8 @@ namespace bie.evgestao.infra.data.Configuration
             HasKey(x => x.id_celula);
             ToTable(schema + ".tb_celula");
 
+            Property(x => x.Nome).IsRequired().HasMaxLength(100);
+
             Property(x => x.Cep).IsOptional().HasMaxLength(20);
 
             Property(c => c.Endereco).IsOptional().HasMaxLength(250);
@@ -27,7 +29,7 @@ namespace bie.evgestao.infra.data.Configuration
 
             Property(c => c.Pais).IsOptional().HasMaxLength(30);
 
-            Property(c => c.DiaReuniao).IsRequired().HasMaxLength(30);
+
 
             Property(c => c.HoraReuniao).IsRequired().HasMaxLength(10);
 
@@ -39,6 +41,7 @@ namespace bie.evgestao.infra.data.Configuration
 
             HasOptional(filho => filho.Coordenador).WithMany(pai => pai.CelulasCoordenadas).HasForeignKey(c => c.id_coordenador).WillCascadeOnDelete(true);
             HasOptional(filho => filho.Supervisor).WithMany(pai => pai.CelulasSupervisionadas).HasForeignKey(c => c.id_coordenador).WillCascadeOnDelete(true);
+
 
 
 

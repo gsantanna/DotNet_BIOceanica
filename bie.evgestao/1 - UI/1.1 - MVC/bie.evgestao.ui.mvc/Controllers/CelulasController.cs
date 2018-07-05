@@ -35,11 +35,42 @@ namespace bie.evgestao.ui.mvc.Controllers
 
 
 
+        #region Criar
+
         [HttpGet]
         public ActionResult Criar()
         {
+            #region preparação
+            ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
+            #endregion
+
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult Criar(CelulaViewmodel model)
+        {
+            #region preparação
+            ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
+            #endregion
+
+            return View(model);
+        }
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+
 
 
 

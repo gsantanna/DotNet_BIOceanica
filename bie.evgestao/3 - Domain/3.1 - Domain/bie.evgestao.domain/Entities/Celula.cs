@@ -10,6 +10,8 @@ namespace bie.evgestao.domain.Entities
         public int id_celula { get; set; }
 
 
+        public string Nome { get; set; }
+
 
         public virtual Pessoa Coordenador { get; set; }
         public virtual Pessoa Supervisor { get; set; }
@@ -28,7 +30,7 @@ namespace bie.evgestao.domain.Entities
 
         public string Pais { get; set; }
 
-        public string DiaReuniao { get; set; }
+        public DiasSemana DiaReuniao { get; set; }
         public string HoraReuniao { get; set; }
         public DateTime DataCriacao { get; set; }
         public string Telefone1 { get; set; }
@@ -38,6 +40,8 @@ namespace bie.evgestao.domain.Entities
         public virtual ICollection<Pessoa> Pessoas { get; set; }
 
         public TipoCelula TipoCelula { get; set; }
+
+        public bool Ativo { get; set; }
 
 
 
