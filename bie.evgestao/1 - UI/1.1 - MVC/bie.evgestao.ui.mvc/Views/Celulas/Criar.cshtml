@@ -1,5 +1,6 @@
 ﻿@model bie.evgestao.ui.viewmodels.CelulaViewmodel
 @using bie.evgestao.ui.mvc.Helpers
+@using bie.evgestao.ui.viewmodels
 @{
     ViewBag.Title = "Adicionar Célula";
     ViewBag.HeaderText = ViewBag.Title;
@@ -161,7 +162,25 @@
                 <div class="panel-body">
 
 
-                    <div class="col-md-6"><div class="radio-primary"><label><div class="radio" id="uniform-inlineRadio110"><span class=""><input type="radio" id="inlineRadio110" name="example-radio" class="custom-radio"><i class="glyph-icon icon-circle"></i></span></div> Radio primary</label></div><div class="radio-success"><label><div class="radio" id="uniform-inlineRadio111"><span class=""><input type="radio" id="inlineRadio111" name="example-radio" class="custom-radio"><i class="glyph-icon icon-circle"></i></span></div> Radio success</label></div><div class="radio-danger"><label><div class="radio" id="uniform-inlineRadio112"><span class="checked"><input type="radio" id="inlineRadio112" name="example-radio" class="custom-radio"><i class="glyph-icon icon-circle"></i></span></div> Radio danger</label></div></div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DiaReuniao, htmlAttributes: new { @class = "control-label col-md-2" })
+
+
+
+                        <div class="col-md-10">
+
+                            @foreach (var item in bie.evgestao.ui.mvc.Helpers.EnumToDropDownListExtensions.GetItensFromEnum((new CelulaViewmodel()).DiaReuniao))
+                            {
+
+                                <label class="radio-inline">
+                                    <input type="radio" id="" name="example-radio1" value="@item.Key"> @item.Value
+                                </label>
+
+                            }
+
+                        </div>
+                    </div>
+
 
 
 

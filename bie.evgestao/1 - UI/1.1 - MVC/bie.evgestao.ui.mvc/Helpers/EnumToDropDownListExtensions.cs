@@ -87,6 +87,19 @@ namespace bie.evgestao.ui.mvc.Helpers
         }
 
 
+        public static Dictionary<object, string> GetItensFromEnum(Enum val)
+        {
+            Dictionary<object, string> objRet = new Dictionary<object, string>();
+
+            foreach (var item in Enum.GetValues(val.GetType()))
+            {
+                objRet.Add(item, GetEnumDescription(item));
+            }
+
+            return objRet;
+
+
+        }
 
         public static IEnumerable<SelectListItem> GetSelectListFromEnum(Enum val)
         {
