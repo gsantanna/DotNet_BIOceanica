@@ -227,15 +227,15 @@
                         </div>
 
 
-                        @Html.LabelFor(model => model.Situacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
 
-                            <select name="Situacao" class="form-control">
-                                <option value="True" @(Model == null || Model.Situacao ? "selected='selected'" : "" )>Ativa</option>
-                                <option value="False" @(Model != null && !Model.Situacao ? "selected='selected'" : "" )>Inativa</option>
+                            <select name="Ativo" class="form-control">
+                                <option value="True" @(Model == null || Model.Ativo ? "selected='selected'" : "" )>Ativa</option>
+                                <option value="False" @(Model != null && !Model.Ativo ? "selected='selected'" : "" )>Inativa</option>
                             </select>
 
-                            @Html.ValidationMessageFor(model => model.Situacao, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Ativo, "", new { @class = "text-danger" })
                         </div>
 
 
