@@ -164,28 +164,67 @@
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.DiaReuniao, htmlAttributes: new { @class = "control-label col-md-2" })
-
-
-
                         <div class="col-md-10">
 
                             @foreach (var item in bie.evgestao.ui.mvc.Helpers.EnumToDropDownListExtensions.GetItensFromEnum((new CelulaViewmodel()).DiaReuniao))
                             {
 
                                 <label class="radio-inline">
-                                    <input type="radio" id="" name="example-radio1" value="@item.Key"> @item.Value
+                                    <input type="radio" name="DiaReuniao" value="@item.Key" @(Model != null && Model.DiaReuniao == (bie.evgestao.domain.Enums.DiasSemana)item.Key ? "checked='checked'" : "")> @item.Value
                                 </label>
-
                             }
-
                         </div>
                     </div>
 
-
-
-
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.HoraReuniao, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.HoraReuniao, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.HoraReuniao, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
                 </div>
+
+
+
+
+                <div class="panel-heading">
+                    <h3>Outras informações</h3>
+                </div>
+                <div class="panel-body">
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DataCriacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.DataCriacao, new { htmlAttributes = new { @class = "form-control dtp" } })
+                            @Html.ValidationMessageFor(model => model.DataCriacao, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        @Html.LabelFor(model => model.Situacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+
+                            <select name="Situacao" class="form-control">
+                                <option value="True" @(Model == null || Model.Situacao ? "selected='selected'" : "" )>Ativa</option>
+                                <option value="False" @(Model != null && !Model.Situacao ? "selected='selected'" : "" )>Inativa</option>
+                            </select>
+
+                            @Html.ValidationMessageFor(model => model.Situacao, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+
+                    </div>
+
+                </div>
+
+
+
+
+
 
 
 
@@ -223,6 +262,10 @@
 
     <link href="~/Content/3rdParty/Template/widgets/chosen/chosen.css" rel="stylesheet" />
     <script src="~/Content/3rdParty/Template/widgets/chosen/chosen.js"></script>
+
+    <link href="~/Content/3rdParty/Template/widgets/timepicker/timepicker.css" rel="stylesheet" />
+    <script src="~/Content/3rdParty/Template/widgets/timepicker/timepicker.js"></script>
+
 
     <style type="text/css">
         .chosen-single div:last-of-type {
@@ -284,7 +327,11 @@
             //habilita o buscador de pessoas (chosen)
             $(".chosen-select").chosen({ disable_search_threshold: 10 });
 
-
+            ////habilita o picker de hora
+            //$("#HoraReuniao").timepicker({
+            //    use24hours: true,
+            //    format: 'HH:mm'
+            //});
 
 
 

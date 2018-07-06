@@ -31,7 +31,7 @@ namespace bie.evgestao.infra.data.Configuration
 
 
 
-            Property(c => c.HoraReuniao).IsRequired().HasMaxLength(10);
+            Property(c => c.HoraReuniao).IsOptional().HasMaxLength(20);
 
             Property(c => c.DataCriacao).IsOptional();
 

@@ -12,7 +12,7 @@ namespace bie.evgestao.ui.viewmodels
     public class CelulaViewmodel
     {
 
-        public string id_celula { get; set; }
+        public int id_celula { get; set; }
 
 
         [Required(ErrorMessage = "Informe um nome para a célula")]
@@ -80,6 +80,7 @@ namespace bie.evgestao.ui.viewmodels
 
         [Required(ErrorMessage = "Informe horário da reunião")]
         [Display(Name = "Horário da Reunião")]
+        [MaxLength(20, ErrorMessage = "O campo {0} deve ter no máximo {1} caracteres")]
         public string HoraReuniao { get; set; }
 
         [Required(ErrorMessage = "Informe a data de criação da célula")]

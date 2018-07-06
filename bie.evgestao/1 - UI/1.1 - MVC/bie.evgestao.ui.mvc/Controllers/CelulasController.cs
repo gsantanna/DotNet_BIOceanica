@@ -56,11 +56,57 @@ namespace bie.evgestao.ui.mvc.Controllers
             ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
             #endregion
 
+
+            //mapeia a entidade
+            var objEntidade = Mapper.Map<CelulaViewmodel, Celula>(model);
+
+            //insere a entidade
+            _svcCelula.Add(objEntidade);
+
+
             return View(model);
         }
 
 
 
+
+        #endregion
+
+
+        #region Editar
+
+        [HttpGet]
+        public ActionResult Editar(int id)
+        {
+            #region preparação
+            ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
+            #endregion
+
+            var entidade = _svcCelula.GetById(id);
+
+            var model = Mapper.Map<Celula, CelulaViewmodel>(entidade);
+
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public ActionResult Editar(CelulaViewmodel model)
+        {
+            #region preparação
+            ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
+            #endregion
+
+            var entidade = _svcCelula.GetById(model.id_celula);
+
+            Mapper.Map<CelulaViewmodel, Celula>(model, entidade);
+
+            _svcCelula.Update(entidade);
+
+            return RedirectToAction("Index");
+
+        }
 
         #endregion
 
