@@ -729,6 +729,7 @@
     <Content Include="Views\Pessoas\Familiares.cshtml" />
     <Content Include="Views\Celulas\Index.cshtml" />
     <Content Include="Views\Celulas\Criar.cshtml" />
+    <Content Include="Views\Celulas\Editar.cshtml" />
     <None Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>

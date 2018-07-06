@@ -4,12 +4,13 @@ using bie.evgestao.application.Interfaces;
 using bie.evgestao.domain.Entities;
 using bie.evgestao.ui.viewmodels;
 using System.Collections.Generic;
-
+using System.Linq;
 using System.Web.Mvc;
 
 namespace bie.evgestao.ui.mvc.Controllers
 {
-    public class CelulasController : Controller
+    [Authorize]
+    public class CelulasController : BaseController
     {
 
         #region Constructor 
@@ -28,6 +29,7 @@ namespace bie.evgestao.ui.mvc.Controllers
 
 
         // GET: Celula
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
         public ActionResult Index()
         {
             return View();
@@ -38,23 +40,33 @@ namespace bie.evgestao.ui.mvc.Controllers
         #region Criar
 
         [HttpGet]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
         public ActionResult Criar()
         {
             #region preparação
             ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
             #endregion
 
+            //valida se não há erros no modelstate (caso o jquery validation falhe)
+
+
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
         public ActionResult Criar(CelulaViewmodel model)
         {
             #region preparação
             ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
             #endregion
+
+
+
+            //valida se não há erros no modelstate (caso o jquery validation falhe)
+            if (!ModelState.IsValid) return View(model);
 
 
             //mapeia a entidade
@@ -68,14 +80,13 @@ namespace bie.evgestao.ui.mvc.Controllers
         }
 
 
-
-
         #endregion
 
 
         #region Editar
 
         [HttpGet]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
         public ActionResult Editar(int id)
         {
             #region preparação
@@ -86,23 +97,30 @@ namespace bie.evgestao.ui.mvc.Controllers
 
             var model = Mapper.Map<Celula, CelulaViewmodel>(entidade);
 
-
             return View(model);
         }
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
         public ActionResult Editar(CelulaViewmodel model)
         {
             #region preparação
             ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
             #endregion
 
+            //valida se não há erros no modelstate (caso o jquery validation falhe)
+            if (!ModelState.IsValid) return View(model);
+
+
             var entidade = _svcCelula.GetById(model.id_celula);
 
             Mapper.Map<CelulaViewmodel, Celula>(model, entidade);
 
             _svcCelula.Update(entidade);
+
+            ViewBag.Mensagem = "Item criado com sucesso";
 
             return RedirectToAction("Index");
 

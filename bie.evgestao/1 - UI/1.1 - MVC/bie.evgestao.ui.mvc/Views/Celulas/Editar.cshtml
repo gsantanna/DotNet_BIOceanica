@@ -2,19 +2,19 @@
 @using bie.evgestao.ui.mvc.Helpers
 @using bie.evgestao.ui.viewmodels
 @{
-    ViewBag.Title = "Adicionar Célula";
+    ViewBag.Title = "Modificar Célula";
     ViewBag.HeaderText = ViewBag.Title;
 
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-@using (Html.BeginForm("criar", "celulas", FormMethod.Post, new { @id = "frmMain", @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Editar", "celulas", FormMethod.Post, new { @id = "frmMain", @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
 
-
+    @Html.HiddenFor(model=> model.id_celula)
 
     <div class="col-md-12">
         <div class="panel panel-default">

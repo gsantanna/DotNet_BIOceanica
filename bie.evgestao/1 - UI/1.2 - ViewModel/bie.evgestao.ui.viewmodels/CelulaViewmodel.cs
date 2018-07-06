@@ -106,9 +106,10 @@ namespace bie.evgestao.ui.viewmodels
         public string NomeSupervisor => this.Supervisor != null ? Supervisor.Nome : string.Empty;
 
 
-        public bool Situacao { get; set; }
+        [Display(Name = "Situação")]
+        public bool Ativo { get; set; }
 
-        public string SituacaoDesc => Situacao ? "Ativa" : "Inativa";
+        public string SituacaoDesc => Ativo ? "Ativa" : "Inativa";
 
         public string Tels => $"{Telefone1}<br/>{Telefone2}";
 
