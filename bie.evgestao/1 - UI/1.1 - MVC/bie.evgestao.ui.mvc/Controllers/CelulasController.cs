@@ -5,6 +5,7 @@ using bie.evgestao.domain.Entities;
 using bie.evgestao.ui.viewmodels;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace bie.evgestao.ui.mvc.Controllers
@@ -132,6 +133,35 @@ namespace bie.evgestao.ui.mvc.Controllers
 
 
 
+        #region Participantes
+
+        [HttpGet]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        public ActionResult Participantes(int id)
+        {
+            #region preparação
+            ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
+            #endregion
+
+
+            //carreg aa celula 
+            var model = Mapper.Map<Celula, CelulaViewmodel>(_svcCelula.GetById(id));
+            if (model == null) throw new HttpException(404, "Item não encontrado");
+
+            return View(model);
+
+
+        }
+
+        [HttpPost]
+        public ActionResult Participantes(CelulaViewmodel model)
+        {
+            return View(model);
+        }
+
+        #endregion
+
+
 
 
 
@@ -143,6 +173,7 @@ namespace bie.evgestao.ui.mvc.Controllers
         /// Método genérico para retornar a lista de itens da entidade para carregar a página inicial
         /// </summary>
         /// <returns></returns>
+        /// 
         public JsonResult GetJson()
         {
             //instancia as entidades já carregando do serviço 
@@ -156,6 +187,32 @@ namespace bie.evgestao.ui.mvc.Controllers
             return new JsonResult2 { Data = new { data = model } };
         }
 
+        public JsonResult GetJsonParticipantes(int id)
+        {
+            //instancia as entidades já carregando do serviço 
+            var entidade = _svcCelula.GetById(id);
+
+            if (entidade == null) throw new HttpException(404, "Item não encontrado");
+
+
+            //seleciona os campos necessários (performance)
+            var model = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(entidade.Pessoas).Select(x => new { x.id_pessoa, x.SituacaoDesc, x.Nome });
+
+
+            //Retorna o tipo especial (JsonResult2) que é uma derivação do jsonresult tradicional, só que com um leve tratamento nas datas
+            //para facilitar o uso no jquery datatables grid
+            return new JsonResult2 { Data = new { data = model } };
+
+        }
+
+
+        public JsonResult DeletaParticipante(int id_celula, int id_participante)
+        {
+            //chama o serviço para remover o participante
+            _svcCelula.DeletaParticipante(id_celula, id_participante);
+            return Json("OK");
+
+        }
 
 
         #endregion
