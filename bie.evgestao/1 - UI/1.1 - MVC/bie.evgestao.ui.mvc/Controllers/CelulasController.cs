@@ -2,6 +2,7 @@
 using AutoMapper;
 using bie.evgestao.application.Interfaces;
 using bie.evgestao.domain.Entities;
+using bie.evgestao.domain.Enums;
 using bie.evgestao.ui.viewmodels;
 using System.Collections.Generic;
 using System.Linq;
@@ -141,7 +142,13 @@ namespace bie.evgestao.ui.mvc.Controllers
         {
             #region preparação
             ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
+
+            var Situacoes = Helpers.EnumToDropDownListExtensions.GetSelectListFromEnum(SituacaoPessoa.COMUNGANTE);
+            ViewBag.Situacoes = Situacoes;
+
+
             #endregion
+
 
 
             //carreg aa celula 

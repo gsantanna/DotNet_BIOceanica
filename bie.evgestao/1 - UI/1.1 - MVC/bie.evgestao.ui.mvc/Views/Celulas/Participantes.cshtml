@@ -47,9 +47,15 @@
 
                     <div class="col-md-4">
                         
-                        [Situação]
+                        @Html.DropDownList("Situacao", (IEnumerable<SelectListItem>)ViewBag.Situacoes, new { @class = "form-control" })
+                        
+
 
                     </div>
+
+
+
+
 
                     <div class="col-md-2">
                         <button id="btnAdicionar" type="submit" class="btn btn-space btn-primary">Adicionar</button>
