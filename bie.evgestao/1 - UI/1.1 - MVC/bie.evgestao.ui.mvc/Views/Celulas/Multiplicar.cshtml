@@ -1,0 +1,301 @@
+﻿@model bie.evgestao.ui.viewmodels.MultiplicarCelulaViewmodel
+@using bie.evgestao.ui.mvc.Helpers
+@using bie.evgestao.ui.viewmodels
+@{
+    ViewBag.Title = "Multiplicar Célula";
+    ViewBag.HeaderText = ViewBag.Title;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Multiplicar", "celulas", FormMethod.Post, new { @id = "frmMain", @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+
+
+
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-horizontal">
+
+
+                <div class="form-horizontal frmlimitado" style="max-width:800px;max-height:9999px;">
+
+
+
+                    <div class="panel-heading">
+                        <h3>Celula de origem</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.id_origem, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                <div class="input-group">
+
+
+                                    <select id="id_origem" name="id_origem">
+                                        <option>Selecione</option>
+                                        @foreach (MultiplicarCelulasDisponiveisViewmodel item in ViewBag.CelulasDisponiveis)
+                                        {
+                                            <option value="@item.id_celula" nomesupervisor="@item.NomeSupervisor">@item.NomeCoordenador</option>
+                                        }
+                                    </select>
+
+                                    <span class="input-group-addon bg-black">
+                                        <i class="glyph-icon icon-user"></i>
+                                    </span>
+                                    @Html.ValidationMessageFor(model => model.id_origem, "", new { @class = "text-danger" })
+                                </div> <!-- input group celula de origem -->
+                            </div><!-- col-md-4 da celula origem -->
+
+
+                            <label for="txtnumero" class="control-label col-md-2">Número: </label>
+
+                            <div class="col-md-4">
+                                <input type="text" readonly="readonly" id="txtnumero" name="textnumero" class="form-control pequeno" />
+                            </div>
+                        </div><!-- from group-->
+
+                        <div class="form-group">
+
+                            <label for="txtsupervisor" class="control-label col-md-2">Supervisor:</label>
+                            <div class="col-md-4">
+                                <input type="text" readonly="readonly" id="txtsupervisor" name="txtsupervisor" class="form-control" />
+                            </div>
+
+                        </div>
+
+
+
+
+
+                    </div><!-- Painel body -->
+
+
+
+                    <div id="dvdestino" style="display:none">
+
+                        <div class="panel-heading">
+                            <h3>Celula de Destino</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.id_coordenador, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        @Html.DropDownListFor(model => model.id_coordenador,
+                                   new SelectList(ViewBag.PessoasDisponiveis, "id_pessoa", "Nome"), "Selecione uma pessoa", new { @class = "chosen-select form-control" })
+
+                                        <span class="input-group-addon bg-black">
+                                            <i class="glyph-icon icon-user"></i>
+                                        </span>
+                                        @Html.ValidationMessageFor(model => model.id_coordenador, "", new { @class = "text-danger" })
+                                    </div><!-- input group-->
+                                </div><!-- col-md-4-->
+
+
+                                <label for="txtnumerodestino" class="col-md-2 control-label">Número:</label>
+
+                                <div class="col-md-4">
+
+                                    <input type="text" name="txtnumerodestino" id="txtnumerodestino" class="form-control pequeno" readonly="readonly" value="@ViewBag.ProximaCelula" />
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.id_supervisor, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        @Html.DropDownListFor(model => model.id_supervisor,
+                                   new SelectList(ViewBag.PessoasDisponiveis, "id_pessoa", "Nome"), "Selecione uma pessoa", new { @class = "chosen-select form-control" })
+
+                                        <span class="input-group-addon bg-black">
+                                            <i class="glyph-icon icon-user"></i>
+                                        </span>
+                                        @Html.ValidationMessageFor(model => model.id_supervisor, "", new { @class = "text-danger" })
+                                    </div><!-- input group-->
+                                </div><!-- col-md-4-->
+
+                            </div>
+
+
+
+                            <div class="form-group" style="padding-top:30px;">
+
+                                <div class="col-md-5 text-center">
+                                    <label for="MembrosOrigem"> Membros célula origem</label>
+                                    <select multiple id="MembrosOrigem" class="form-control multi-select" style="min-height:200px;"></select>
+
+
+                                </div>
+
+                                <div class="col-md-2 text-center" style="margin-top:25px;">
+
+
+                                    <div class="row" style="padding-bottom:10px;">
+                                        <button type="button" title="Inserir item no destino" class="btn btn-default btn-add"><i class="glyph-icon icon-arrow-circle-right"></i><div class="ripple-wrapper"></div></button>
+                                    </div>
+
+                                    <div class="row">
+                                        <button type="button" title="Inserir item no destino" class="btn btn-default btn-add"><i class="glyph-icon icon-arrow-circle-left"></i><div class="ripple-wrapper"></div></button>
+                                    </div>
+
+
+
+                                </div>
+
+
+                                <div class="col-md-5 text-center">
+                                    <label for="Membros"> Membros célula destino</label>
+                                    <select multiple class="form-control multi-select" style="min-height:200px" id="Membros" name="Membros"></select>
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+                        </div>
+
+
+
+
+
+                        <div class="panel-heading">
+                            <h3></h3>
+                        </div>
+                        <div class="panel-body">
+
+
+                            <div style="overflow:auto">
+                                <div class="col-md-10   btn-container" style="">
+                                    <button type="submit" class="btn btn-space btn-primary">Salvar</button>
+                                    <a href="@Url.Action("Index")" class="btn btn-space btn-default">Cancelar</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+    <link href="~/Content/3rdParty/Template/widgets/chosen/chosen.css" rel="stylesheet" />
+    <script src="~/Content/3rdParty/Template/widgets/chosen/chosen.js"></script>
+
+
+
+    <style type="text/css">
+        .chosen-single div:last-of-type {
+            display: none;
+        }
+    </style>
+
+    <script>
+
+        var requestAtual;
+
+
+        $(document).ready(function () {
+
+
+
+            $(".chosen-select").chosen();
+
+            //$("selector").chosen().change(function () {
+            $("#id_origem").chosen().change(function () {
+
+                //Carrega o numero da origem
+                $("#txtnumero").val($("#id_origem").val().pad(4));
+
+
+                //carrega o nome do supervisor de origem
+                $("#txtsupervisor").val($("#id_origem option:selected").attr("nomesupervisor"));
+
+                //limpa a lista de membros destino
+                $("#Membros option").remove();
+                $("#MembrosOrigem option").remove();
+
+                if (typeof ($("#txtnumero").val()) == undefined || $("#txtnumero").val().lenght == 0) {
+                    $("#dvdestino").hide();
+                    return;
+                }
+                
+
+                var urlBase = '@Url.Action("GetJsonParticipantes")/';
+
+                //Carrega os itens disponíveis (membros da celula de origem)
+                requestAtual = $.getJSON(urlBase + $("#id_origem").val(), function (data) {
+
+                    $("#dvdestino").fadeIn(200);
+
+                    $(data.data).each(function (idx, obj) {
+                        $("#MembrosOrigem").append("<option id=" + obj.id_pessoa + ">" + obj.Nome + "</option>");
+                    });
+
+
+                }).fail(function () {
+                    console.log("Erro ao executar comando no servidor")
+                    });
+
+
+
+
+            });
+
+
+
+            $("#frmMain").on("submit", function (e) {
+
+                e.preventDefault;
+
+                return false;
+
+
+            });
+
+
+
+
+        })//ready
+
+
+    </script>
+
+}

@@ -732,6 +732,7 @@
     <Content Include="Views\Celulas\Editar.cshtml" />
     <Content Include="Views\Celulas\Participantes.cshtml" />
     <Content Include="Views\Celulas\Celula.cshtml" />
+    <Content Include="Views\Celulas\Multiplicar.cshtml" />
     <None Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>

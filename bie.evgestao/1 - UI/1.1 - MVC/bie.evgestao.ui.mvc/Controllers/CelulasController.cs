@@ -171,9 +171,6 @@ namespace bie.evgestao.ui.mvc.Controllers
 
         #endregion
 
-
-
-
         #region Participantes
 
         [HttpGet]
@@ -201,6 +198,55 @@ namespace bie.evgestao.ui.mvc.Controllers
         }
 
         #endregion
+
+
+
+        #region Multiplicação 
+
+        [HttpGet]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        public ActionResult Multiplicar()
+        {
+
+            #region preparacao 
+
+
+            //TODO: Gustavo. Verificar pois na regra de negócio nada impede o cara de ser coordenador de mais de uma celula
+            var CelulasDisponiveis = from celula in _svcCelula.GetAll()
+                                     where celula.Coordenador != null
+                                     select new MultiplicarCelulasDisponiveisViewmodel
+                                     {
+                                         NomeCoordenador = celula.Coordenador.Nome,
+                                         id_celula = celula.id_celula,
+                                         NomeSupervisor = celula.Supervisor != null ? celula.Supervisor.Nome : string.Empty
+                                     };
+
+            ViewBag.CelulasDisponiveis = CelulasDisponiveis.ToArray();
+
+
+            //lista as pessoas disponíveis para ser coordenador ou supervisor da nova célula
+            ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
+
+            //carrega o ultimo numero de celula disponivel             
+            var ProximaCelula = _svcCelula.GetAll().Last().id_celula + 1;
+            ViewBag.ProximaCelula = ProximaCelula.ToString().PadLeft(4, '0');
+
+
+
+
+
+
+            #endregion
+
+
+            return View();
+        }
+
+
+
+        #endregion
+
+
 
 
         #region API

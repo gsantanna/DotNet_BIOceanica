@@ -133,6 +133,7 @@
     <Compile Include="CepViewmodel.cs" />
     <Compile Include="FamiliarViewmodel.cs" />
     <Compile Include="Identity\ItemMenuViewmodel.cs" />
+    <Compile Include="MultiplicarCelulaViewmodel.cs" />
     <Compile Include="PessoaViewmodel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsuarioViewmodel.cs" />
