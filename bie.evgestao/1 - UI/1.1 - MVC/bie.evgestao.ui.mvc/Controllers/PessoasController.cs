@@ -15,6 +15,7 @@ namespace bie.evgestao.ui.mvc.Controllers
     public class PessoasController : BaseController
     {
 
+        #region Constructor
 
         private readonly IPessoaAppService _svcPessoa;
         private readonly IFamiliarAppService _svcFamiliar;
@@ -28,6 +29,9 @@ namespace bie.evgestao.ui.mvc.Controllers
             _svcFamiliar = Svc2;
 
         }
+
+
+        #endregion
 
         // GET: Pessoas
         //Retorna somente a view pois a mesma usa uma chamada ajax pra popular o grid
@@ -119,8 +123,7 @@ namespace bie.evgestao.ui.mvc.Controllers
         }
 
         #endregion
-
-
+        
         #region Editar 
 
         [HttpGet]
@@ -315,10 +318,7 @@ namespace bie.evgestao.ui.mvc.Controllers
 
 
         #endregion
-
-
-
-
+        
         #region API
         /// <summary>
         /// Método genérico para retornar a lista de itens da entidade para carregar a página inicial

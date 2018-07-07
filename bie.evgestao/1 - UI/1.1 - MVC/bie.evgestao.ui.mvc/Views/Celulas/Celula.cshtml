@@ -1,0 +1,364 @@
+﻿@model bie.evgestao.ui.viewmodels.CelulaViewmodel
+@using bie.evgestao.ui.mvc.Helpers
+@using bie.evgestao.ui.viewmodels
+@{
+    ViewBag.Title = "Modificar Célula";
+    ViewBag.HeaderText = ViewBag.Title;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="col-md-12">
+    <div class="panel panel-default">
+
+
+
+        <div class="form-horizontal frmlimitado" style="max-width:800px">
+            <div class="panel-heading">
+                <h3>Dados da célula</h3>
+            </div>
+            <div class="panel-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TipoCelula, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+
+                        <input type="text" value="@Model.TipoDesc" class="form-control" />
+
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+
+                    @Html.LabelFor(model => model.Coordenador, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="input-group">
+
+                            <input type="text" value="@Model.NomeCoordenador" class="form-control" />
+
+
+
+                            @Html.ValidationMessageFor(model => model.id_coordenador, "", new { @class = "text-danger" })
+                        </div><!-- input group-->
+
+                    </div><!-- col-md-4-->
+
+
+
+                    @Html.LabelFor(model => model.Supervisor, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="input-group">
+
+                            <input type="text" value="@Model.NomeSupervisor" class="form-control" />
+
+
+
+                            @Html.ValidationMessageFor(model => model.id_supervisor, "", new { @class = "text-danger" })
+
+                        </div><!-- input group-->
+                    </div><!-- col-md-4-->
+
+
+                </div> <!-- Form group responsáveis -->
+
+
+
+
+            </div>
+
+
+            <div class="panel-heading">
+                <h3>Endereço</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Cep, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Cep, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Cep, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Endereco, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Endereco, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Endereco, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Complemento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Cidade, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UF, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+
+                        <input type="text" value="@Model.UF" class="form-control pequeno" />
+
+                    </div>
+                    @Html.LabelFor(model => model.Pais, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Pais, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                        @Html.ValidationMessageFor(model => model.Pais, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div><!-- painel body endereços-->
+
+
+
+            <div class="panel-heading">
+                <h3>Telefones</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Telefone1, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Telefone1, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Telefone1, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Telefone2, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Telefone1, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Telefone2, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+            </div> <!-- painel body Telefones-->
+
+
+            <div class="panel-heading">
+                <h3>Reunião</h3>
+            </div>
+            <div class="panel-body">
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DiaReuniao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+
+                        @foreach (var item in bie.evgestao.ui.mvc.Helpers.EnumToDropDownListExtensions.GetItensFromEnum((new CelulaViewmodel()).DiaReuniao))
+                        {
+
+                            <label class="radio-inline">
+                                <input type="radio" name="DiaReuniao" class="inp" value="@item.Key" @(Model != null && Model.DiaReuniao == (bie.evgestao.domain.Enums.DiasSemana)item.Key ? "checked='checked'" : "")> @item.Value
+                            </label>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HoraReuniao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.HoraReuniao, new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <div class="panel-heading">
+                <h3>Outras informações</h3>
+            </div>
+            <div class="panel-body">
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DataCriacao, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+
+
+                        <input type="text" class="form-control" value='@Model.DataCriacao.Value.ToShortDateString()' />
+
+
+
+                    </div>
+
+
+                    @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+
+                        <input type="text" value='@Model.SituacaoDesc' class="form-control" />
+
+
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+            <div class="panel-heading">
+                <h3>Membros</h3>
+            </div>
+            <div class="panel-body">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Situação</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model.Pessoas)
+                        {
+                            <tr>
+                                <td>@item.Nome</td>
+                                <td>@item.SituacaoDesc</td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+            <div class="panel-heading">
+            </div>
+
+            <div class="panel-body">
+                <div style="overflow:auto">
+                    <div class="col-md-10   btn-container" style="">
+                        <a href="@Url.Action("Index")" class="btn btn-space btn-default">Voltar para a lista</a>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+
+
+
+
+    <style type="text/css">
+        .chosen-single div:last-of-type {
+            display: none;
+        }
+
+
+
+        .form-control {
+            border: none !important;
+            background-color: transparent !important;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            text-indent: 1px;
+            text-overflow: '';
+            cursor: default !important;
+            -webkit-box-shadow: none !important;
+            -moz-box-shadow: none !important;
+            box-shadow: none !important;
+        }
+
+            .form-control select::-ms-expand {
+                display: none;
+            }
+    </style>
+
+
+
+
+    <script>
+
+        $(document).ready(function () {
+            $(".form-control").attr("readonly", "readonly");
+            $("option:not(:selected)").remove();
+
+
+            $(".inp").on("click", function (e) {
+                e.preventDefault;
+                return false;
+            });
+
+
+        });
+
+    </script>
+
+
+
+
+
+}

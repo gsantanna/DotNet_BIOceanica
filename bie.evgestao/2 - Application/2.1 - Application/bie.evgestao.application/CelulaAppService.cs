@@ -1,6 +1,7 @@
 ﻿using System;
 using bie.evgestao.application.Interfaces;
 using bie.evgestao.domain.Entities;
+using bie.evgestao.domain.Enums;
 using bie.evgestao.domain.Interfaces.Service;
 
 
@@ -30,12 +31,14 @@ namespace bie.evgestao.application
 
         }
 
-        public void InsereParticipante(int id_celula, int id_pessoa)
+        public void InsereParticipante(int id_celula, int id_pessoa, SituacaoPessoa Situacao)
         {
             //encontra a pessoa 
             var pessoa = _svc_pessoa.GetById(id_pessoa);
             pessoa.id_celula = id_celula;
+            pessoa.Situacao = Situacao;
             _svc_pessoa.Update(pessoa);
+
         }
     }
 

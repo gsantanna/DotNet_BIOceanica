@@ -24,6 +24,7 @@
         <table class="table " id="tblMain">
             <thead>
                 <tr>
+                    <th>Célula</th>
                     <th>Tipo</th>
                     <th>Coordenador</th>
                     <th style="text-align:center" class="text-center">Situação</th>
@@ -82,6 +83,10 @@
                 language: { url: '@Url.Content("~/content/ptbr.json")' },
                 ajax: '@Url.Content("~/celulas/getjson")',
                 columns: [
+                    {
+                        data: "Nome",
+                        title: "Celula"
+                    },
                     {
                         data: "TipoDesc",
                         title: "Tipo"

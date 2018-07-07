@@ -99,6 +99,10 @@ namespace bie.evgestao.ui.viewmodels
         [Required(ErrorMessage = "Informe o tipo de célula")]
         public TipoCelula TipoCelula { get; set; }
 
+
+        public List<PessoaViewmodel> Pessoas { get; set; }
+
+
         #region colunas_formula
         public string TipoDesc => this.TipoCelula.ToDescriptionString();
 

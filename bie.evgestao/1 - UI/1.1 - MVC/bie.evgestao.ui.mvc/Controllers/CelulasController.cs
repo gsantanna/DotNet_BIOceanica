@@ -4,6 +4,7 @@ using bie.evgestao.application.Interfaces;
 using bie.evgestao.domain.Entities;
 using bie.evgestao.domain.Enums;
 using bie.evgestao.ui.viewmodels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -31,12 +32,12 @@ namespace bie.evgestao.ui.mvc.Controllers
 
 
         // GET: Celula
-        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        //Retorna somente a view pois a mesma usa uma chamada ajax pra popular o grid
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
-
 
 
         #region Criar
@@ -49,10 +50,6 @@ namespace bie.evgestao.ui.mvc.Controllers
             ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
             #endregion
 
-            //valida se não há erros no modelstate (caso o jquery validation falhe)
-
-
-
             return View();
         }
 
@@ -61,24 +58,34 @@ namespace bie.evgestao.ui.mvc.Controllers
         [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
         public ActionResult Criar(CelulaViewmodel model)
         {
-            #region preparação
-            ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
-            #endregion
+            try
+            {
+                #region preparação
+                ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
+                #endregion
+
+                //valida se não há erros no modelstate (caso o jquery validation falhe)
+                if (!ModelState.IsValid) return View(model);
 
 
+                //mapeia a entidade
+                var objEntidade = Mapper.Map<CelulaViewmodel, Celula>(model);
 
-            //valida se não há erros no modelstate (caso o jquery validation falhe)
-            if (!ModelState.IsValid) return View(model);
+                //insere a entidade
+                _svcCelula.Add(objEntidade);
 
+                //seta a mensagem de sucesso que será exibido pelo javascript
+                ViewBag.Mensagem = "Item criado com sucesso";
 
-            //mapeia a entidade
-            var objEntidade = Mapper.Map<CelulaViewmodel, Celula>(model);
-
-            //insere a entidade
-            _svcCelula.Add(objEntidade);
-
-
-            return View(model);
+                //retorna pra lista
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                //seta a mensagem de falha
+                ViewBag.Mensagem = $"Erro ao processar o comando o erro foi: {ex.Message}";
+                return View(model);
+            }
         }
 
 
@@ -108,28 +115,61 @@ namespace bie.evgestao.ui.mvc.Controllers
         [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
         public ActionResult Editar(CelulaViewmodel model)
         {
-            #region preparação
-            ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
-            #endregion
+            try
+            {
+                #region preparação
+                ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
+                #endregion
 
-            //valida se não há erros no modelstate (caso o jquery validation falhe)
-            if (!ModelState.IsValid) return View(model);
+                //valida se não há erros no modelstate (caso o jquery validation falhe)
+                if (!ModelState.IsValid) return View(model);
 
+                //carerga a entidade da celula no banco de dados
+                var entidade = _svcCelula.GetById(model.id_celula);
 
-            var entidade = _svcCelula.GetById(model.id_celula);
+                //faz um backup dos participantes pois o Automapper zera os itens filho que não encontrados
+                var bkp_pessoas = entidade.Pessoas.ToList();
 
-            Mapper.Map<CelulaViewmodel, Celula>(model, entidade);
+                //faz o mapeamento das propriedades 
+                Mapper.Map<CelulaViewmodel, Celula>(model, entidade);
 
-            _svcCelula.Update(entidade);
+                //retorna alista de pessoas
+                entidade.Pessoas = bkp_pessoas;
 
-            ViewBag.Mensagem = "Item criado com sucesso";
+                //executa o update no banco 
+                _svcCelula.Update(entidade);
 
-            return RedirectToAction("Index");
+                //retorna a mensagem de sucesso que será exibida pelo javascript 
+                ViewBag.Mensagem = "Item modificado com sucesso";
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                //seta mensagem de falha
+                ViewBag.Mensagem = $"Erro ao processar o comando o erro foi: {ex.Message}";
+                return View(model);
+            }
 
         }
 
         #endregion
 
+
+        #region Visualizar 
+
+        [Authorize]
+        public ActionResult Celula(int id)
+        {
+            //Carrega a entidade do banco de dados 
+            var objEntidade = _svcCelula.GetById(id);
+            if (objEntidade == null) return new HttpNotFoundResult("Celula não encontrada");
+            var model = Mapper.Map<Celula, CelulaViewmodel>(objEntidade);
+            return View(model);
+        }
+
+
+        #endregion
 
 
 
@@ -140,12 +180,12 @@ namespace bie.evgestao.ui.mvc.Controllers
         [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
         public ActionResult Participantes(int id)
         {
+
             #region preparação
             ViewBag.PessoasDisponiveis = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(_svcPessoa.GetAll());
 
             var Situacoes = Helpers.EnumToDropDownListExtensions.GetSelectListFromEnum(SituacaoPessoa.COMUNGANTE);
             ViewBag.Situacoes = Situacoes;
-
 
             #endregion
 
@@ -160,19 +200,7 @@ namespace bie.evgestao.ui.mvc.Controllers
 
         }
 
-        [HttpPost]
-        public ActionResult Participantes(CelulaViewmodel model)
-        {
-            return View(model);
-        }
-
         #endregion
-
-
-
-
-
-
 
 
         #region API
@@ -194,30 +222,84 @@ namespace bie.evgestao.ui.mvc.Controllers
             return new JsonResult2 { Data = new { data = model } };
         }
 
+
+
         public JsonResult GetJsonParticipantes(int id)
         {
-            //instancia as entidades já carregando do serviço 
-            var entidade = _svcCelula.GetById(id);
+            try
+            {
+                //instancia as entidades já carregando do serviço 
+                var entidade = _svcCelula.GetById(id);
 
-            if (entidade == null) throw new HttpException(404, "Item não encontrado");
-
-
-            //seleciona os campos necessários (performance)
-            var model = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(entidade.Pessoas).Select(x => new { x.id_pessoa, x.SituacaoDesc, x.Nome });
+                if (entidade == null) throw new HttpException(404, "Item não encontrado");
 
 
-            //Retorna o tipo especial (JsonResult2) que é uma derivação do jsonresult tradicional, só que com um leve tratamento nas datas
-            //para facilitar o uso no jquery datatables grid
-            return new JsonResult2 { Data = new { data = model } };
+                //seleciona os campos necessários (performance)
+                var model = Mapper.Map<IEnumerable<Pessoa>, IEnumerable<PessoaViewmodel>>(entidade.Pessoas).Select(x => new { x.id_pessoa, x.SituacaoDesc, x.Nome });
+
+
+                //Retorna o tipo especial (JsonResult2) que é uma derivação do jsonresult tradicional, só que com um leve tratamento nas datas
+                //para facilitar o uso no jquery datatables grid
+                return new JsonResult2 { Data = new { data = model } };
+            }
+            catch (Exception ex)
+            {
+                throw new HttpException(500, $"Erro ao executar o comando no servidor. o erro foi: {ex.Message}");
+            }
+
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        public JsonResult DeletaParticipante(int id_celula, int id_participante)
+        {
+            try
+            {
+                //chama o serviço para remover o participante
+                _svcCelula.DeletaParticipante(id_celula, id_participante);
+                return Json("OK");
+            }
+            catch (Exception ex)
+            {
+                throw new HttpException(500, $"Erro ao executar o comando no servidor. o erro foi: {ex.Message}");
+            }
 
         }
 
 
-        public JsonResult DeletaParticipante(int id_celula, int id_participante)
+        [HttpPost]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        public JsonResult AdicionarParticipante(int id_celula, int id_pessoa, SituacaoPessoa Situacao)
         {
-            //chama o serviço para remover o participante
-            _svcCelula.DeletaParticipante(id_celula, id_participante);
-            return Json("OK");
+            try
+            {
+                _svcCelula.InsereParticipante(id_celula, id_pessoa, Situacao);
+                return Json("OK");
+            }
+            catch (Exception ex)
+            {
+                throw new HttpException(500, $"Erro ao executar o comando no servidor. o erro foi: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        public JsonResult Deletar(int id)
+        {
+            try
+            {
+                var celula = _svcCelula.GetById(id);
+
+                if (celula == null) throw new HttpException(404, "Celula não encontrada");
+
+                _svcCelula.Remove(celula);
+
+                return Json("OK");
+            }
+            catch (Exception ex)
+            {
+                throw new HttpException(500, $"Erro ao executar o comando no servidor. o erro foi: {ex.Message}");
+            }
 
         }
 

@@ -36,20 +36,28 @@
             </div>
             <div class="panel-body">
                 <div class="form-group">
-                    <label class="control-label col-md-1" for="Nome">Nome</label>
+                    <label class="control-label col-md-2" for="id_pessoa">Selecione o membro</label>
                     <div class="col-md-4">
-                        <input type="text" id="Nome" class="form-control" name="Nome" />
-                        <span style="display:none;" id="txtErroNome" class="text-danger field-validation-error" data-valmsg-for="Nome" data-valmsg-replace="true"><span id="Nome-error" class="">Informe o Nome Completo</span></span>
+
+                        <div class="input-group">
+                            @Html.DropDownList("id_pessoa",
+                           new SelectList(ViewBag.PessoasDisponiveis, "id_pessoa", "Nome"), "Selecione uma pessoa", new { @class = "chosen-select form-control" })
+
+                            <span class="input-group-addon bg-black">
+                                <i class="glyph-icon icon-user"></i>
+                            </span>
+
+
+                            <span style="display:none;" id="txtErroNome" class="text-danger field-validation-error" data-valmsg-for="Nome" data-valmsg-replace="true"><span id="Nome-error" class="">Selecione a pessoa para adicionar</span></span>
+                        </div>
 
                     </div>
-                    
+
                     <label class="control-label col-md-1" for="situação">Situação</label>
 
-                    <div class="col-md-4">
-                        
-                        @Html.DropDownList("Situacao", (IEnumerable<SelectListItem>)ViewBag.Situacoes, new { @class = "form-control" })
-                        
+                    <div class="col-md-3">
 
+                        @Html.DropDownList("Situacao", (IEnumerable<SelectListItem>)ViewBag.Situacoes, new { @class = "form-control" })
 
                     </div>
 
@@ -104,16 +112,27 @@
     </div>
 </div>
 
-@section precss {
 
-}
-@section header {
-}
+
+
+
 @section scripts {
 
     <script src="~/Content/3rdParty/Template/widgets/datatable/datatable.js"></script>
     <script src="~/Content/3rdParty/Template/widgets/datatable/datatable-bootstrap.js"></script>
     <script src="~/Content/3rdParty/Template/widgets/datatable/datatable-tabletools.js"></script>
+
+    <link href="~/Content/3rdParty/Template/widgets/chosen/chosen.css" rel="stylesheet" />
+    <script src="~/Content/3rdParty/Template/widgets/chosen/chosen.js"></script>
+
+
+    <style type="text/css">
+        .chosen-single div:last-of-type {
+            display: none;
+        }
+    </style>
+
+
 
     <script src="~/Content/3rdParty/Template/widgets/modal/modal.js"></script>
     <script type="text/javascript">
@@ -122,6 +141,7 @@
         var tabela;
 
         $(document).ready(function () {
+
 
             tabela = $('#tblMain').DataTable({
                 responsive: true,
@@ -155,6 +175,11 @@
 
 
             });//fim datatables
+
+
+            $(".chosen-select").chosen({ disable_search_threshold: 10 });
+
+
 
         }); //ready
 
@@ -205,12 +230,12 @@
 
             $("#txtErroNome").hide();
 
-            if ($("#Nome").val() == "") {
+            if ($("#id_pessoa").val() == "") {
                 $("#txtErroNome").show(100);
                 return;
             }
 
-            var url = '@Url.Action("AdicionarFamiliar")';
+            var url = '@Url.Action("AdicionarParticipante")';
 
             $.ajax({
                 type: "POST",
