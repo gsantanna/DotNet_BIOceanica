@@ -14,7 +14,7 @@ namespace bie.evgestao.infra.data.Configuration
 
             Property(x => x.id_familiar).IsRequired();
 
-            Property(x => x.id_grauparentesco).IsRequired();
+            
         }
     }
 }

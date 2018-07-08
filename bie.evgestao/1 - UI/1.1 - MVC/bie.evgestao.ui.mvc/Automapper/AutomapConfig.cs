@@ -4,7 +4,8 @@ using AutoMapper;
 using bie.evgestao.domain.Entities;
 using bie.evgestao.ui.viewmodels;
 using System.Linq;
-using bie.mvc.utilities;
+
+
 
 namespace bie.evgestao.ui.mvc.AutoMapper
 {
@@ -15,18 +16,31 @@ namespace bie.evgestao.ui.mvc.AutoMapper
             Mapper.Initialize(cfg =>
             {
 
-
-
-
                 #region USUARIO
 
-                // cfg.CreateMap<Usuario, UsuarioViewmodel>()
-                //  .ForMember(dest => dest.NomeEmpresa, map => map.MapFrom(orig => orig.Empresa.Nome));
-
-                // cfg.CreateMap<UsuarioViewmodel, Usuario>();
+                cfg.CreateMap<Usuario, UsuarioViewmodel>();
+                cfg.CreateMap<UsuarioViewmodel, Usuario>();
 
                 #endregion
 
+
+                #region PESSOA 
+                cfg.CreateMap<Pessoa, PessoaViewmodel>();
+                cfg.CreateMap<PessoaViewmodel, Pessoa>();
+                #endregion
+
+
+                #region FAMILIAR
+                cfg.CreateMap<Familiar, FamiliarViewmodel>();
+                cfg.CreateMap<FamiliarViewmodel, Familiar>();
+                #endregion
+
+
+                #region CELULA
+                cfg.CreateMap<Celula, CelulaViewmodel>();
+                cfg.CreateMap<CelulaViewmodel, Celula>();
+
+                #endregion
 
 
 

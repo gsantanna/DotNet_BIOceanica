@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<bie.evgestao.ui.viewmodels.PessoaViewmodel>
+@{
     ViewBag.Title = "Igreja Oceânica - Sistema membros";
 }
 
@@ -6,6 +7,261 @@
 
 
 <div class="row">
-   
-        <p>Colocar um texto aqui</p>
+
+    <div class="col-md-12 text-center" style="padding-top:100px;">
+
+        @if (Model == null || Model.Count() == 0)
+        {
+            <h3>Nenhum aniversariante hoje.</h3>
+        }
+        else
+        {
+            <h3>Aniversariantes do dia</h3>
+            <br />
+
+            <table class="table table-bordered table-hover" id="tblmain">
+
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th style="width:100px;" class="text-center">Idade</th>
+                        <th style="width:80px;" class="text-center">
+
+                            <input type="checkbox" class="checkbox checkbox-info chk-selecionartodos form-control " title="Selecionar todos" />
+
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var pessoa in Model)
+                    {
+                        <tr>
+                            <td>
+
+                                <a href="/pessoas/pessoa/@pessoa.id_pessoa" class="popover-button-default" data-trigger="hover" data-content='<img src="/pessoas/Foto/@pessoa.id_pessoa" style="width:270px;height:360px;">'>
+
+
+                                    @pessoa.Nome
+
+                                </a>
+                            </td>
+
+                            <td>
+                                @pessoa.Telefone
+                            </td>
+
+                            <td class="text-center">
+                                @(DateTime.Now.Date.Year - pessoa.DataNascimento.Value.Year)
+                            </td>
+
+                            <td class="text-center">
+                                <input type="checkbox" data-item="@pessoa.id_pessoa" class="checkbox checkbox-primary chk-selecionado form-control" />
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+            <div class="row" style="padding-top:25px;">
+                <div class="col-md-12 text-right">
+                    <button class="btn btn-primary btn-abreenvio">Enviar mensagem</button>
+                </div>
+            </div>
+
+        }
+
+    </div>
+
 </div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="mdEnviaMensagem" tabindex="-1" role="dialog" aria-labelledby="mdEnviaMensagemLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mdEnviaMensagemLabel">Enviar mensagem</h4>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="col-sm-12" style="padding-bottom:5px;">
+                    <label for="txtTitulo" class="control-label">Título</label>
+                    <input type="text" class="form-control" placeholder="Título da mensagem" id="txtTitulo" />
+                </div>
+
+
+                <div class="col-sm-12">
+                    <label for="txtConteudo" class="control-label">
+                        Conteúdo da mensagem:
+                    </label>
+
+                    <textarea class="form-control" id="txtConteudo" name="txtConteudo" placeholder="Texto da mensagem"></textarea>
+                </div>
+
+
+                <div class="col-sm-12" style="padding-top:5px;">
+
+                    <input type="radio" id="TipoEnvio" name="TipoEnvio" class="TipoEnvio" value="Email" checked="checked" /> Email
+                    <input type="radio" id="TipoEnvio" name="TipoEnvio" class="TipoEnvio" value="SMS" /> SMS
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" id="btnEnviar">Enviar mensagem</button>
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section scripts {
+
+    <script src="~/Content/3rdParty/Template/widgets/modal/modal.js"></script>
+
+    <script type="text/javascript">
+
+        var arrDest;
+
+        $(document).ready(function () {
+
+            $(".chk-selecionartodos").click(function () {
+                $(".chk-selecionado").prop("checked", $(".chk-selecionartodos").prop("checked"));
+            });
+
+
+            $(".btn-abreenvio").click(function (e) {
+                e.preventDefault;
+
+                //zera os campos do modal
+                $("#txtConteudo").val("");
+                $("#txtTitulo").val("");
+
+
+                var destinatarios = $('.chk-selecionado').filter(':checked');
+
+                if (destinatarios.length == 0) {
+                    alert("É necessário selecionar pelo menos um destinatário");
+                    return false;
+                }
+
+                //zera o array de destinatarios
+                arrDest = [];
+
+                $(destinatarios).each(function (idx, obj) {
+
+                    arrDest.push($(obj).attr("data-item"));
+
+                });
+
+
+                var ml = $('#mdEnviaMensagem').modal({ backdrop: 'static', keyboard: false })
+                    .one('click', '#btnEnviar', function (e) {
+
+                         $.ajax({
+                            url: '@Url.Content("~/home/email")',
+                            dataType: "json",
+                            type: "POST",
+                            contentType: 'application/json; charset=utf-8',
+                             data: JSON.stringify({
+                                 TipoEnvio: $('.TipoEnvio').filter(':checked').val(),
+                                 Titulo: $("#txtTitulo").val(),
+                                 Mensagem: $("#txtConteudo").val(),
+                                 Destinatarios: arrDest
+
+                             }),
+                            async: true,
+                            processData: false,
+                            cache: false,
+                            success: function (data) {
+                                $(ml).modal("hide");
+                                alert("Mensagem enviada!");
+                            },
+                             error: function (xhr) {
+
+                                var arrResp = $(xhr.responseText);
+                                if (arrResp.length > 0) //A api retornou o erro, exibir o que está vindo da API
+                                {
+                                    alert($(arrResp[1]).text());
+
+                                } else //A api não retornou erro corretamente. Exibe mensagem genérica de erro
+                                {
+                                    alert('Erro ao efetuar o comando no servidor');
+                                }
+
+                             }//error
+
+                        });//.ajax
+
+
+
+
+
+
+
+
+                    });
+
+
+
+
+
+                return false;
+
+            });
+
+        });//rdy
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+}

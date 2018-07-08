@@ -44,9 +44,9 @@ namespace bie.evgestao.infra.data.Repository
             return Db.Set<TEntity>().Skip(skip).Take(take);
         }
 
+        //TODO Use a String linq Query to get item by this name if property called name exists
         public IEnumerable<TEntity> DoSearch(string strSearch)
         {
-            //TODO Use a String linq Query to get item by this name if property called name exists
             throw new NotImplementedException();
         }
 

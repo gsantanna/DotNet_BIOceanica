@@ -57,15 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\CargoConfiguration.cs" />
     <Compile Include="Configuration\CelulaConfiguration.cs" />
     <Compile Include="Configuration\FamiliarConfiguration.cs" />
-    <Compile Include="Configuration\FotoConfiguration.cs" />
-    <Compile Include="Configuration\GrauParentescoConfiguration.cs" />
     <Compile Include="Configuration\PessoaConfiguration.cs" />
-    <Compile Include="Configuration\SituacaoPessoaConfiguration.cs" />
-    <Compile Include="Configuration\TipoCelulaConfiguration.cs" />
-    <Compile Include="Configuration\TipoPessoaConfiguration.cs" />
     <Compile Include="Configuration\UsuarioConfiguration.cs" />
     <Compile Include="Context\MainDataContext.cs" />
     <Compile Include="Migrations\201709090227434_Inicial.cs" />
@@ -76,8 +70,52 @@
     <Compile Include="Migrations\201709091915003_Mgr_Adicionartbusuario.Designer.cs">
       <DependentUpon>201709091915003_Mgr_Adicionartbusuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806242010152_Ajustes_pos_configPessoa.cs" />
+    <Compile Include="Migrations\201806242010152_Ajustes_pos_configPessoa.Designer.cs">
+      <DependentUpon>201806242010152_Ajustes_pos_configPessoa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806242019079_pessoa_celula_001.cs" />
+    <Compile Include="Migrations\201806242019079_pessoa_celula_001.Designer.cs">
+      <DependentUpon>201806242019079_pessoa_celula_001.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806291554364_MudancasRepositorioPessoa.cs" />
+    <Compile Include="Migrations\201806291554364_MudancasRepositorioPessoa.Designer.cs">
+      <DependentUpon>201806291554364_MudancasRepositorioPessoa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806301521023_FotoParapessoa.cs" />
+    <Compile Include="Migrations\201806301521023_FotoParapessoa.Designer.cs">
+      <DependentUpon>201806301521023_FotoParapessoa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806301524593_FotoParapessoa2.cs" />
+    <Compile Include="Migrations\201806301524593_FotoParapessoa2.Designer.cs">
+      <DependentUpon>201806301524593_FotoParapessoa2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806301843440_remover_lixo_foto_pessoa.cs" />
+    <Compile Include="Migrations\201806301843440_remover_lixo_foto_pessoa.Designer.cs">
+      <DependentUpon>201806301843440_remover_lixo_foto_pessoa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807022322352_AjustesModeloDadosCelula.cs" />
+    <Compile Include="Migrations\201807022322352_AjustesModeloDadosCelula.Designer.cs">
+      <DependentUpon>201807022322352_AjustesModeloDadosCelula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807051542307_ajustes_celula.cs" />
+    <Compile Include="Migrations\201807051542307_ajustes_celula.Designer.cs">
+      <DependentUpon>201807051542307_ajustes_celula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807052159377_ajustes_celula_diasemana.cs" />
+    <Compile Include="Migrations\201807052159377_ajustes_celula_diasemana.Designer.cs">
+      <DependentUpon>201807052159377_ajustes_celula_diasemana.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807060104226_AjusteColunaHorareuniao.cs" />
+    <Compile Include="Migrations\201807060104226_AjusteColunaHorareuniao.Designer.cs">
+      <DependentUpon>201807060104226_AjusteColunaHorareuniao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\CelulaRepository.cs" />
+    <Compile Include="Repository\FamiliarRepository.cs" />
+    <Compile Include="Repository\ImplementacaoPadrao.cs" />
+    <Compile Include="Repository\PessoaRepository.cs" />
     <Compile Include="Repository\RepositoryBase.cs" />
     <Compile Include="Repository\UsuarioRepository.cs" />
   </ItemGroup>
@@ -99,6 +137,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709091915003_Mgr_Adicionartbusuario.resx">
       <DependentUpon>201709091915003_Mgr_Adicionartbusuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806242010152_Ajustes_pos_configPessoa.resx">
+      <DependentUpon>201806242010152_Ajustes_pos_configPessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806242019079_pessoa_celula_001.resx">
+      <DependentUpon>201806242019079_pessoa_celula_001.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806291554364_MudancasRepositorioPessoa.resx">
+      <DependentUpon>201806291554364_MudancasRepositorioPessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806301521023_FotoParapessoa.resx">
+      <DependentUpon>201806301521023_FotoParapessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806301524593_FotoParapessoa2.resx">
+      <DependentUpon>201806301524593_FotoParapessoa2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806301843440_remover_lixo_foto_pessoa.resx">
+      <DependentUpon>201806301843440_remover_lixo_foto_pessoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807022322352_AjustesModeloDadosCelula.resx">
+      <DependentUpon>201807022322352_AjustesModeloDadosCelula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807051542307_ajustes_celula.resx">
+      <DependentUpon>201807051542307_ajustes_celula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807052159377_ajustes_celula_diasemana.resx">
+      <DependentUpon>201807052159377_ajustes_celula_diasemana.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807060104226_AjusteColunaHorareuniao.resx">
+      <DependentUpon>201807060104226_AjusteColunaHorareuniao.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

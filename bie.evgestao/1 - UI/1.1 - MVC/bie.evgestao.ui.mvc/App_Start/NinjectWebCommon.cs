@@ -72,14 +72,41 @@ namespace bie.evgestao.ui.mvc.App_Start
         private static void RegisterServices(IKernel kernel)
         {
 
+
+
             kernel.Bind(typeof(IAppServiceBase<>)).To(typeof(AppServiceBase<>));
             kernel.Bind(typeof(IServiceBase<>)).To(typeof(ServiceBase<>));
             kernel.Bind(typeof(IRepositoryBase<>)).To(typeof(RepositoryBase<>));
-            
+
+
+
+            kernel.Bind<INotificationAppService>().To<NotificationAppService>();
+
+
+
             //Usuario
             kernel.Bind<IUsuarioService>().To<UsuarioService>();
             kernel.Bind<IUsuarioAppService>().To<UsuarioAppService>();
             kernel.Bind<IUsuarioRepository>().To<UsuarioRepository>();
+
+            //Pessoa
+            kernel.Bind<IPessoaService>().To<PessoaService>();
+            kernel.Bind<IPessoaAppService>().To<PessoaAppService>();
+            kernel.Bind<IPessoaRepository>().To<PessoaRepository>();
+
+            //Familiar
+            kernel.Bind<IFamiliarService>().To<FamiliarService>();
+            kernel.Bind<IFamiliarAppService>().To<FamiliarAppService>();
+            kernel.Bind<IFamiliarRepository>().To<FamiliarRepository>();
+
+            //Celula
+            kernel.Bind<ICelulaService>().To<CelulaService>();
+            kernel.Bind<ICelulaAppService>().To<CelulaAppService>();
+            kernel.Bind<ICelulaRepository>().To<CelulaRepository>();
+
+
+
+
 
         }
     }

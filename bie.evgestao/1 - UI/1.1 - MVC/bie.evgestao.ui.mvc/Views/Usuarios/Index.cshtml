@@ -9,24 +9,49 @@
 
 <div id="page-title"><h2>Gerenciar usuários</h2><p>Esta tela permite gerenciar os usuários que tem acesso ao sistema.</p></div>
 
+<div class="row">
 
 
 
-    <table class="table" id="tblMain">
-        <thead>
-            <tr>
-                <th>Tipo</th>              
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>E-mail</th>
-                <!-- botões -->
-                <th style="width:133px; text-align:center;"></th>
+    <div class="col-md-12" style="padding-bottom:20px;">
 
-            </tr>
+        @Html.ActionLink("Adicionar", "Criar", null, new { @Class = "btn btn-primary" })
 
-        </thead>
 
-    </table>
+    </div>
+
+
+    @*<a href='@Url.Action("Criar")'
+           class="btn btn-blue-alt pull-right">
+            Adicionar usuário<div class="ripple-wrapper"></div>
+        </a>*@
+
+
+
+    <div class="col-md-12">
+
+        <table class="table " id="tblMain">
+            <thead>
+                <tr>
+
+                    <th>Tipo</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <!-- botões -->
+                    <th style="width:180px; text-align:center;" class="text-center"></th>
+
+                </tr>
+
+            </thead>
+
+        </table>
+
+
+    </div>
+
+</div>
+
 
 
 
@@ -53,12 +78,25 @@
 </div>
 
 
+@section precss {
+
+
+
+}
+
 @section header {
 
 }
 
 @section scripts {
 
+
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable.js"></script>
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable-bootstrap.js"></script>
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable-tabletools.js"></script>
+
+
+    <script src="~/Content/3rdParty/Template/widgets/modal/modal.js"></script>
 
     <script type="text/javascript">
 
@@ -69,22 +107,18 @@
 
             tabela = $('#tblMain').DataTable({
                 responsive: true,
-                language: { url: '@Url.Content("~/content/lib/jquery.datatables/ptbr.json")' },
+                language: { url: '@Url.Content("~/content/ptbr.json")' },
                 ajax: '@Url.Content("~/usuarios/getjson")',
                 columns: [
                      {
                          data: "TipoDesc",
                          title: "Tipo"
                      },
-                      {
-                          data: "EmpresaDesc",
-                          title: "Empresa"
-                      },
                        {
-                           data: "Nome",
+                           data: "NomeExib",
                            title: "Nome",
                            render: function(o, tipo, linha) {
-                               return '<a href=mailto:' + linha.Email + '>' + linha.Nome + '</a>';
+                               return '<a href=mailto:' + linha.Email + '>' + linha.NomeExib + '</a>';
                            }
                        },
                         {
@@ -104,11 +138,16 @@
                          render: function (o, tipo, linha) {
                              var urlBase = '@Url.Content("~/usuarios/editar/")';
 
-                             var ret = '<a href="' + urlBase + o + '" class="btn btn-default"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>&nbsp;';
+                             var ret = "<div style='width:100%;' class='text-center'>";
 
-                             ret += '<button type="button" title="' + (linha.Ativo ? 'Desativar' : 'Ativar') + '" class="btn btn-default" onclick="ativacao(\'' + o + '\')"><span class="glyphicon glyphicon-' + (linha.Ativo ? 'stop' : 'play') + ' aria-hidden="true"></span></button>&nbsp;';
+                             //botao editar
+                             ret += '<a class="btn btn-default glyph-icon icon-edit" title="Editar item" href="' + urlBase + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
+                             //botao ativar / desativar
+                             ret += '<button class="btn btn-default" title="' + (linha.Ativo ? 'Desativar' : 'Ativar') + '"   onclick="ativacao(\'' + o + '\')"    ><i class="glyph-icon icon-' + (linha.Ativo ? 'pause' : 'play') +   '"></i><div class="ripple-wrapper"></div></button>&nbsp;'
+                             //botao excluir
+                             ret += '<button type="button" title="Remover item" class="btn btn-default btn-excluir" onclick="excluir(\'' + o + '\')" ><i class="glyph-icon icon-trash"></i><div class="ripple-wrapper"></div></button>';
 
-                             ret += '<button type="button" class="btn btn-default btn-excluir" onclick="excluir(\'' + o + '\')"      ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>&nbsp;';
+                             ret += "</div>";
                              return ret;
                          }
 

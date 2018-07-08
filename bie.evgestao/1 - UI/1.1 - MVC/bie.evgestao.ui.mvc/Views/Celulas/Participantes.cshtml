@@ -1,0 +1,276 @@
+﻿@model bie.evgestao.ui.viewmodels.CelulaViewmodel
+@using bie.evgestao.domain.Enums
+@using bie.evgestao.ui.mvc.Helpers
+@using bie.evgestao.ui.viewmodels;
+
+@{
+    ViewBag.Title = "Participantes da célula " + Model.Nome;
+    ViewBag.HeaderText = ViewBag.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div id="page-title">
+    <h2>Gerenciar participantes</h2>
+    <p>
+        Célula: @Model.Nome
+    </p>
+</div>
+
+
+@using (Html.BeginForm("Participantes", "Celulas", FormMethod.Post, new { @id = "frmMain", @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.id_celula)
+
+
+
+    <div class="panel panel-default">
+
+        <div class="form-horizontal frmlimitado" style="">
+            <div class="panel-heading">
+                <h3>Adicionar Participante</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="id_pessoa">Selecione o membro</label>
+                    <div class="col-md-4">
+
+                        <div class="input-group">
+                            @Html.DropDownList("id_pessoa",
+                           new SelectList(ViewBag.PessoasDisponiveis, "id_pessoa", "Nome"), "Selecione uma pessoa", new { @class = "chosen-select form-control" })
+
+                            <span class="input-group-addon bg-black">
+                                <i class="glyph-icon icon-user"></i>
+                            </span>
+
+
+                            <span style="display:none;" id="txtErroNome" class="text-danger field-validation-error" data-valmsg-for="Nome" data-valmsg-replace="true"><span id="Nome-error" class="">Selecione a pessoa para adicionar</span></span>
+                        </div>
+
+                    </div>
+
+                    <label class="control-label col-md-1" for="situação">Situação</label>
+
+                    <div class="col-md-3">
+
+                        @Html.DropDownList("Situacao", (IEnumerable<SelectListItem>)ViewBag.Situacoes, new { @class = "form-control" })
+
+                    </div>
+
+
+
+
+
+                    <div class="col-md-2">
+                        <button id="btnAdicionar" type="submit" class="btn btn-space btn-primary">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table " id="tblMain">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Situação</th>
+                    <!-- botões -->
+                    <th style="width:180px; text-align:center;" class="text-center"></th>
+                </tr>
+            </thead>
+        </table>
+        <a href='@Url.Action("Index")' class="btn btn-space btn-default">voltar para lista<div class="ripple-wrapper"></div></a>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="mdConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="mdConfirmDeleteLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mdConfirmDeleteLabel">Confirma exclusão</h4>
+            </div>
+            <div class="modal-body">
+                Deseja mesmo remover este participante?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="btnExcluir">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section scripts {
+
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable.js"></script>
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable-bootstrap.js"></script>
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable-tabletools.js"></script>
+
+    <link href="~/Content/3rdParty/Template/widgets/chosen/chosen.css" rel="stylesheet" />
+    <script src="~/Content/3rdParty/Template/widgets/chosen/chosen.js"></script>
+
+
+    <style type="text/css">
+        .chosen-single div:last-of-type {
+            display: none;
+        }
+    </style>
+
+
+
+    <script src="~/Content/3rdParty/Template/widgets/modal/modal.js"></script>
+    <script type="text/javascript">
+
+
+        var tabela;
+
+        $(document).ready(function () {
+
+
+            tabela = $('#tblMain').DataTable({
+                responsive: true,
+                language: { url: '@Url.Content("~/content/ptbr.json")' },
+                ajax: '@Url.Content("~/celulas/getJsonParticipantes/"  + Model.id_celula)',
+                columns: [
+                    {
+                        data: "Nome",
+                        title: "Nome"
+                    },
+                    {
+                        data: "SituacaoDesc",
+                        title: "Situação"
+                    },
+                    {
+                        data: "id_celula",
+                        title: "Ações",
+                        bSortable: false,
+                        render: function (o, tipo, linha) {
+
+                            var ret = "";
+                            //botao excluir
+                            ret += '<div style="text-align:center;overflow:auto;width:100%;" class="text-center"><button type="button" title="Remover item" class="btn btn-default btn-excluir " onclick="excluir(\'' + linha.id_celula + '\',\'' + linha.id_pessoa + '\' )" ><i class="glyph-icon icon-trash"></i><div class="ripple-wrapper"></div></button></div>';
+
+                            return ret;
+                        }
+
+                    }
+                ],//fim columns
+                order: [[1, "asc"]]
+
+
+            });//fim datatables
+
+
+            $(".chosen-select").chosen({ disable_search_threshold: 10 });
+
+
+
+        }); //ready
+
+
+
+
+        var excluir = function (id_celula, id_pessoa) {
+            var ml = $('#mdConfirmDelete').modal({ backdrop: 'static', keyboard: false })
+                .one('click', '#btnExcluir', function (e) {
+
+                    $.ajax({
+                        url: '@Url.Content("~/pessoas/deletarParticipantes/")',
+                        dataType: "json",
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({ id_celula : id,  id_pessoa: id_pessoa }),
+                        async: true,
+                        processData: false,
+                        cache: false,
+                        success: function (data) {
+                            $(ml).modal("hide");
+                            tabela.ajax.reload();
+                        },
+                        error: function (xhr) {
+
+                            var arrResp = $(xhr.responseText);
+
+                            if (arrResp.length > 0) //A api retornou o erro, exibir o que está vindo da API
+                            {
+                                alert($(arrResp[1]).text());
+
+                            } else //A api não retornou erro corretamente. Exibe mensagem genérica de erro
+                            {
+                                alert('Erro ao efetuar o comando no servidor');
+                            }
+
+                            $(ml).modal("hide");
+                        }
+                    });
+
+                });
+        }//excluir
+
+
+        $("#frmMain").submit(function (e) {
+
+            e.preventDefault();
+
+            $("#txtErroNome").hide();
+
+            if ($("#id_pessoa").val() == "") {
+                $("#txtErroNome").show(100);
+                return;
+            }
+
+            var url = '@Url.Action("AdicionarParticipante")';
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#frmMain").serialize(),
+                success: function (data) {
+
+                    tabela.ajax.reload();
+                    $('#frmMain')[0].reset();
+                },
+                error: function (xhr) {
+
+                    var arrResp = $(xhr.responseText);
+                    if (arrResp.length > 0) //A api retornou o erro, exibir o que está vindo da API
+                    {
+                        alert($(arrResp[1]).text());
+                    } else //A api não retornou erro corretamente. Exibe mensagem genérica de erro
+                    {
+                        alert('Erro ao efetuar o comando no servidor');
+                    }
+                }
+            });
+
+        });
+
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+

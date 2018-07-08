@@ -11,7 +11,7 @@ using SendGrid.Helpers.Mail;
 namespace bie.evgestao.infra.emailservice
 {
 
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    
     public class EmailService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)

@@ -11,46 +11,41 @@ namespace bie.evgestao.infra.data.Configuration
             ToTable(schema + ".tb_pessoa");
             HasKey(p => p.id_pessoa);
 
-            Property(p => p.Nome).IsRequired().HasMaxLength(150);
+            Property(p => p.Nome).IsRequired().HasMaxLength(100);
 
-            Property(p => p.Idade).IsRequired();
+            Property(x => x.ConhecidoComo).IsOptional().HasMaxLength(100);
 
-            Property(p => p.Numero).IsRequired().HasMaxLength(10);
+            Property(x => x.DataNascimento).IsOptional();
 
-            Property(p => p.EstadoCivil).IsRequired().HasMaxLength(50);
+            Property(x => x.Endereco).IsOptional().HasMaxLength(250);
 
-            Property(p => p.Sexo).IsRequired();
+            Property(x => x.Numero).IsOptional().HasMaxLength(10);
 
-            Property(p => p.TipoSanguineo).IsRequired().HasMaxLength(10);
+            Property(x => x.Complemento).IsOptional().HasMaxLength(50);
 
-            Property(p => p.ConhecidoComo).IsRequired().HasMaxLength(50);
+            Property(x => x.Bairro).IsOptional().HasMaxLength(100);
+            Property(x => x.Cidade).IsOptional().HasMaxLength(100);
+            Property(x => x.UF).IsOptional();
+            Property(x => x.Pais).IsOptional().HasMaxLength(100);
+            Property(x => x.Cep).IsOptional().HasMaxLength(15);
 
-            Property(p => p.endereco).IsRequired().HasMaxLength(300);
+            Property(x => x.Telefone).IsOptional().HasMaxLength(15);
+            Property(x => x.TelefoneCelular).IsOptional().HasMaxLength(15);
+            Property(x => x.TelefoneTrabalho).IsOptional().HasMaxLength(15);
 
-            Property(p => p.Bairro).IsRequired().HasMaxLength(100);
+            Property(x => x.Email).IsOptional().HasMaxLength(100);
 
-            Property(p => p.Telefone).IsRequired().HasMaxLength(50);
+            Property(x => x.Naturalidade).IsOptional().HasMaxLength(100);
+            Property(x => x.Nacionalidade).IsOptional().HasMaxLength(100);
 
-            Property(p => p.Cidade).IsRequired().HasMaxLength(50);
 
-            Property(p => p.UF).IsRequired().HasMaxLength(50);
-
-            Property(p => p.Cep).IsRequired().HasMaxLength(30);
-
-            Property(p => p.Pais).IsRequired().HasMaxLength(50);
-
-            Property(p => p.Email).IsRequired().HasMaxLength(100);
-
-            Property(p => p.Profissao).IsRequired().HasMaxLength(50);
-
-            Property(p => p.Naturalidade).IsRequired().HasMaxLength(50);
-
-            Property(p => p.Nacionalidade).IsRequired().HasMaxLength(50);
+            Property(x => x.Foto).IsOptional();
+            Property(x => x.FotoMime).IsOptional().HasMaxLength(60);
 
 
             //Ligação CELULA COM PESSOA
             //Padrão --> Filho para o Pai           
-            HasRequired(filho => filho.Celula).WithMany(pai => pai.Pessoas).HasForeignKey(c => c.id_celula);
+            HasOptional(filho => filho.Celula).WithMany(pai => pai.Pessoas).HasForeignKey(c => c.id_celula);
 
 
 

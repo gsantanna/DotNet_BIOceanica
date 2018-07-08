@@ -3,7 +3,8 @@ namespace bie.evgestao.infra.data.Migrations
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
+
+    using bie.evgestao.domain.Entities;
 
     internal sealed class Configuration : DbMigrationsConfiguration<bie.evgestao.infra.data.Context.MainDataContext>
     {
@@ -15,9 +16,9 @@ namespace bie.evgestao.infra.data.Migrations
         protected override void Seed(bie.evgestao.infra.data.Context.MainDataContext context)
         {
 
+            /*Comungante, Não-Comungante, Visitante, Fora de Sede.*/
 
-
-
+                     
 
 
 

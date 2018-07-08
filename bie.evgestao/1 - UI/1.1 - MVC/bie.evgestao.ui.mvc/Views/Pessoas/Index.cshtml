@@ -1,0 +1,225 @@
+﻿
+@{
+    ViewBag.Title = "Gerenciar Pessoas";
+    ViewBag.HeaderText = ViewBag.Title;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="page-title">
+    <h2>Gerenciar pessoas</h2><p>
+        Gestão de membros
+    </p>
+</div>
+
+<div class="row">
+
+
+
+    <div class="col-md-12" style="padding-bottom:20px;">
+
+        @Html.ActionLink("Adicionar", "Criar", null, new { @Class = "btn btn-primary" })
+
+
+    </div>
+
+
+
+
+
+    <div class="col-md-12">
+
+        <table class="table " id="tblMain">
+            <thead>
+                <tr>
+
+                    <th>Nome</th>
+                    <th>Tipo de Pessoa</th>
+                    <th>Tels</th>
+                    <th style="text-align:center" class="text-center">Status</th>
+                    <!-- botões -->
+                    <th style="width:230px; text-align:center;" class="text-center"></th>
+                </tr>
+
+            </thead>
+
+        </table>
+
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="mdConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="mdConfirmDeleteLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mdConfirmDeleteLabel">Confirma exclusão</h4>
+            </div>
+            <div class="modal-body">
+                Deseja mesmo excluir este item? Todos os dados serão excluídos inclusive as informações de acesso.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="btnExcluir">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section precss {
+
+
+
+}
+
+@section header {
+
+}
+
+@section scripts {
+
+
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable.js"></script>
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable-bootstrap.js"></script>
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable-tabletools.js"></script>
+
+
+    <script src="~/Content/3rdParty/Template/widgets/modal/modal.js"></script>
+
+    <script type="text/javascript">
+
+
+        var tabela;
+
+        $(document).ready(function () {
+
+            tabela = $('#tblMain').DataTable({
+                responsive: true,
+                language: { url: '@Url.Content("~/content/ptbr.json")' },
+                ajax: '@Url.Content("~/pessoas/getjson")',
+                columns: [
+                    {
+                        data: "Nome",
+                        title: "Nome",
+                        render: function (o, tipo, linha) {
+                            var urlBase = '@Url.Content("~/Pessoas/Pessoa/")';
+                            return '<a href="' + urlBase + linha.id_pessoa  + '">' +  o + '</a>';
+                        }
+                    },
+                    {
+                        data: "SituacaoDesc",
+                        title: "Tipo"
+                    },
+                    {
+                        data: "Tels",
+                            title: "Telefones"
+                    },
+                    {
+                        data: "StatusIcon",
+                        title: "Status",
+                        render: function (o, tipo,linha ) {
+                            return '<div class="text-center" title="' + linha.StatusDesc + '" style="width:100%;"><span style="cursor:default" class="btn btn-xs btn-round btn-' + o  + '"><i class="glyph-icon"></i><div class="ripple-wrapper"></div></span></div>';
+                        }
+                     },
+
+
+                     {
+                         data: "id_pessoa",
+                         title: "Ações",
+                         bSortable: false,
+                         render: function (o, tipo, linha) {
+                             var urlBase = '@Url.Content("~/pessoas/editar/")';
+                             var urlFamiliares = '@Url.Content("~/pessoas/familiares/")';
+                             var urlVisualizar = '@Url.Content("~/pessoas/pessoa/")';
+
+                             var ret = "<div style='width:100%;' class='text-center' id='dv-botoes'>";
+
+                             //botão visualizar
+                             ret += '<a class="btn btn-default glyph-icon icon-eye" title="Visualizar pessoa" href="' + urlVisualizar + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
+
+
+                             //botão familiares
+                             ret += '<a class="btn btn-default glyph-icon icon-child" title="Editar familiares" href="' + urlFamiliares + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
+
+                             //botao editar
+                             ret += '<a class="btn btn-default glyph-icon icon-edit" title="Editar item" href="' + urlBase + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
+
+                             //botao excluir
+                             ret += '<button type="button" title="Remover item" class="btn btn-default btn-excluir" onclick="excluir(\'' + o + '\')" ><i class="glyph-icon icon-trash"></i><div class="ripple-wrapper"></div></button>';
+
+                             ret += "</div>";
+
+                             return ret;
+                         }
+
+                     }
+                ],//fim columns
+                order: [[1, "asc"]]
+
+
+            });//fim datatables
+
+        }); //ready
+
+
+
+
+        var excluir = function (id) {
+            var ml = $('#mdConfirmDelete').modal({ backdrop: 'static', keyboard: false })
+                .one('click', '#btnExcluir', function (e) {
+
+                    $.ajax({
+                        url: '@Url.Content("~/pessoas/deletar")',
+                        dataType: "json",
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({ id: id }),
+                        async: true,
+                        processData: false,
+                        cache: false,
+                        success: function (data) {
+                            $(ml).modal("hide");
+                            tabela.ajax.reload();
+                        },
+                        error: function (xhr) {
+
+                            var arrResp = $(xhr.responseText);
+
+                            if (arrResp.length > 0) //A api retornou o erro, exibir o que está vindo da API
+                            {
+                                alert($(arrResp[1]).text());
+
+                            } else //A api não retornou erro corretamente. Exibe mensagem genérica de erro
+                            {
+                                alert('Erro ao efetuar o comando no servidor');
+                            }
+
+                            $(ml).modal("hide");
+                           // alert($($(xhr.responseText)[1]).text());
+                        }
+                    });
+
+                });
+        }//excluir
+
+
+
+
+
+
+
+    </script>
+
+}
+

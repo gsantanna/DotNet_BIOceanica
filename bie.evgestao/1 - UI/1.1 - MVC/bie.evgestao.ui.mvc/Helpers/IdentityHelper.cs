@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using bie.evgestao.ui.mvc.Models;
 using bie.evgestao.ui.viewmodels.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin;
+using bie.evgestao.domain.Enums;
+using bie.evgestao.ui.viewmodels;
 
 namespace bie.evgestao.ui.mvc.Helpers
 {
@@ -41,5 +38,10 @@ namespace bie.evgestao.ui.mvc.Helpers
 
             return menus;
         }
+
+
+
+
+
     }
 }

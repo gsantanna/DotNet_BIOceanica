@@ -133,6 +133,9 @@
     <Reference Include="Ninject.Web.Mvc, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=106.3.1.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\RestSharp.106.3.1\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -242,17 +245,25 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Automapper\AutomapConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CelulasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Identity\AccountController.cs" />
     <Compile Include="Controllers\Identity\ManageController.cs" />
+    <Compile Include="Controllers\PessoasController.cs" />
+    <Compile Include="Controllers\RelatoriosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EnumToDropDownListExtensions.cs" />
     <Compile Include="Helpers\IdentityHelper.cs" />
     <Compile Include="Migrations\201709091721058_InicialIdentity.cs" />
     <Compile Include="Migrations\201709091721058_InicialIdentity.Designer.cs">
       <DependentUpon>201709091721058_InicialIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806301520466_FotoParapessoa.cs" />
+    <Compile Include="Migrations\201806301520466_FotoParapessoa.Designer.cs">
+      <DependentUpon>201806301520466_FotoParapessoa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Identity\ForgotPasswordViewModel.cs" />
@@ -320,16 +331,7 @@
     <Content Include="Content\3rdParty\Template\image-resources\blurred-bg\blurred-bg-6.jpg" />
     <Content Include="Content\3rdParty\Template\image-resources\blurred-bg\blurred-bg-7.jpg" />
     <Content Include="Content\3rdParty\Template\image-resources\blurred-bg\blurred-bg-9.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\gravatar.jpg" />
     <Content Include="Content\3rdParty\Template\image-resources\logo-admin.png" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial1.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial2.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial3.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial4.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial5.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial6.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial7.jpg" />
-    <Content Include="Content\3rdParty\Template\image-resources\people\testimonial8.jpg" />
     <Content Include="Content\3rdParty\Template\image-resources\slides-bg\slide-1.jpg" />
     <Content Include="Content\3rdParty\Template\image-resources\slides-bg\slide-2.jpg" />
     <Content Include="Content\3rdParty\Template\image-resources\slides-bg\slide-3.jpg" />
@@ -620,6 +622,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\pessoa.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -658,10 +661,16 @@
     <Content Include="Content\3rdParty\Template\icons\typicons\typiconsfb26.ttf" />
     <Content Include="Content\3rdParty\Template\icons\typicons\typiconsfb26.woff" />
     <Content Include="evgestao.snk" />
+    <Content Include="Content\ptbr.json" />
     <None Include="Properties\PublishProfiles\ocenicadev - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\datetimepicker\jquery.datetimepicker.full.js" />
+    <Content Include="Scripts\datetimepicker\jquery.datetimepicker.full.min.js" />
+    <Content Include="Scripts\datetimepicker\jquery.datetimepicker.min.css" />
+    <Content Include="Scripts\datetimepicker\jquery.datetimepicker.min.js" />
+    <Content Include="Scripts\exif.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -669,13 +678,18 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.pt-br.js" />
+    <Content Include="Scripts\jquery.validate.pt-br.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Util.js" />
+    <Content Include="Scripts\validacao-data.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -685,7 +699,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -707,10 +723,27 @@
     <Content Include="Views\Usuarios\Criar.cshtml" />
     <Content Include="Views\Usuarios\Editar.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Pessoas\Index.cshtml" />
+    <Content Include="Views\Pessoas\Editar.cshtml" />
+    <Content Include="Views\Pessoas\Criar.cshtml" />
+    <Content Include="Views\Pessoas\Pessoa.cshtml" />
+    <Content Include="Views\Pessoas\Familiares.cshtml" />
+    <Content Include="Views\Celulas\Index.cshtml" />
+    <Content Include="Views\Celulas\Criar.cshtml" />
+    <Content Include="Views\Celulas\Editar.cshtml" />
+    <Content Include="Views\Celulas\Participantes.cshtml" />
+    <Content Include="Views\Celulas\Celula.cshtml" />
+    <Content Include="Views\Celulas\Multiplicar.cshtml" />
+    <Content Include="Views\Relatorios\FichaCelula.cshtml" />
+    <Content Include="Views\Relatorios\Aniversariantes.cshtml" />
     <None Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\3rdParty\Template\image-resources\people\" />
+    <Folder Include="Scripts\cldr\" />
+    <Folder Include="Scripts\globalize\" />
+    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -744,6 +777,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201709091721058_InicialIdentity.resx">
       <DependentUpon>201709091721058_InicialIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806301520466_FotoParapessoa.resx">
+      <DependentUpon>201806301520466_FotoParapessoa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

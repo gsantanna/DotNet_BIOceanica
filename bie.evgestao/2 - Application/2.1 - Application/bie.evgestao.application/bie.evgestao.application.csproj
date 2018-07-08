@@ -52,7 +52,15 @@
   <ItemGroup>
     <Compile Include="AppServiceBase.cs" />
     <Compile Include="Interfaces\IAppServiceBase.cs" />
+    <Compile Include="Interfaces\IFamiliarAppService.cs" />
+    <Compile Include="Interfaces\ICelulaAppService.cs" />
+    <Compile Include="Interfaces\INotificacaoAppService.cs" />
+    <Compile Include="Interfaces\IPessoaAppService.cs" />
     <Compile Include="Interfaces\IUsuarioAppService.cs" />
+    <Compile Include="CelulaAppService.cs" />
+    <Compile Include="FamiliarAppService.cs" />
+    <Compile Include="NotificationAppSvc.cs" />
+    <Compile Include="PessoaAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsuarioAppService.cs" />
   </ItemGroup>
@@ -63,6 +71,10 @@
     <ProjectReference Include="..\..\..\3 - Domain\3.1 - Domain\bie.evgestao.domain\bie.evgestao.domain.csproj">
       <Project>{c670fa0e-0d33-4761-afff-11a5092fa936}</Project>
       <Name>bie.evgestao.domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\4 - Infra\4.2 - ExternalServices\bie.evgestao.infra.external.email\bie.evgestao.infra.external.email.csproj">
+      <Project>{30732792-2eb2-4101-839d-24011ab5978d}</Project>
+      <Name>bie.evgestao.infra.external.email</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

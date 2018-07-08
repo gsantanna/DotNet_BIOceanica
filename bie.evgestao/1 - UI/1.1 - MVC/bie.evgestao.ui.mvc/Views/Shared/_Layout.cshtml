@@ -26,6 +26,8 @@
     <link rel="shortcut icon" href="~/favicon.ico">
 
 
+    @RenderSection("precss", required: false)
+
 
 
     <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/animate.css">
@@ -128,6 +130,10 @@
     <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/themes/components/border-radius.css">
     <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/responsive-elements.css">
     <link rel="stylesheet" type="text/css" href="~/Content/3rdParty/Template/helpers/admin-responsive.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
+
+
+
     <script type="text/javascript" src="~/Content/3rdParty/Template/js-core/jquery-core.js"></script>
     <script type="text/javascript" src="~/Content/3rdParty/Template/js-core/jquery-ui-core.js"></script>
     <script type="text/javascript" src="~/Content/3rdParty/Template/js-core/jquery-ui-widget.js"></script>
@@ -142,6 +148,10 @@
                 $('#loading').fadeOut(400, "linear");
             }, 300);
         });</script>
+
+
+
+
 
 
 
@@ -198,9 +208,7 @@
                                         <a href='@Url.Action("Index","Celulas")' title="Buttons"><span>Células</span></a>
                                     </li>
 
-                                    <li>
-                                        <a href='@Url.Action("Index","Familiares")' title="Buttons"><span>Células</span></a>
-                                    </li>
+
 
 
 
@@ -212,28 +220,48 @@
                         </li>
 
 
-
                         <li>
-                            <a href='@Url.Action("Index","Financeiro")' title="Financeiro"><i class="glyph-icon icon-linecons-money"></i> <span>Financeiro</span></a>
-                        </li>
-
-
-
-                        <li>
-                            <a href='@Url.Action("Index","Lideranca")' title="Liderança">
-                                <i class="glyph-icon icon-typicons-users"></i>
-                                <span>Liderança</span>
+                            <a href="javascript:void(0);" title="Relatórios">
+                                <i class="glyph-icon icon-linecons-doc"></i>
+                                <span>Relatórios</span>
                             </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href='@Url.Action("Movimento","Relatorios")' title="Buttons"><span>Movimento de membros</span></a>
+                                    </li>
+                                    <li>
+                                        <a href='@Url.Action("Aniversariantes","relatorios")' title="Buttons"><span>Aniversariantes</span></a>
+                                    </li>
+                                    <li>
+                                        <a href='@Url.Action("FichaCelula","relatorios")' title="Buttons"><span>Ficha de célula</span></a>
+                                    </li>
+
+
+                                </ul>
+                            </div>
                         </li>
 
-                        <li>
-                            <a href='@Url.Action("Index","Painel")' title="Painel">
-                                <i class="glyph-icon icon-linecons-photo"></i> <span>Liderança</span>
-                            </a>
-                        </li>
 
+                        @if (User.IsInRole("Administrador") || User.IsInRole("Superadmin"))
+                        {
 
+                            <li>
+                                <a href="javascript:void(0);" title="Administração">
+                                    <i class="glyph-icon icon-linecons-params"></i>
+                                    <span>Administração</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href='@Url.Action("Index","Usuarios")' title="Buttons"><span>Usuários</span></a>
+                                        </li>
 
+                                    </ul>
+                                </div>
+                            </li>
+
+                        }
 
 
 
@@ -327,6 +355,12 @@
         <script type="text/javascript" src="~/Content/3rdParty/Template/js-init/widgets-init.js"></script>
         <script type="text/javascript" src="~/Content/3rdParty/Template/themes/admin/layout.js"></script>
 
+
+
+
+
+        <script src="~/Scripts/Util.js"></script>
+        <script src="~/Scripts/main.js"></script>
 
 
 

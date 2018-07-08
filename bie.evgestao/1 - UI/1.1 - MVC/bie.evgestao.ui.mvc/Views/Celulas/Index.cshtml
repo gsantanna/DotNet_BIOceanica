@@ -1,0 +1,194 @@
+﻿
+@{
+    ViewBag.Title = "Gerenciar Células";
+    ViewBag.HeaderText = ViewBag.Title;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="page-title">
+    <h2>Gerenciar Células</h2><p>
+        Gestão de células e participantes
+    </p>
+</div>
+<div class="row">
+
+    <div class="col-md-12" style="padding-bottom:20px;">
+        @Html.ActionLink("Adicionar Célula", "Criar", null, new { @Class = "btn btn-primary" }) &nbsp;
+        @Html.ActionLink("Multiplicação", "Multiplicar", null, new { @Class = "btn btn-primary" })
+
+    </div>
+
+
+    <div class="col-md-12">
+        <table class="table " id="tblMain">
+            <thead>
+                <tr>
+                    <th>Célula</th>
+                    <th>Tipo</th>
+                    <th>Coordenador</th>
+                    <th style="text-align:center" class="text-center">Situação</th>
+                    <th style="text-align:center" class="text-center">Tels</th>
+                    <!-- botões de ações-->
+                    <th style="width:230px; text-align:center;" class="text-center"></th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="mdConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="mdConfirmDeleteLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mdConfirmDeleteLabel">Confirma exclusão da célula</h4>
+            </div>
+            <div class="modal-body">
+                Deseja mesmo excluir este item? Todos os dados serão excluídos inclusive os participantes.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="btnExcluir">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section precss {
+
+}
+@section header {
+}
+@section scripts {
+
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable.js"></script>
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable-bootstrap.js"></script>
+    <script src="~/Content/3rdParty/Template/widgets/datatable/datatable-tabletools.js"></script>
+
+    <script src="~/Content/3rdParty/Template/widgets/modal/modal.js"></script>
+    <script type="text/javascript">
+
+
+        var tabela;
+
+        $(document).ready(function () {
+
+            tabela = $('#tblMain').DataTable({
+                responsive: true,
+                language: { url: '@Url.Content("~/content/ptbr.json")' },
+                ajax: '@Url.Content("~/celulas/getjson")',
+                columns: [
+                    {
+                        data: "Nome",
+                        title: "Celula"
+                    },
+                    {
+                        data: "TipoDesc",
+                        title: "Tipo"
+                    },
+                    {
+                        data: "NomeCoordenador",
+                        title: "Coordenador"
+                    },
+                    {
+                        data: "SituacaoDesc",
+                        title: "Situação"
+                    },
+                    {
+                        data: "Tels",
+                        title: "Tels"
+                    },
+                     {
+                         data: "id_celula",
+                         title: "Ações",
+                         bSortable: false,
+                         render: function (o, tipo, linha) {
+                             var urlBase = '@Url.Content("~/celulas/editar/")';
+                             var urlParticipantes = '@Url.Content("~/celulas/participantes/")';
+                             var urlVisualizar = '@Url.Content("~/celulas/celula/")';
+
+
+
+                             var ret = "<div style='width:100%;' class='text-center' id='dv-botoes'>";
+
+                             //botão visualizar
+                             ret += '<a class="btn btn-default glyph-icon icon-eye" title="Visualizar célula" href="' + urlVisualizar + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
+
+
+                             //botão participantes
+                             ret += '<a class="btn btn-default glyph-icon icon-child" title="Editar Participantes" href="' + urlParticipantes + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
+
+                             //botao editar
+                             ret += '<a class="btn btn-default glyph-icon icon-edit" title="Editar item" href="' + urlBase + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
+
+                             //botao excluir
+                             ret += '<button type="button" title="Remover item" class="btn btn-default btn-excluir" onclick="excluir(\'' + o + '\')" ><i class="glyph-icon icon-trash"></i><div class="ripple-wrapper"></div></button>';
+
+                             ret += "</div>";
+
+                             return ret;
+                         }
+
+                     }
+                ],//fim columns
+                order: [[1, "asc"]]
+
+
+            });//fim datatables
+
+        }); //ready
+
+
+
+
+        var excluir = function (id) {
+            var ml = $('#mdConfirmDelete').modal({ backdrop: 'static', keyboard: false })
+                .one('click', '#btnExcluir', function (e) {
+
+                    $.ajax({
+                        url: '@Url.Content("~/celulas/deletar")',
+                        dataType: "json",
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({ id: id }),
+                        async: true,
+                        processData: false,
+                        cache: false,
+                        success: function (data) {
+                            $(ml).modal("hide");
+                            tabela.ajax.reload();
+                        },
+                        error: function (xhr) {
+
+                            var arrResp = $(xhr.responseText);
+
+                            if (arrResp.length > 0) //A api retornou o erro, exibir o que está vindo da API
+                            {
+                                alert($(arrResp[1]).text());
+
+                            } else //A api não retornou erro corretamente. Exibe mensagem genérica de erro
+                            {
+                                alert('Erro ao efetuar o comando no servidor');
+                            }
+
+                            $(ml).modal("hide");
+                            // alert($($(xhr.responseText)[1]).text());
+                        }
+                    });
+
+                });
+        }//excluir
+
+
+
+
+
+
+
+    </script>
+}
