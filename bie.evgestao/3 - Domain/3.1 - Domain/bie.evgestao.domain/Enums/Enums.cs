@@ -10,19 +10,9 @@ namespace bie.evgestao.domain.Enums
     {
         Secretaria, Financeiro, Pastor, Conselho, Lider, Supervisor, Administrador, Superadmin, NAO_CONFIGURADO
     }
+
     #endregion
-
     #region Infra.Comm
-
-    public enum RespostaNotificacao
-    {
-        Sucesso, Falha
-    }
-
-    public enum TipoEntregaNotificacao
-    {
-        EmailTemplate, Email, SMS, NetSend
-    }
 
     #endregion
 
@@ -246,6 +236,7 @@ namespace bie.evgestao.domain.Enums
         [Description("Domingo")]
         DOM = 0
     }
+
 
     #endregion
 
