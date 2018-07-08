@@ -110,10 +110,15 @@
                          render: function (o, tipo, linha) {
                              var urlBase = '@Url.Content("~/celulas/editar/")';
                              var urlParticipantes = '@Url.Content("~/celulas/participantes/")';
+                             var urlVisualizar = '@Url.Content("~/celulas/celula/")';
 
 
 
                              var ret = "<div style='width:100%;' class='text-center' id='dv-botoes'>";
+
+                             //botão visualizar
+                             ret += '<a class="btn btn-default glyph-icon icon-eye" title="Visualizar célula" href="' + urlVisualizar + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';
+
 
                              //botão participantes
                              ret += '<a class="btn btn-default glyph-icon icon-child" title="Editar Participantes" href="' + urlParticipantes + o + '" role="button"><div class="ripple-wrapper"></div></a>&nbsp;';

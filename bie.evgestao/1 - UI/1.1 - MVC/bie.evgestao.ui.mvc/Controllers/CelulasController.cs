@@ -242,6 +242,53 @@ namespace bie.evgestao.ui.mvc.Controllers
             return View();
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Superadmin,Administrador,Secretaria")]
+        public JsonResult Multiplicar(MultiplicarCelulaViewmodel model)
+        {
+            try
+            {
+                //carrega a celula de origem
+                var entidadeCelulaOrigem = _svcCelula.GetById(model.id_origem);
+
+                //cria a nova celula 
+                Celula entidadeCelulaDestino = new Celula();
+
+
+
+                //seta as propriedades
+                entidadeCelulaDestino.Nome = entidadeCelulaOrigem.Nome + " Nova";
+                entidadeCelulaDestino.id_coordenador = model.id_coordenador;
+                entidadeCelulaDestino.id_supervisor = model.id_supervisor;
+                entidadeCelulaDestino.DataCriacao = DateTime.Now;
+                entidadeCelulaDestino.TipoCelula = entidadeCelulaOrigem.TipoCelula;
+                entidadeCelulaDestino.Ativo = true;
+
+
+                //cria  a nova celula 
+                _svcCelula.Add(entidadeCelulaDestino);
+
+                //Adiciona as pessoas 
+                foreach (var id_pessoa in model.Membros)
+                {
+                    _svcCelula.InsereParticipante(entidadeCelulaDestino.id_celula, id_pessoa, SituacaoPessoa.OUTROS);
+                }
+
+
+                return Json(new { staus = "sucesso", entidadeCelulaDestino.id_celula });
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new HttpException(500, $"Erro ao executar comando no servidor. o Erro foi: {ex.Message}");
+
+            }
+
+
+
+        }
+
 
 
         #endregion

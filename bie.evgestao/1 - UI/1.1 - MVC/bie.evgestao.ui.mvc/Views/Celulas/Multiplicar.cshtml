@@ -22,6 +22,8 @@
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+
+
             <div class="form-horizontal">
 
 
@@ -147,7 +149,7 @@
                                     </div>
 
                                     <div class="row">
-                                        <button type="button" title="Inserir item no destino" class="btn btn-default btn-add"><i class="glyph-icon icon-arrow-circle-left"></i><div class="ripple-wrapper"></div></button>
+                                        <button type="button" title="Remover item no destino" class="btn btn-default btn-del"><i class="glyph-icon icon-arrow-circle-left"></i><div class="ripple-wrapper"></div></button>
                                     </div>
 
 
@@ -182,6 +184,10 @@
                         </div>
                         <div class="panel-body">
 
+                            <div class="col-md-12">
+                                <p class="text-danger validacao" style="padding-bottom:10px;"></p>
+
+                            </div>
 
                             <div style="overflow:auto">
                                 <div class="col-md-10   btn-container" style="">
@@ -190,6 +196,9 @@
                                 </div>
 
                             </div>
+
+
+
 
                         </div>
 
@@ -256,7 +265,7 @@
                     $("#dvdestino").hide();
                     return;
                 }
-                
+
 
                 var urlBase = '@Url.Action("GetJsonParticipantes")/';
 
@@ -277,6 +286,35 @@
 
 
 
+            });//chosen change
+
+
+
+            $(".btn-add").click(function () {
+
+                var items = $("#MembrosOrigem option:selected");
+
+                $(items).each(function (idx, obj) {
+
+                    $("#Membros").append(obj);
+
+                });
+
+
+
+            });
+
+
+            $(".btn-del").click(function () {
+
+                var items = $("#Membros option:selected");
+
+                $(items).each(function (idx, obj) {
+
+                    $("#MembrosOrigem").append(obj);
+
+                });
+
             });
 
 
@@ -285,8 +323,71 @@
 
                 e.preventDefault;
 
-                return false;
+                //valida o formulário
+                if (!valida()) return false;
 
+                //seleciona todos os itens da celula destino (o post so leva os itens selecionados)
+                var arrMembros = [];
+                $("#Membros option").each(function () {
+                    arrMembros.push($(this).attr("id"));
+                });
+
+                //envia o POST
+                   $.ajax({
+                        url: '@Url.Content("~/Celulas/Multiplicar/")',
+                        dataType: "json",
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                       data: JSON.stringify({
+                           id_origem: $("#id_origem").val(),
+                           id_coordenador: $("#id_coordenador").val(),
+                           id_supervisor: $("#id_supervisor").val(),
+                           Membros : arrMembros
+                       }),
+                        async: true,
+                        processData: false,
+                        cache: false,
+                       success: function (data) {
+
+                           var urlBase = '@Url.Action("Editar","Celulas")';
+                           //Redireciona para a recém criada célula. ( O ajax retorna o número da nova célula)
+                           window.location = urlBase + "/" + data.id_celula;
+
+                        },
+                        error: function (xhr) {
+
+                            var arrResp = $(xhr.responseText);
+
+                            if (arrResp.length > 0) //A api retornou o erro, exibir o que está vindo da API
+                            {
+                                alert($(arrResp[1]).text());
+
+                            } else //A api não retornou erro corretamente. Exibe mensagem genérica de erro
+                            {
+                                alert('Erro ao efetuar o comando no servidor');
+                            }
+
+
+                        }
+                });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                return false;
 
             });
 
@@ -294,6 +395,38 @@
 
 
         })//ready
+
+
+
+
+        var valida = function () {
+
+            var strValidacoes = "<strong>Não foi possível executar a ação pois os seguintes erros foram detectados:</strong>";
+            var valido = true;
+
+
+            //verifica se selecionou o cooredenador
+            if (typeof ($("#id_coordenador").val()) == "undefined" || $("#id_coordenador").val().length == 0) {
+                strValidacoes += "<br /> Favor informe o coordenador da célula de destino";
+                valido = false;
+            }
+
+
+            //verifica se há membros selecionados
+            if ($("#Membros option").length == 0) {
+                strValidacoes += "<br/>É necessário incluir pelo menos um membro na célula de destino";
+                valido = false;
+            }
+
+            if (!valido) {
+                $(".validacao").html(strValidacoes).fadeIn();
+            } else {
+                $(".validacao").hide();
+            }
+            return valido;
+        }
+
+
 
 
     </script>
