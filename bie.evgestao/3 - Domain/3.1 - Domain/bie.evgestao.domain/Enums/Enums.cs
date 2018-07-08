@@ -217,7 +217,7 @@ namespace bie.evgestao.domain.Enums
 
 
 
-    #region geral
+    #region Tempo
 
     public enum DiasSemana
     {

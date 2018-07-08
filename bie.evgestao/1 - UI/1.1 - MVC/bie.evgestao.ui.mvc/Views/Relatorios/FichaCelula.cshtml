@@ -1,0 +1,146 @@
+﻿@model IEnumerable<bie.evgestao.ui.viewmodels.CelulaViewmodel>
+@{
+    ViewBag.Title = "Ficha da célula";
+    ViewBag.HeaderText = ViewBag.Title;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="page-title">
+    <h2>Ficha da célula</h2><p>
+        Listagem de células com detalhamento
+    </p>
+</div>
+
+
+<table class="table table-hover ">
+
+    <thead>
+        <tr>
+            <th>Número</th>
+            <th>Coordenador</th>
+            <th>Supervisor</th>
+            <th>Endereço</th>
+            <th>Criação</th>
+            <th>Reunião</th>
+            <th>Situação</th>
+            <th>Participantes</th>
+        </tr>
+
+    </thead>
+
+
+    @foreach (var celula in Model)
+    {
+        <tr>
+            <td>
+                @celula.id_celula.ToString().PadLeft(4, '0')
+            </td>
+
+            <td>
+                @if (celula.Coordenador != null)
+                {
+                    @celula.Coordenador.Nome
+                    <br />
+                    @Html.Raw(celula.Coordenador.Tels)
+                }
+                else
+                {
+                    @:-
+                }
+            </td>
+
+            <td>
+                @if (celula.Supervisor != null)
+                {
+                    @celula.Supervisor.Nome
+                    <br />
+                    @Html.Raw(celula.Supervisor.Tels)
+                }
+                else
+                {
+                    @:-
+                }
+            </td>
+
+            <td>
+                @celula.Endereco @celula.Numero @celula.Complemento <br /> @celula.Bairro @celula.Cidade @celula.UF <br />
+                cep: @celula.Cep
+            </td>
+
+            <td>
+                @celula.DataCriacao.Value.ToShortDateString()
+            </td>
+
+            <td>
+                @celula.DiaReuniaoDesc
+            </td>
+
+            <td>
+                @celula.HoraReuniao
+            </td>
+
+            <td>
+                @celula.SituacaoDesc
+            </td>
+
+            <td>
+                <!-- inicio participantes -->
+
+                @if (celula.Pessoas.Count > 0)
+                {
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Atividade</th>
+                                <th>Telefones</th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var pessoa in celula.Pessoas)
+                        {
+                            <tr>
+                                <td>@pessoa.Nome</td>
+                                <td>@pessoa.SituacaoDesc</td>
+                                <td>@Html.Raw(pessoa.Tels)</td>
+                            </tr>
+                        }
+
+
+                    </table>
+
+                }
+                else
+                {
+                    @:Nenhum parcitipante
+                }
+
+
+                <!-- fim participantes -->
+            </td>
+
+
+
+
+
+
+
+
+
+        </tr>
+
+
+    }
+
+
+
+
+
+</table>
+
+
+
+
+
+
