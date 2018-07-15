@@ -41,8 +41,7 @@ namespace bie.evgestao.infra.data.Context
             modelBuilder.Configurations.Add(new FamiliarConfiguration());
             modelBuilder.Configurations.Add(new PessoaConfiguration());
             modelBuilder.Configurations.Add(new UsuarioConfiguration());
-
-
+            modelBuilder.Configurations.Add(new HistoricoMovimentacaoConfiguration());
 
 
         }

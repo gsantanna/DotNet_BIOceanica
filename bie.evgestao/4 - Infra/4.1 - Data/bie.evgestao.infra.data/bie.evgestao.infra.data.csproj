@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Configuration\CelulaConfiguration.cs" />
     <Compile Include="Configuration\FamiliarConfiguration.cs" />
+    <Compile Include="Configuration\HistoricoMovimentacaoConfiguration.cs" />
     <Compile Include="Configuration\PessoaConfiguration.cs" />
     <Compile Include="Configuration\UsuarioConfiguration.cs" />
     <Compile Include="Context\MainDataContext.cs" />
@@ -109,6 +110,10 @@
     <Compile Include="Migrations\201807060104226_AjusteColunaHorareuniao.cs" />
     <Compile Include="Migrations\201807060104226_AjusteColunaHorareuniao.Designer.cs">
       <DependentUpon>201807060104226_AjusteColunaHorareuniao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807152327255_historico.cs" />
+    <Compile Include="Migrations\201807152327255_historico.Designer.cs">
+      <DependentUpon>201807152327255_historico.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -167,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807060104226_AjusteColunaHorareuniao.resx">
       <DependentUpon>201807060104226_AjusteColunaHorareuniao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807152327255_historico.resx">
+      <DependentUpon>201807152327255_historico.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

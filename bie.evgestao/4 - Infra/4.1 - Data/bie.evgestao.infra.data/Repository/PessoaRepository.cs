@@ -17,6 +17,15 @@ namespace bie.evgestao.infra.data.Repository
                 Db.Set<Familiar>().Remove(familiar);
 
             }
+
+
+            //remove o histórico
+            foreach (var historico in obj.Historico.ToArray())
+            {
+                Db.Set<HistoricoMovimentacao>().Remove(historico);
+            }
+
+
             Db.SaveChanges();
 
             Db.Set<Pessoa>().Remove(obj);

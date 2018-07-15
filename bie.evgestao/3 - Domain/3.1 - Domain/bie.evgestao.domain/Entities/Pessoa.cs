@@ -7,11 +7,12 @@ using System.Collections.Generic;
 
 namespace bie.evgestao.domain.Entities
 {
-    public partial class Pessoa
+    public class Pessoa
     {
         public Pessoa()
         {
             Familiares = new List<Familiar>();
+            Historico = new List<HistoricoMovimentacao>();
         }
 
         public int id_pessoa { get; set; }
@@ -77,7 +78,7 @@ namespace bie.evgestao.domain.Entities
 
         public FuncaoPessoa Funcao { get; set; }
 
-
+        public virtual ICollection<HistoricoMovimentacao> Historico { get; set; }
 
 
         //trazido para pessoa para simplificar. 
