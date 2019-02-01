@@ -4,6 +4,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace bie.evgestao.infra.data.Configuration
 {
+
     public class PessoaConfiguration : EntityTypeConfiguration<Pessoa>
     {
         public PessoaConfiguration(string schema = "dbo")
@@ -48,7 +49,7 @@ namespace bie.evgestao.infra.data.Configuration
             HasOptional(filho => filho.Celula).WithMany(pai => pai.Pessoas).HasForeignKey(c => c.id_celula);
 
 
-
+            HasMany(x => x.Historico).WithRequired(y => y.Pessoa).WillCascadeOnDelete(true);
 
 
         }
